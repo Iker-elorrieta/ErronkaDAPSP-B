@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.LinkedHashMap;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -15,12 +16,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.stream.JsonReader;
 
+import Modelo.Objetuak.Estazioa;
+
 public class JSONIrakurri {
 
 	private File JSONDeskargatuFixed(String url) {
 
-		String name = "lineadecodigo.json";
-		String folder = "descargas/";
+		String name = "temp.json";
+		String folder = "Descargas/";
 		File dir = new File(folder);
 		if (!dir.exists())
 			if (!dir.mkdir())
@@ -93,10 +96,11 @@ public class JSONIrakurri {
 		return file;
 	}
 
-	public void EstazioakIrakurri() {
+	public LinkedHashMap<String, Estazioa> EstazioakIrakurri() {
 
+		LinkedHashMap<String, Estazioa> lhmEstazioa = new LinkedHashMap<String, Estazioa>();
 		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json");
-
+		Estazioa est;
 		JsonReader jr;
 		try {
 			jr = new JsonReader(new FileReader(file));
@@ -105,9 +109,36 @@ public class JSONIrakurri {
 				jr.beginArray();
 				while (jr.hasNext()) {
 					jr.beginObject();
+					est = new Estazioa();
 					while (jr.hasNext()) {
-						System.out.println(jr.nextName() + ": " + jr.nextString());
+						switch (jr.nextName()) {
+						case "Name":
+							est.setIzena(jr.nextString());
+							break;
+						case "Province":
+							est.setProbintzia(jr.nextString());
+							break;
+						case "Town":
+							est.setHerria(jr.nextString());
+							break;
+						case "Address":
+							est.setHelbidea(jr.nextString());
+							break;
+						case "CoordenatesXETRS89":
+							est.setKoordenatuakX(jr.nextString());
+							break;
+						case "CoordenatesYETRS89":
+							est.setKoordenatuakY(jr.nextString());
+							break;
+						case "Latitude":
+							est.setLatitudea(jr.nextString());
+							break;
+						case "Longitude":
+							est.setLongitudea(jr.nextString());
+							break;
+						};
 					}
+					lhmEstazioa.put(est.getIzena(), est);
 					jr.endObject();
 				}
 				jr.endArray();
@@ -121,9 +152,10 @@ public class JSONIrakurri {
 				e.printStackTrace();
 			}
 			else {
-				return;
+				return lhmEstazioa;
 			}
 		}
+		return lhmEstazioa;
 
 	}
 
