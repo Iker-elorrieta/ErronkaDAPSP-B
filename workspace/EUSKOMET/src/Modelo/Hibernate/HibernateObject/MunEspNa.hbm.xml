@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 12 ene. 2021 18:50:40 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="euskomet" dynamic-insert="false" dynamic-update="false" mutable="true" name="MunEspNa" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="mun_esp_na">
+        <composite-id class="MunEspNaId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="codMun" type="int">
+                <column name="cod_mun"/>
+            </key-property>
+            <key-property name="codEspNatural" type="int">
+                <column name="cod_esp_natural"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="EspaciosNaturales" embed-xml="true" fetch="select" insert="false" name="espaciosNaturales" not-found="exception" optimistic-lock="true" unique="false" update="false">
+            <column name="cod_esp_natural" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Municipios" embed-xml="true" fetch="select" insert="false" name="municipios" not-found="exception" optimistic-lock="true" unique="false" update="false">
+            <column name="cod_mun" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>
