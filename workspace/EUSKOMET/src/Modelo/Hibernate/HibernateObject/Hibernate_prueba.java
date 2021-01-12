@@ -13,6 +13,12 @@ public class Hibernate_prueba {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
+		
+		//Insert
+	
+		dep.setDeptNo((byte)50);
+		dep.setDnombre("INFORMATICA");
+		dep.setLoc("CUENCA");
 
 	}
 
