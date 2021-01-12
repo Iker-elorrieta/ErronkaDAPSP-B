@@ -1,5 +1,9 @@
 package Modelo.Objetuak;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 public class Estazioa {
 
 	private int id;
@@ -11,7 +15,7 @@ public class Estazioa {
 	private String koordenatuakY;
 	private String latitudea;
 	private String longitudea;
-	
+
 	public Estazioa(int id, String izena, String probintzia, String herria, String helbidea, String koordenatuakX,
 			String koordenatuakY, String latitudea, String longitudea) {
 		super();
@@ -99,5 +103,44 @@ public class Estazioa {
 	public void setLongitudea(String longitudea) {
 		this.longitudea = longitudea;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Estazioa [id=" + id + ", izena=" + izena + ", probintzia=" + probintzia + ", herria=" + herria
+				+ ", helbidea=" + helbidea + ", koordenatuakX=" + koordenatuakX + ", koordenatuakY=" + koordenatuakY
+				+ ", latitudea=" + latitudea + ", longitudea=" + longitudea + "]";
+	}
+
+	public Node getElement(Document doc) {
+		Element estazioa = doc.createElement("estazioa");
+		Element id = doc.createElement("id");
+		id.setTextContent(String.valueOf(this.id));
+		estazioa.appendChild(id);
+		Element izena = doc.createElement("izena");
+		izena.setTextContent(this.izena);
+		estazioa.appendChild(izena);
+		Element probintzia = doc.createElement("probintzia");
+		probintzia.setTextContent(this.probintzia);
+		estazioa.appendChild(probintzia);
+		Element herria = doc.createElement("herria");
+		herria.setTextContent(this.herria);
+		estazioa.appendChild(herria);
+		Element helbidea = doc.createElement("helbidea");
+		helbidea.setTextContent(this.helbidea);
+		estazioa.appendChild(helbidea);
+		Element koordenatuakX = doc.createElement("koordenatuakX");
+		koordenatuakX.setTextContent(this.koordenatuakX);
+		estazioa.appendChild(koordenatuakX);
+		Element koordenatuakY = doc.createElement("koordenatuakY");
+		koordenatuakY.setTextContent(this.koordenatuakY);
+		estazioa.appendChild(koordenatuakY);
+		Element latitudea = doc.createElement("latitudea");
+		latitudea.setTextContent(this.latitudea);
+		estazioa.appendChild(latitudea);
+		Element longitudea = doc.createElement("longitudea");
+		longitudea.setTextContent(this.longitudea);
+		estazioa.appendChild(longitudea);
+		return estazioa;
+	}
+
 }

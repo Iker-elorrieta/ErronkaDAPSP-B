@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 
 import com.google.gson.JsonArray;
@@ -16,7 +17,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.stream.JsonReader;
 
+import Modelo.Objetuak.EspaciosNaturales;
 import Modelo.Objetuak.Estazioa;
+import Modelo.Objetuak.Municipio;
 
 public class JSONIrakurri {
 
@@ -64,8 +67,8 @@ public class JSONIrakurri {
 
 	private File JSONDeskargatu(String url) {
 
-		String name = "lineadecodigo.json";
-		String folder = "descargas/";
+		String name = "temp.json";
+		String folder = "Descargas/";
 		File dir = new File(folder);
 		if (!dir.exists())
 			if (!dir.mkdir())
@@ -96,14 +99,14 @@ public class JSONIrakurri {
 		return file;
 	}
 
-	public LinkedHashMap<String, Estazioa> EstazioakIrakurri() {
+	public LinkedHashMap<String, Estazioa> estazioakIrakurri() {
 
 		LinkedHashMap<String, Estazioa> lhmEstazioa = new LinkedHashMap<String, Estazioa>();
 		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json");
 		Estazioa est;
 		JsonReader jr;
 		try {
-			jr = new JsonReader(new FileReader(file));
+			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
 			jr.setLenient(true);
 			while(true) {
 				jr.beginArray();
@@ -156,47 +159,111 @@ public class JSONIrakurri {
 			}
 		}
 		return lhmEstazioa;
-
 	}
 
+	public LinkedHashMap<String, EspaciosNaturales> espazioNaturalakIrakurri() {
 
-	// METODO EN DESUSO
-	public static void dumpJSONElement(JsonElement elemento) {
-		if (elemento.isJsonObject()) {
-			System.out.println("Es objeto");
-			JsonObject obj = elemento.getAsJsonObject();
-			java.util.Set<java.util.Map.Entry<String,JsonElement>> entradas = obj.entrySet();
-			java.util.Iterator<java.util.Map.Entry<String,JsonElement>> iter = entradas.iterator();
-			while (iter.hasNext()) {
-				java.util.Map.Entry<String,JsonElement> entrada = iter.next();
-				System.out.println("Clave: " + entrada.getKey());
-				System.out.println("Valor:");
-				dumpJSONElement(entrada.getValue());
+		LinkedHashMap<String, EspaciosNaturales> lhmEstazioa = new LinkedHashMap<String, EspaciosNaturales>();
+		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json");
+		EspaciosNaturales est;
+		JsonReader jr;
+		try {
+			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
+			jr.setLenient(true);
+			while(true) {
+				jr.beginArray();
+				while (jr.hasNext()) {
+					jr.beginObject();
+					est = new EspaciosNaturales();
+					while (jr.hasNext()) {
+						switch (jr.nextName()) {
+						case "documentName":
+							est.setNombre(jr.nextString());
+							break;
+						case "natureType":
+							est.setTipo(jr.nextString());
+							break;
+						case "lonwgs84":
+							String s1 = jr.nextString();
+							est.setLongitud((s1.equals("") ? 0 : Double.parseDouble(s1)));
+							break;
+						case "latwgs84":
+							String s2 = jr.nextString();
+							est.setLatitud((s2.equals("") ? 0 : Double.parseDouble(s2)));
+							break;
+						case "municipalitycode":
+							est.setCod_mun(jr.nextString());
+							break;
+						default:
+							jr.nextString();
+						};
+					}
+					lhmEstazioa.put(est.getNombre(), est);
+					jr.endObject();
+				}
+				jr.endArray();
 			}
-
-		} else if (elemento.isJsonArray()) {
-			JsonArray array = elemento.getAsJsonArray();
-			System.out.println("Es array. Numero de elementos: " + array.size());
-			java.util.Iterator<JsonElement> iter = array.iterator();
-			while (iter.hasNext()) {
-				JsonElement entrada = iter.next();
-				dumpJSONElement(entrada);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			if (!e.getMessage().contains("Expected BEGIN_ARRAY but was END_DOCUMENT")) {
+				e.printStackTrace();
 			}
-		} else if (elemento.isJsonPrimitive()) {
-			System.out.println("Es primitiva");
-			JsonPrimitive valor = elemento.getAsJsonPrimitive();
-			if (valor.isBoolean()) {
-				System.out.println("Es booleano: " + valor.getAsBoolean());
-			} else if (valor.isNumber()) {
-				System.out.println("Es numero: " + valor.getAsNumber());
-			} else if (valor.isString()) {
-				System.out.println("Es texto: " + valor.getAsString());
+			else {
+				return lhmEstazioa;
 			}
-		} else if (elemento.isJsonNull()) {
-			System.out.println("Es NULL");
-		} else {
-			System.out.println("Es otra cosa");
 		}
+		return lhmEstazioa;
+	}
+
+	public LinkedHashMap<String, Municipio> herriaIrakurri() {
+		LinkedHashMap<String, Municipio> lhmMun = new LinkedHashMap<String, Municipio>();
+		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json");
+		Municipio est;
+		JsonReader jr;
+		try {
+			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
+			jr.setLenient(true);
+			while(true) {
+				jr.beginArray();
+				while (jr.hasNext()) {
+					jr.beginObject();
+					est = new Municipio();
+					while (jr.hasNext()) {
+						switch (jr.nextName()) {
+						case "municipalitycode":
+							est.setCod_mun(jr.nextString().split(" ")[0]);
+							break;
+						case "documentName":
+							est.setNombre(jr.nextString());
+							break;
+						case "territorycode":
+							est.setCod_prov(jr.nextString().split(" ")[0]);
+							break;
+						default:
+							jr.nextString();
+						};
+					}
+					lhmMun.put(est.getNombre(), est);
+					jr.endObject();
+				}
+				jr.endArray();
+			}
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			if (!e.getMessage().contains("Expected BEGIN_ARRAY but was END_DOCUMENT")) {
+				e.printStackTrace();
+			}
+			else {
+				return lhmMun;
+			}
+		}
+		return lhmMun;
 	}
 
 }

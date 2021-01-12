@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<espacios_naturales>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Embalse de Maroño</nombre>
+		<tipo>Pantanos</tipo>
+		<longitud>-3.05986404418945</longitud>
+		<latitud>43.0468126377076</latitud>
+		<cod_mun>10</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Embalse de Ullíbarri-Gamboa</nombre>
+		<tipo>Pantanos</tipo>
+		<longitud>-2.56977081298828</longitud>
+		<latitud>42.9260115266427</latitud>
+		<cod_mun>8</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Embalse de Urkulu</nombre>
+		<tipo>Pantanos</tipo>
+		<longitud>-2.476983</longitud>
+		<latitud>43.019567</latitud>
+		<cod_mun>13</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Embalse de Urrúnaga</nombre>
+		<tipo>Pantanos</tipo>
+		<longitud>0.0</longitud>
+		<latitud>0.0</latitud>
+		<cod_mun>072 058 058 058</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>La Arboleda</nombre>
+		<tipo>Pantanos</tipo>
+		<longitud>-3.05386</longitud>
+		<latitud>43.284928</latitud>
+		<cod_mun>80</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Piscinas fluviales de Espejo</nombre>
+		<tipo>Rios</tipo>
+		<longitud>-3.046388</longitud>
+		<latitud>42.809638</latitud>
+		<cod_mun>55</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Piscinas fluviales de Fresnedo</nombre>
+		<tipo>Rios</tipo>
+		<longitud>-2.37030029296875</longitud>
+		<latitud>42.6762516761553</latitud>
+		<cod_mun>17</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa Santiago de Deba</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.354269509262167</longitud>
+		<latitud>43.2983184172804</latitud>
+		<cod_mun>29</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Alkolea</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.3710132372955286</longitud>
+		<latitud>43.30762578068058</latitud>
+		<cod_mun>56</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Antilla</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.127956</longitud>
+		<latitud>43.288723</latitud>
+		<cod_mun>61</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Aritxatxu</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.737924</longitud>
+		<latitud>43.428484</latitud>
+		<cod_mun>17</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Armintza</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.898966690000634</longitud>
+		<latitud>43.43321809894</latitud>
+		<cod_mun>56</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Arrigorri</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.4192082803955373</longitud>
+		<latitud>43.32285365608519</latitud>
+		<cod_mun>73</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Arrigunaga</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-3.018707</longitud>
+		<latitud>43.358253</latitud>
+		<cod_mun>44</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Bakio</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.80576229095459</longitud>
+		<latitud>43.4302345617966</latitud>
+		<cod_mun>12</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Barinatxe</nombre>
+		<tipo>Playas</tipo>
+		<longitud>0.0</longitud>
+		<latitud>0.0</latitud>
+		<cod_mun>044 085</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Barrika</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.972990221309601</longitud>
+		<latitud>43.40545839853304</latitud>
+		<cod_mun>14</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Ea</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.585593</longitud>
+		<latitud>43.380135</latitud>
+		<cod_mun>28</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Ereaga</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-3.013635</longitud>
+		<latitud>43.34189</latitud>
+		<cod_mun>44</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Gaztetape</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.206051341625198</longitud>
+		<latitud>43.303655403374485</latitud>
+		<cod_mun>39</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Gorliz</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.94570922851563</longitud>
+		<latitud>43.4183904607326</latitud>
+		<cod_mun>43</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Gorrondatxe (Azkorri)</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-3.02021026611328</longitud>
+		<latitud>43.3791013350026</latitud>
+		<cod_mun>44</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Hondarribia</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-1.7945024000000558</longitud>
+		<latitud>43.3797889</latitud>
+		<cod_mun>36</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Hondartzape</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.698322</longitud>
+		<latitud>43.407335</latitud>
+		<cod_mun>68</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Isuntza</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.50110626220703</longitud>
+		<latitud>43.3632537512373</latitud>
+		<cod_mun>57</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Itzurun</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.2604322519287052</longitud>
+		<latitud>43.30055372541465</latitud>
+		<cod_mun>81</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Kanala</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.68117904663086</longitud>
+		<latitud>43.3845908706076</latitud>
+		<cod_mun>41</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Kanalape</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.67851829528809</longitud>
+		<latitud>43.381846164937</latitud>
+		<cod_mun>41</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Karraspio</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.49423980712891</longitud>
+		<latitud>43.3628169481706</latitud>
+		<cod_mun>63</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de La Arena</nombre>
+		<tipo>Playas</tipo>
+		<longitud>0.0</longitud>
+		<latitud>0.0</latitud>
+		<cod_mun>913 071</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de La Concha</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-1.98646545410156</longitud>
+		<latitud>43.3181840687112</latitud>
+		<cod_mun>69</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Laga</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.65663146972656</longitud>
+		<latitud>43.4090382177706</latitud>
+		<cod_mun>48</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Laida</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.6856207847595215</longitud>
+		<latitud>43.39957539567573</latitud>
+		<cod_mun>48</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Laidatxu</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.69937515258789</longitud>
+		<latitud>43.4049851306295</latitud>
+		<cod_mun>68</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Landa</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.6054306386230337</longitud>
+		<latitud>42.9400128416397</latitud>
+		<cod_mun>8</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Las Arenas</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-3.0177640914917</longitud>
+		<latitud>43.3264264544351</latitud>
+		<cod_mun>44</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Malkorbe</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.2021</longitud>
+		<latitud>43.301297</latitud>
+		<cod_mun>39</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Meñakoz</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.98562049865723</longitud>
+		<latitud>43.3951630640074</latitud>
+		<cod_mun>14</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Muriola</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.95995712280273</longitud>
+		<latitud>43.4130286847514</latitud>
+		<cod_mun>14</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Ogeia</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.54573822021484</longitud>
+		<latitud>43.3732369638364</latitud>
+		<cod_mun>49</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Ondarbeltz</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.357451</longitud>
+		<latitud>43.301412</latitud>
+		<cod_mun>56</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Ondarreta</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.00277328491211</longitud>
+		<latitud>43.317184915667</latitud>
+		<cod_mun>69</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Plentzia</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.94708251953125</longitud>
+		<latitud>43.4112828877988</latitud>
+		<cod_mun>77</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de San Antonio</nombre>
+		<tipo>Playas</tipo>
+		<longitud>0.0</longitud>
+		<latitud>0.0</latitud>
+		<cod_mun>076 021</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Santiago</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.2511672973632812</longitud>
+		<latitud>43.30194579605323</latitud>
+		<cod_mun>81</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Saturraran</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.41098403930664</longitud>
+		<latitud>43.3218058607707</latitud>
+		<cod_mun>56</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Toña</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.69182205200195</longitud>
+		<latitud>43.3910778627597</latitud>
+		<cod_mun>76</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de Zarautz</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.1728876364929874</longitud>
+		<latitud>43.28770636426836</latitud>
+		<cod_mun>79</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de la Isla de Santa Clara</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-1.9996527338684018</longitud>
+		<latitud>43.32071050956413</latitud>
+		<cod_mun>69</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa de la Zurriola</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-1.97359085083008</longitud>
+		<latitud>43.327175706778</latitud>
+		<cod_mun>69</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playa del Puerto (Mutriku)</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.380482422584464</longitud>
+		<latitud>43.310945042006956</latitud>
+		<cod_mun>56</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playas de Arrietara y Atxabiribil</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-2.992836</longitud>
+		<latitud>43.389749</latitud>
+		<cod_mun>85</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Playas de Garaio</nombre>
+		<tipo>Playas</tipo>
+		<longitud>0.0</longitud>
+		<latitud>0.0</latitud>
+		<cod_mun>013 021</cod_mun>
+	</espacio_naturale>
+	<espacio_naturale>
+		<cod_esp_natural>0</cod_esp_natural>
+		<nombre>Zierbena-Puerto</nombre>
+		<tipo>Playas</tipo>
+		<longitud>-3.077422</longitud>
+		<latitud>43.350007</latitud>
+		<cod_mun>913</cod_mun>
+	</espacio_naturale>
+</espacios_naturales>
