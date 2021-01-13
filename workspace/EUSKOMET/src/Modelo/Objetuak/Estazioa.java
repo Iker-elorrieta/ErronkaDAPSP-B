@@ -8,26 +8,21 @@ public class Estazioa {
 
 	private int id;
 	private String izena;
-	private String probintzia;
 	private String herria;
-	private String helbidea;
-	private String koordenatuakX;
-	private String koordenatuakY;
 	private String latitudea;
 	private String longitudea;
+	private String ICAEstacion;
+	private int cod_mun;
 
-	public Estazioa(int id, String izena, String probintzia, String herria, String helbidea, String koordenatuakX,
-			String koordenatuakY, String latitudea, String longitudea) {
+	public Estazioa(int id, String izena, String herria, String latitudea, String longitudea, String ICAEstacion, int cod_mun) {
 		super();
 		this.id = id;
 		this.izena = izena;
-		this.probintzia = probintzia;
 		this.herria = herria;
-		this.helbidea = helbidea;
-		this.koordenatuakX = koordenatuakX;
-		this.koordenatuakY = koordenatuakY;
 		this.latitudea = latitudea;
 		this.longitudea = longitudea;
+		this.ICAEstacion = ICAEstacion;
+		this.cod_mun = cod_mun;
 	}
 
 	public Estazioa() {}
@@ -48,44 +43,12 @@ public class Estazioa {
 		this.izena = izena;
 	}
 
-	public String getProbintzia() {
-		return probintzia;
-	}
-
-	public void setProbintzia(String probintzia) {
-		this.probintzia = probintzia;
-	}
-
 	public String getHerria() {
 		return herria;
 	}
 
 	public void setHerria(String herria) {
 		this.herria = herria;
-	}
-
-	public String getHelbidea() {
-		return helbidea;
-	}
-
-	public void setHelbidea(String helbidea) {
-		this.helbidea = helbidea;
-	}
-
-	public String getKoordenatuakX() {
-		return koordenatuakX;
-	}
-
-	public void setKoordenatuakX(String koordenatuakX) {
-		this.koordenatuakX = koordenatuakX;
-	}
-
-	public String getKoordenatuakY() {
-		return koordenatuakY;
-	}
-
-	public void setKoordenatuakY(String koordenatuakY) {
-		this.koordenatuakY = koordenatuakY;
 	}
 
 	public String getLatitudea() {
@@ -104,11 +67,26 @@ public class Estazioa {
 		this.longitudea = longitudea;
 	}
 
+	public String getICAEstacion() {
+		return ICAEstacion;
+	}
+
+	public void setICAEstacion(String iCAEstacion) {
+		ICAEstacion = iCAEstacion;
+	}
+
+	public int getCod_mun() {
+		return cod_mun;
+	}
+
+	public void setCod_mun(int cod_mun) {
+		this.cod_mun = cod_mun;
+	}
+
 	@Override
 	public String toString() {
-		return "Estazioa [id=" + id + ", izena=" + izena + ", probintzia=" + probintzia + ", herria=" + herria
-				+ ", helbidea=" + helbidea + ", koordenatuakX=" + koordenatuakX + ", koordenatuakY=" + koordenatuakY
-				+ ", latitudea=" + latitudea + ", longitudea=" + longitudea + "]";
+		return "Estazioa [id=" + id + ", izena=" + izena + ", herria=" + herria + ", latitudea=" + latitudea
+				+ ", longitudea=" + longitudea + ", ICAEstacion=" + ICAEstacion + ", cod_mun=" + cod_mun + "]";
 	}
 
 	public Node getElement(Document doc) {
@@ -119,27 +97,21 @@ public class Estazioa {
 		Element izena = doc.createElement("izena");
 		izena.setTextContent(this.izena);
 		estazioa.appendChild(izena);
-		Element probintzia = doc.createElement("probintzia");
-		probintzia.setTextContent(this.probintzia);
-		estazioa.appendChild(probintzia);
 		Element herria = doc.createElement("herria");
 		herria.setTextContent(this.herria);
 		estazioa.appendChild(herria);
-		Element helbidea = doc.createElement("helbidea");
-		helbidea.setTextContent(this.helbidea);
-		estazioa.appendChild(helbidea);
-		Element koordenatuakX = doc.createElement("koordenatuakX");
-		koordenatuakX.setTextContent(this.koordenatuakX);
-		estazioa.appendChild(koordenatuakX);
-		Element koordenatuakY = doc.createElement("koordenatuakY");
-		koordenatuakY.setTextContent(this.koordenatuakY);
-		estazioa.appendChild(koordenatuakY);
 		Element latitudea = doc.createElement("latitudea");
 		latitudea.setTextContent(this.latitudea);
 		estazioa.appendChild(latitudea);
 		Element longitudea = doc.createElement("longitudea");
 		longitudea.setTextContent(this.longitudea);
 		estazioa.appendChild(longitudea);
+		Element ICAEstacion = doc.createElement("ICAEstacion");
+		ICAEstacion.setTextContent(this.ICAEstacion);
+		estazioa.appendChild(ICAEstacion);
+		Element cod_mun = doc.createElement("cod_mun");
+		cod_mun.setTextContent(String.valueOf(this.cod_mun));
+		estazioa.appendChild(cod_mun);
 		return estazioa;
 	}
 

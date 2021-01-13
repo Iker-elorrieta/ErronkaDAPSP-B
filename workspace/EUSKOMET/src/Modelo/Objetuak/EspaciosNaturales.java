@@ -11,16 +11,13 @@ public class EspaciosNaturales {
 	private String tipo;
 	private double longitud;
 	private double latitud;
-	private String cod_mun;
-	public EspaciosNaturales(int cod_esp_natural, String nombre, String tipo, double longitud, double latitud,
-			String cod_mun) {
+	public EspaciosNaturales(int cod_esp_natural, String nombre, String tipo, double longitud, double latitud) {
 		super();
 		this.cod_esp_natural = cod_esp_natural;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.longitud = longitud;
 		this.latitud = latitud;
-		this.cod_mun = cod_mun;
 	}
 	public EspaciosNaturales() {
 		super();
@@ -55,16 +52,10 @@ public class EspaciosNaturales {
 	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
-	public String getCod_mun() {
-		return cod_mun;
-	}
-	public void setCod_mun(String cod_mun) {
-		this.cod_mun = cod_mun;
-	}
 	@Override
 	public String toString() {
 		return "EspaciosNaturales [cod_esp_natural=" + cod_esp_natural + ", nombre=" + nombre + ", tipo=" + tipo
-				+ ", longitud=" + longitud + ", latitud=" + latitud + ", cod_mun=" + cod_mun + "]";
+				+ ", longitud=" + longitud + ", latitud=" + latitud + "]";
 	}
 	
 	public Node getElement(Document doc) {
@@ -84,9 +75,6 @@ public class EspaciosNaturales {
 		Element latitud = doc.createElement("latitud");
 		latitud.setTextContent(String.valueOf(this.latitud));
 		espazionat.appendChild(latitud);
-		Element cod_mun = doc.createElement("cod_mun");
-		cod_mun.setTextContent(String.valueOf(this.cod_mun));
-		espazionat.appendChild(cod_mun);
 		return espazionat;
 	}
 

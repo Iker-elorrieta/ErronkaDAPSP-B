@@ -2,6 +2,7 @@ package Modelo.DatuKudeaketa;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -19,6 +20,7 @@ import org.w3c.dom.Element;
 
 import Modelo.Objetuak.EspaciosNaturales;
 import Modelo.Objetuak.Estazioa;
+import Modelo.Objetuak.MunEspNa;
 import Modelo.Objetuak.Municipio;
 
 public class XMLIdatzi {
@@ -114,6 +116,37 @@ public class XMLIdatzi {
 		}
 		doc.appendChild(emailelement);
 		formatXml(doc, "CopiasXML/Municipios.xml");
+	}
+
+	public void XMLMunEspNa(ArrayList<MunEspNa> al) {
+		String name = "MunEspNa.xml";
+		String folder = "CopiasXML/";
+		File dir = new File(folder);
+		if (!dir.exists())
+			if (!dir.mkdir())
+				return;
+		File file = new File(folder + name);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = null;
+		try {
+			docBuilder = docFactory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+		Document doc = docBuilder.newDocument();
+		Element emailelement = doc.createElement("erlazioak");
+		for (MunEspNa o : al) {
+			emailelement.appendChild(o.getElement(doc));
+		}
+		doc.appendChild(emailelement);
+		formatXml(doc, "CopiasXML/MunEspNa.xml");
 	}
 
 	public static void formatXml(Document doc, String url) {

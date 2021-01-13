@@ -6,10 +6,10 @@ import org.w3c.dom.Node;
 
 public class Municipio {
 	
-	private String cod_mun;
+	private int cod_mun;
 	private String nombre;
 	private String cod_prov;
-	public Municipio(String cod_mun, String nombre, String cod_prov) {
+	public Municipio(int cod_mun, String nombre, String cod_prov) {
 		super();
 		this.cod_mun = cod_mun;
 		this.nombre = nombre;
@@ -18,10 +18,10 @@ public class Municipio {
 	public Municipio() {
 		super();
 	}
-	public String getCod_mun() {
+	public int getCod_mun() {
 		return cod_mun;
 	}
-	public void setCod_mun(String cod_mun) {
+	public void setCod_mun(int cod_mun) {
 		this.cod_mun = cod_mun;
 	}
 	public String getNombre() {
@@ -43,7 +43,7 @@ public class Municipio {
 	public Node getElement(Document doc) {
 		Element estazioa = doc.createElement("municipio");
 		Element cod_mun = doc.createElement("cod_mun");
-		cod_mun.setTextContent(this.cod_mun);
+		cod_mun.setTextContent(String.valueOf(this.cod_mun));
 		estazioa.appendChild(cod_mun);
 		Element nombre = doc.createElement("nombre");
 		nombre.setTextContent(this.nombre);
