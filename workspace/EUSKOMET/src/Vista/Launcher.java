@@ -8,13 +8,13 @@ import Modelo.DatuKudeaketa.XMLIdatzi;
 import Modelo.Objetuak.EspaciosNaturales;
 import Modelo.Objetuak.Estazioa;
 import Modelo.Objetuak.MunEspNa;
-import Modelo.Objetuak.MunEst;
 import Modelo.Objetuak.Municipio;
 
 public class Launcher {
 
-	public static void main(String[] args) {
+	public static int main(String[] args) {
 		
+		int estado = 1;
 		XMLIdatzi xmlidatzi = new XMLIdatzi();
 		
 		JSONIrakurri jsonirak = new JSONIrakurri();
@@ -27,9 +27,7 @@ public class Launcher {
 		
 		xmlidatzi.XMLMunicipio(lhmMunicipio);
 		
-		Object[] o1 = jsonirak.estazioakIrakurri(lhmMunicipio);
-		LinkedHashMap<String, Estazioa> lhmEstazioak = (LinkedHashMap<String, Estazioa>) o1[0];
-		ArrayList<MunEst> alMunEst = (ArrayList<MunEst>) o1[1];
+		LinkedHashMap<String, Estazioa> lhmEstazioak = jsonirak.estazioakIrakurri(lhmMunicipio);
 		for (Estazioa e : lhmEstazioak.values()) {
 			if (e.getCod_mun() == 0) {
 				System.err.println(e.toString());
@@ -37,9 +35,6 @@ public class Launcher {
 			else {
 				System.out.println(e.toString());
 			}
-		}
-		for (MunEst e : alMunEst) {
-			System.out.println(e.toString());
 		}
 		
 		xmlidatzi.XMLEstazioak(lhmEstazioak);
@@ -59,6 +54,9 @@ public class Launcher {
 		}
 		
 		xmlidatzi.XMLMunEspNa(alMunEsp);
+		
+		estado = 0;
+		return estado;
 
 	}
 

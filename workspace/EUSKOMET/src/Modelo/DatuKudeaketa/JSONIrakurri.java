@@ -13,16 +13,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.stream.JsonReader;
 
 import Modelo.Objetuak.EspaciosNaturales;
 import Modelo.Objetuak.Estazioa;
 import Modelo.Objetuak.MunEspNa;
-import Modelo.Objetuak.MunEst;
 import Modelo.Objetuak.Municipio;
 
 public class JSONIrakurri {
@@ -38,11 +33,9 @@ public class JSONIrakurri {
 		File file = new File(folder + (url.equals("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json") ? "estaciones.json" : name));
 		if (file.exists()) {
 			file.delete();
-			System.out.println("eliminado");
 		}
 		URLConnection conn = null;
 		try {
-			System.out.println(url);
 			conn = new URL(url).openConnection();
 			conn.connect();
 			System.out.println("\nempezando descarga: \n");
@@ -74,7 +67,7 @@ public class JSONIrakurri {
 		return file;
 	}
 
-	private File JSONDeskargatu(String url) {
+	public File JSONDeskargatu(String url) {
 
 		String name = "temp.json";
 		String folder = "Descargas/";
@@ -105,16 +98,16 @@ public class JSONIrakurri {
 			in.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
+			return null;
 		}
 		return file;
 	}
 
-	public Object[] estazioakIrakurri(LinkedHashMap<String, Municipio> lhmMunicipio) {
+	public LinkedHashMap<String, Estazioa> estazioakIrakurri(LinkedHashMap<String, Municipio> lhmMunicipio) {
 
 		//LinkedHashMap<String, String> lhmEstekak = estekakIrakurri();
 		LinkedHashMap<String, Estazioa> lhmEstazioa = new LinkedHashMap<String, Estazioa>();
 		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json");
-		ArrayList<MunEst> alMunEst = new ArrayList<MunEst>();
 		Estazioa est;
 		JsonReader jr;
 		int cod = 1;
@@ -139,7 +132,7 @@ public class JSONIrakurri {
 							est.setHerria(jr.nextString());
 							if (est.getHerria().equals("Amorebieta-Etxano"))
 								est.setHerria("Zornotza");
-							est.setCod_mun(erlazioMunEst(lhmMunicipio, est.getHerria(), est.getId(), alMunEst));
+							est.setCod_mun(erlazioMunEst(lhmMunicipio, est.getHerria(), est.getId()));
 							break;
 						case "Latitude":
 							est.setLatitudea(jr.nextString());
@@ -188,13 +181,13 @@ public class JSONIrakurri {
 				e.printStackTrace();
 			}
 			else {
-				return new Object[] {lhmEstazioa, alMunEst};
+				return lhmEstazioa;
 			}
 		}
-		return new Object[] {lhmEstazioa, alMunEst};
+		return lhmEstazioa;
 	}
 
-	private int erlazioMunEst(LinkedHashMap<String, Municipio> lhmMunicipio, String mun, int codesp, ArrayList<MunEst> alMunEst) {
+	private int erlazioMunEst(LinkedHashMap<String, Municipio> lhmMunicipio, String mun, int codesp) {
 		for (Municipio m : lhmMunicipio.values()) {
 			if (mun.contains(m.getNombre()) || m.getNombre().contains(mun)) {
 				return m.getCod_mun();

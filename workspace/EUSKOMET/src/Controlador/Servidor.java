@@ -11,8 +11,9 @@ import java.security.NoSuchAlgorithmException;
 public class Servidor {
 private final static int PUERTO = 5000;
 	
-public static void main(String args[]) throws IOException  {
+public static int main(String args[]) throws IOException  {
 	
+	int estado = 1;
 	ServerSocket servidor;
 	
 	servidor = new ServerSocket(PUERTO);
