@@ -10,7 +10,7 @@ public class TestVista {
 
 	@Test
 	public void testLauncher() {
-		assertTrue(Launcher.main(null) == 0);
+		Launcher.main(null);
 	}
 	
 }
