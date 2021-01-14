@@ -14,6 +14,11 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		
+		ejecutar();
+
+	}
+
+	public static int ejecutar() {
 		int estado = 1;
 		XMLIdatzi xmlidatzi = new XMLIdatzi();
 		
@@ -56,7 +61,7 @@ public class Launcher {
 		xmlidatzi.XMLMunEspNa(alMunEsp);
 		
 		estado = 0;
-
+		return estado;
 	}
 
 }
