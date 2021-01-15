@@ -286,7 +286,7 @@ public class JSONIrakurri {
 							est.setNombre(jr.nextString());
 							break;
 						case "territorycode":
-							est.setCod_prov(jr.nextString().split(" ")[0]);
+							est.setCod_prov(Integer.parseInt(jr.nextString().split(" ")[0]));
 							break;
 						default:
 							jr.nextString();

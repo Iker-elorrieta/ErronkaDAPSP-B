@@ -1,10 +1,12 @@
 package Modelo.Objetuak;
 
+import java.io.Serializable;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class Municipio {
+public class Municipio implements Serializable{
 	
 	private int cod_mun;
 	private String nombre;

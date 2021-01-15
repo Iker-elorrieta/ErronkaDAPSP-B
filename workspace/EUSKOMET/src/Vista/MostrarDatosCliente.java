@@ -5,15 +5,20 @@ import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Modelo.DatuKudeaketa.Cliente;
+import Modelo.Objetuak.Municipio;
 
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -23,13 +28,16 @@ public class MostrarDatosCliente extends JFrame {
 
 	private JPanel contentPane;
 	private final static int PUERTO = 5000;
-	private final static String Host = "localhost";
+//	private final String HOST = "127.0.0.1";
+	private final static String HOST = "localhost";
 	
 	Cliente cliente  = null;
 	Socket socket = null;
 
 	private JTextArea txtDatos;
 	private JScrollPane scrollPane;
+	
+	Scanner sc = new Scanner(System.in); // abrir escaner
 
 	/**
 	 * Launch the application.
@@ -69,36 +77,56 @@ public class MostrarDatosCliente extends JFrame {
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		cliente = new Cliente();
-//		socket = new Socket(,cliente.getPuerto());				
-//		cliente = new Cliente(socket,textArea, txtMensaje,btnEnviar);
 		
 		ejecutarCliente();
 	}
 
 	public void ejecutarCliente() {
-		Socket Cliente;
+		Socket cliente = null;
+		ObjectInputStream entrada = null;
+		ObjectOutputStream salida = null;
+		
 		try {
-			Cliente = new Socket(Host, PUERTO);
+			cliente = new Socket(HOST, PUERTO);
+			System.out.println("Cliente iniciado");
+			System.out.println("Conectando con el servidor...");
+			System.out.println("Conexión realizada con servidor");
 
-			BufferedReader fentrada =  new BufferedReader (new InputStreamReader(Cliente.getInputStream()));
+			entrada = new ObjectInputStream(cliente.getInputStream());
+			salida = new ObjectOutputStream (cliente.getOutputStream());
+			
+			String sql = "SELECT * FROM municipios";
+			System.out.println("Enviando query...");
+			salida.writeObject(sql);
+			System.out.println("Query enviada [" + sql + "]");
 
-			// FLUJO PARA ENTRADA ESTANDAR
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			String cadena;		
+			ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
+			arrayMunicipios = (ArrayList<Municipio>) entrada.readObject();
+			
+			String resultado = "";
+			for (Municipio mun : arrayMunicipios) {	
+				resultado += mun.toString() + "\n";
+				System.out.println(mun.toString());
+			}
+			
+			txtDatos.setText(resultado);
 
-			cadena = in.readLine();
-			txtDatos.setText(cadena);
-
-			fentrada.close();
-			System.out.println("Fin del envío... ");
-			in.close();
-			Cliente.close();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		} finally {
+			try {
+				if (cliente != null)
+					cliente.close();
+				if (entrada != null)
+					entrada.close();
+				if (salida != null)
+					salida.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println("Fin cliente");
 		}
 	}//
 
