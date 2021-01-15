@@ -159,12 +159,12 @@ public class JSONIrakurri {
 					if (est.getIzena() != null) {
 					String s = est.getIzena();
 					s = s.replace(" ", "_");
-							s = s.replace("(", "");
-									s = s.replace(")", "");
-											s = s.replace("Ñ", "N");
-													s = s.replace("ñ", "n");
-															s = s.replace(".", "");
-															s = s.replace("ª", "");
+					s = s.replace("(", "");
+					s = s.replace(")", "");
+					s = s.replace("Ñ", "N");
+					s = s.replace("ñ", "n");
+					s = s.replace(".", "");
+					s = s.replace("ª", "");
 					est.setICAEstacion(kalitateaIrakurri("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/datos_indice/"+ s +".json"  /*lhmEstekak.get(est.getIzena())*/));
 					}
 					lhmEstazioa.put((est.getIzena() == null ? "fallo-" + new Date().toInstant() : est.getIzena()), est);
@@ -326,7 +326,7 @@ public class JSONIrakurri {
 					while (jr.hasNext()) {
 						switch (jr.nextName()) {
 						case "ICAEstacion":
-							if (kalit.equals("")) {
+							if (kalit.equals("") || kalit.equals("Sin datos / Daturik gabe")) {
 								kalit = jr.nextString();
 							}
 							else {
