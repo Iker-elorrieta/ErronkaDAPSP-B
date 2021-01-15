@@ -8,8 +8,8 @@ public class Municipio {
 	
 	private int cod_mun;
 	private String nombre;
-	private String cod_prov;
-	public Municipio(int cod_mun, String nombre, String cod_prov) {
+	private int cod_prov;
+	public Municipio(int cod_mun, String nombre, int cod_prov) {
 		super();
 		this.cod_mun = cod_mun;
 		this.nombre = nombre;
@@ -30,10 +30,10 @@ public class Municipio {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getCod_prov() {
+	public int getCod_prov() {
 		return cod_prov;
 	}
-	public void setCod_prov(String cod_prov) {
+	public void setCod_prov(int cod_prov) {
 		this.cod_prov = cod_prov;
 	}
 	@Override
@@ -49,7 +49,7 @@ public class Municipio {
 		nombre.setTextContent(this.nombre);
 		estazioa.appendChild(nombre);
 		Element cod_prov = doc.createElement("cod_prov");
-		cod_prov.setTextContent(this.cod_prov);
+		cod_prov.setTextContent(String.valueOf(this.cod_prov));
 		estazioa.appendChild(cod_prov);
 		return estazioa;
 	}
