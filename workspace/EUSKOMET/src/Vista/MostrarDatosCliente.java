@@ -34,7 +34,7 @@ public class MostrarDatosCliente extends JFrame {
 	Cliente cliente  = null;
 	Socket socket = null;
 
-	private JTextArea txtDatos;
+	private static JTextArea txtDatos;
 	private JScrollPane scrollPane;
 	
 	Scanner sc = new Scanner(System.in); // abrir escaner
@@ -81,7 +81,8 @@ public class MostrarDatosCliente extends JFrame {
 		ejecutarCliente();
 	}
 
-	public void ejecutarCliente() {
+	public int ejecutarCliente() {
+		int resultadoTest = 0;
 		Socket cliente = null;
 		ObjectInputStream entrada = null;
 		ObjectOutputStream salida = null;
@@ -108,11 +109,16 @@ public class MostrarDatosCliente extends JFrame {
 				resultado += mun.toString() + "\n";
 				System.out.println(mun.toString());
 			}
+			System.out.println("1");
 			
-			txtDatos.setText(resultado);
+//			txtDatos.setText(resultado);
+			mostrarTxt(resultado);
+			System.out.println("2");
+			resultadoTest = 1;
+			System.out.println("3");
 
 		} catch (IOException e) {
-			System.out.println("Error: " + e.getMessage());
+			System.out.println("Error (IOException): " + e.getMessage());
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		} finally {
@@ -128,7 +134,12 @@ public class MostrarDatosCliente extends JFrame {
 			}
 			System.out.println("Fin cliente");
 		}
+		return resultadoTest;
 	}//
+	
+	public static void mostrarTxt (String texto) {
+		txtDatos.setText(texto);
+	}
 
 	public JTextArea getTxtDatos() {
 		return txtDatos;

@@ -14,13 +14,14 @@ import Modelo.Objetuak.Municipio;
 
 public class Servidor {
 private final static int PUERTO = 5000;
+
+	private static ServerSocket servidor = null;
+	private static Socket cliente = null;
+	private static ObjectInputStream entrada = null;
+	private static ObjectOutputStream salida = null;
 	
-public static void main(String args[]) throws IOException  {
-	ServerSocket servidor = null;
-	Socket cliente = null;
-	ObjectInputStream entrada = null;
-	ObjectOutputStream salida = null;
-	
+	public static int iniciar() {
+		int resultadoTest = 0;
 	try {
 		System.out.println("Servidor iniciado");
 		servidor = new ServerSocket(PUERTO);
@@ -39,6 +40,7 @@ public static void main(String args[]) throws IOException  {
 		arrayMunicipios = Consultas.consultaMunicipios(mensaje);
 		
 		salida.writeObject(arrayMunicipios); 
+		resultadoTest = 1;
 		
 	} catch (IOException e) {
 		System.out.println("Error: " + e.getMessage());
@@ -59,6 +61,12 @@ public static void main(String args[]) throws IOException  {
 		}
 		System.out.println("Fin servidor");
 	}
+	return resultadoTest;
+}
+
+public static void main(String[] args) {
+	Servidor s1 = new Servidor();
+	s1.iniciar();
 }
 
 }
