@@ -119,8 +119,10 @@ public class MostrarDatosCliente extends JFrame {
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
+			e.printStackTrace();
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		} finally {
 			try {
 				if (cliente != null)

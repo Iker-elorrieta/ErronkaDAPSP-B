@@ -10,7 +10,8 @@ public class TestServidor {
 
 		@Test
 		public void testServidor() {
-			int resultado = Servidor.iniciar();
+			Servidor s1 = new Servidor();
+			int resultado = s1.iniciar();
 			int esperado = 1;
 			
 			assertEquals(esperado, resultado);
