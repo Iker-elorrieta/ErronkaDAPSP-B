@@ -22,12 +22,12 @@ public class Consultas {
 		try {
 
 			// Konexioa Ireki
-			System.out.println("Conectando a la base de datos...");
+			System.out.println("[Consultas] -- Conectando a la base de datos...");
 			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
 			conn = MDK.konektatu(bbdd);
 
 			// query edo SQL sententzia egikaritu
-			System.out.println("Creando Statement..");
+			System.out.println("[Consultas] -- Creando Statement..");
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -47,8 +47,8 @@ public class Consultas {
 			stmt.close();
 			MDK.deskonektatu();
 
-			System.out.println("Resultado devuelto");
-			System.out.println("Conexión con la base de datos cerrada");
+			System.out.println("[Consultas] -- Resultado devuelto");
+			System.out.println("[Consultas] -- Conexión con la base de datos cerrada");
 		} catch (SQLException se) {
 			// JDBC erroreak
 			se.printStackTrace();
@@ -82,12 +82,12 @@ public class Consultas {
 		try {
 
 			// Konexioa Ireki
-			System.out.println("Conectando a la base de datos...");
+			System.out.println("[Consultas] -- Conectando a la base de datos...");
 			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
 			conn = MDK.konektatu(bbdd);
 
 			// query edo SQL sententzia egikaritu
-			System.out.println("Creando Statement..");
+			System.out.println("[Consultas] -- Creando Statement..");
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -108,8 +108,8 @@ public class Consultas {
 			stmt.close();
 			MDK.deskonektatu();
 
-			System.out.println("Resultado devuelto");
-			System.out.println("Conexión con la base de datos cerrada");
+			System.out.println("[Consultas] -- Resultado devuelto");
+			System.out.println("[Consultas] -- Conexión con la base de datos cerrada");
 		} catch (SQLException se) {
 			// JDBC erroreak
 			se.printStackTrace();
@@ -144,12 +144,12 @@ public class Consultas {
 		try {
 
 			// Konexioa Ireki
-			System.out.println("Conectando a la base de datos...");
+			System.out.println("[Consultas] -- Conectando a la base de datos...");
 			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
 			conn = MDK.konektatu(bbdd);
 
 			// query edo SQL sententzia egikaritu
-			System.out.println("Creando Statement..");
+			System.out.println("[Consultas] -- Creando Statement..");
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -174,8 +174,8 @@ public class Consultas {
 			stmt.close();
 			MDK.deskonektatu();
 
-			System.out.println("Resultado devuelto");
-			System.out.println("Conexión con la base de datos cerrada");
+			System.out.println("[Consultas] -- Resultado devuelto");
+			System.out.println("[Consultas] -- Conexión con la base de datos cerrada");
 		} catch (SQLException se) {
 			// JDBC erroreak
 			se.printStackTrace();
@@ -211,12 +211,12 @@ public class Consultas {
 		try {
 
 			// Konexioa Ireki
-			System.out.println("Conectando a la base de datos...");
+			System.out.println("[Consultas] -- Conectando a la base de datos...");
 			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
 			conn = MDK.konektatu(bbdd);
 
 			// query edo SQL sententzia egikaritu
-			System.out.println("Creando Statement..");
+			System.out.println("[Consultas] -- Creando Statement..");
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
@@ -247,8 +247,8 @@ public class Consultas {
 			stmt.close();
 			MDK.deskonektatu();
 
-			System.out.println("Resultado devuelto");
-			System.out.println("Conexión con la base de datos cerrada");
+			System.out.println("[Consultas] -- Resultado devuelto");
+			System.out.println("[Consultas] -- Conexión con la base de datos cerrada");
 		} catch (SQLException se) {
 			// JDBC erroreak
 			se.printStackTrace();

@@ -43,7 +43,7 @@ public class ConnectMariaDB {
 				// getProperties());
 				konexioa = (Connection) DriverManager.getConnection(DATABASE_URL + bbdd, USERNAME, PASSWORD);
 			} catch (ClassNotFoundException | SQLException e) {
-				System.err.println("Konexioa ezin izan da burutu.");
+				System.err.println("[Connection] -- No se ha podido conectar");
 				e.printStackTrace();
 			}
 		}
@@ -56,9 +56,9 @@ public class ConnectMariaDB {
 			try {
 				konexioa.close();
 				konexioa = null;
-				System.out.println("Konexioa itxi da");
+				System.out.println("[Connection] -- La conexión se ha cerrado");
 			} catch (SQLException e) {
-				System.err.println("Ezin izan da deskonektatu.");
+				System.err.println("[Connection] -- No se ha podido desconectar");
 				e.printStackTrace();
 			}
 		}

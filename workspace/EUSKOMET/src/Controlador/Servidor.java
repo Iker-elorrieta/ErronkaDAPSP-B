@@ -16,46 +16,73 @@ import Modelo.Objetuak.Provincias;
 public class Servidor extends Thread{
 	private final static int PUERTO = 5000;
 
+	private static Servidor serv = new Servidor();
 	private static ServerSocket servidor = null;
 	private static Socket cliente = null;
 	private static ObjectInputStream entrada = null;
 	private static ObjectOutputStream salida = null;
-	
+
+	ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
+	ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
+
 	private boolean testServidorBueno = false;
 
 	public void run() {
 		try {
-			System.out.println("Servidor iniciado");
+			System.out.println("-- Serv -- Servidor iniciado");
 			servidor = new ServerSocket(PUERTO);
-			System.out.println("Esperando conexiones del cliente...");
+			System.out.println("-- Serv --  ConsProv -- Esperando conexiones del cliente...");
 			cliente = servidor.accept();
-			System.out.println("Cliente conectado");
+			System.out.println("-- Serv --  ConsProv -- Cliente conectado");
 
 			salida = new ObjectOutputStream (cliente.getOutputStream());
 			entrada = new ObjectInputStream(cliente.getInputStream());
 
-			System.out.println("Esperando a recibir nombre de la base de datos..."); 
-			String bbdd = (String) entrada.readObject();
-			System.out.println("[Nombre BBDD recibido: " + bbdd + "]");
-			
-			System.out.println("Esperando a recibir query..."); 
-			String query = (String) entrada.readObject();
-			System.out.println("[Query recibida: " + query + "]");
-			
-			if(query.contains("municipios")) {
-				ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
-				arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
+				// --  Consulta Provincias
+				System.out.println("-- Serv --  ConsProv -- Esperando a recibir nombre de la base de datos..."); 
+				String bbdd = (String) entrada.readObject();
+				System.out.println("-- Serv --  ConsProv -- [Nombre BBDD recibido: " + bbdd + "]");
 
-				salida.writeObject(arrayMunicipios);
-			}else if(query.contains("provincias")) {
-				ArrayList<Provincias> arrayMunicipios = new ArrayList<Provincias>();
-				arrayMunicipios = Consultas.consultaProvincias(query, bbdd);
+				System.out.println("-- Serv --  ConsProv -- Esperando a recibir query..."); 
+				String query = (String) entrada.readObject();
+				System.out.println("-- Serv --  ConsProv -- [Query recibida: " + query + "]");
 
-				salida.writeObject(arrayMunicipios);
-			}
-			 
+				if(query.contains("municipios")) {
+					arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
+
+					System.out.println("-- Serv --  ConsProv -- arrayProvincias.size(): " + arrayMunicipios.size());
+					salida.writeObject(arrayMunicipios);
+				}else if(query.contains("provincias")) {
+					arrayProvincias = Consultas.consultaProvincias(query, bbdd);
+
+					System.out.println("-- Serv --  ConsProv -- arrayProvincias.size(): " + arrayProvincias.size());
+					salida.writeObject(arrayProvincias);
+				}
+
+				// --  Consulta Municipios
+				System.out.println("-- Serv -- ConsMun -- Esperando a recibir nombre de la base de datos...");
+				bbdd = (String) entrada.readObject();
+				System.out.println("[Nombre BBDD recibido: " + bbdd + "]");
+
+				System.out.println("-- Serv -- ConsMun -- Esperando a recibir query..."); 
+				query = (String) entrada.readObject();
+				System.out.println("-- Serv -- ConsMun -- [Query recibida: " + query + "]");
+
+				if(query.contains("municipios")) {
+					arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
+
+					System.out.println("-- Serv -- ConsMun -- arrayProvincias.size(): " + arrayMunicipios.size());
+					salida.writeObject(arrayMunicipios);
+				}else if(query.contains("provincias")) {
+					arrayProvincias = Consultas.consultaProvincias(query, bbdd);
+
+					System.out.println("-- Serv -- ConsMun -- arrayProvincias.size(): " + arrayProvincias.size());
+					salida.writeObject(arrayProvincias);
+				}
+
+				String continuar = (String) entrada.readObject();
+
 			this.testServidorBueno = false;
-
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		} catch (Exception e) {
@@ -79,7 +106,6 @@ public class Servidor extends Thread{
 
 
 	public static void main(String[] args) {
-		Servidor serv = new Servidor();
 		serv.start();
 	}
 
@@ -87,10 +113,6 @@ public class Servidor extends Thread{
 	public boolean isTestServidorBueno() {
 		return this.testServidorBueno;
 	}
-
-
-	
-	
 
 }
 

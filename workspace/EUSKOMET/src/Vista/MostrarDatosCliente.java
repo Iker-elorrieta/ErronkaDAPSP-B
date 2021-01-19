@@ -28,17 +28,18 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
-public class MostrarDatosCliente extends JFrame{
-//public class MostrarDatosCliente extends JFrame implements ActionListener {
+//public class MostrarDatosCliente extends JFrame{
+public class MostrarDatosCliente extends JFrame implements ActionListener {
 
 
 	private JPanel contentPane;
 	private final static int PUERTO = 5000;
-//	private final String HOST = "127.0.0.1";
+	//	private final String HOST = "127.0.0.1";
 	private final static String HOST = "localhost";
-	
+
 	Cliente cliente  = null;
 	Socket socket = null;
 	private String bbdd = "euskomet";
@@ -48,15 +49,19 @@ public class MostrarDatosCliente extends JFrame{
 	private JComboBox cbProvincia;
 	private JComboBox cbMunicipio;
 	private JButton btnBuscar;
-	
+
 	Scanner sc = new Scanner(System.in); // abrir escaner
-	
+
 	ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
 	ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
 
 	private int cod_prov = 0;
-	private JButton btnConfirmarProv;
-	
+	private String datosStr = "";
+
+	Socket clienteSckt = null;
+	ObjectInputStream entrada = null;
+	ObjectOutputStream salida = null;
+
 	/**
 	 * Launch the application.
 	 */
@@ -93,99 +98,101 @@ public class MostrarDatosCliente extends JFrame{
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		contentPane.add(scrollPane);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
 		cbProvincia = new JComboBox();
 		cbProvincia.setBounds(495, 97, 198, 22);
-//		cbProvincia.addActionListener(this);
+		cbProvincia.addActionListener(this);
 		contentPane.add(cbProvincia);		
-		
+
 		JLabel lblProvincia = new JLabel("Escoja una provincia:");
 		lblProvincia.setBounds(495, 72, 198, 14);
 		contentPane.add(lblProvincia);
-		
+
 		JLabel lblMunicipio = new JLabel("Escoja un municipio");
-		lblMunicipio.setBounds(495, 205, 198, 14);
+		lblMunicipio.setBounds(495, 130, 198, 14);
 		contentPane.add(lblMunicipio);
-		
+
 		cbMunicipio = new JComboBox();
-		cbMunicipio.setBounds(495, 230, 198, 22);
+		cbMunicipio.setBounds(495, 155, 198, 22);
 		contentPane.add(cbMunicipio);
-		
+
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(495, 279, 198, 23);
+		btnBuscar.setBounds(495, 204, 198, 23);
+		btnBuscar.addActionListener(this);
 		contentPane.add(btnBuscar);
-		
-		btnConfirmarProv = new JButton("Confirmar provincia");
-		btnConfirmarProv.setBounds(495, 142, 198, 23);
-		contentPane.add(btnConfirmarProv);
+
+		//		JOptionPane.showMessageDialog(contentPane, "Te conectarás al servidor", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
 
 		cliente = new Cliente();
-		
+		abrirES();
+
 		ejecutarClienteProvincias(this.bbdd);
-		
-//		String cbProvinciaSI = (String) cbProvincia.getSelectedItem();
-//		int cod_prov = conseguirCodProv();
-		
-//		ejecutarClienteMunicipios(this.bbdd, cod_prov);
+		ejecutarClienteMunicipios(this.bbdd);
+
+		cerrarCliente();
+	}
+
+	public void abrirES () {
+		try {
+			clienteSckt = new Socket(HOST, PUERTO);
+		} catch (IOException e) {
+			System.err.println("Error al iniciar el socket ClienteSckt");
+		}
+
+		try {
+			entrada = new ObjectInputStream(clienteSckt.getInputStream());
+			salida = new ObjectOutputStream (clienteSckt.getOutputStream());
+		} catch (IOException e) {
+			System.err.println("Error al iniciar el I/O Stream");
+		}
+	}
+
+	public void cerrarCliente () {
+		try {
+			if (clienteSckt != null)
+				clienteSckt.close();
+			if (entrada != null)
+				entrada.close();
+			if (salida != null)
+				salida.close();
+		} catch (IOException io) {
+			io.printStackTrace();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		System.out.println("-- Cli -- Fin cliente");
 	}
 
 	public int ejecutarClienteProvincias(String bbdd) {
 		int resultadoTest = 0;
-		Socket cliente = null;
-		ObjectInputStream entrada = null;
-		ObjectOutputStream salida = null;
-		
 		try {
-			cliente = new Socket(HOST, PUERTO);
-			System.out.println("Cliente iniciado");
-			System.out.println("Conectando con el servidor...");
-			System.out.println("Conexión realizada con servidor");
+			//			clienteSckt = new Socket(HOST, PUERTO);
+			System.out.println("-- Cli -- Prov -- Cliente iniciado");
+			System.out.println("-- Cli -- Prov -- Conectando con el servidor...");
+			System.out.println("-- Cli -- Prov -- Conexión realizada con servidor");
 
-			entrada = new ObjectInputStream(cliente.getInputStream());
-			salida = new ObjectOutputStream (cliente.getOutputStream());
-			
-			System.out.println("Enviando nombre de la BBDD...");
+			System.out.println("-- Cli -- Prov -- Enviando nombre de la BBDD...");
 			salida.writeObject(bbdd);
-			System.out.println("Nombre BBDD enviado [" + bbdd + "]");
-			
-//			String sql = "SELECT * FROM municipios";
-//			System.out.println("Enviando query...");
-//			salida.writeObject(sql);
-//			System.out.println("Query enviada [" + sql + "]");
-//
-//			ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
-//			arrayMunicipios = (ArrayList<Municipio>) entrada.readObject();
-//			
-//			String resultado = "";
-//			for (Municipio mun : arrayMunicipios) {	
-//				resultado += mun.toString() + "\n";
-//				System.out.println(mun.toString());
-//			}
-			
-			String sql = "SELECT * FROM provincias";
-			System.out.println("Enviando query...");
-			salida.writeObject(sql);
-			System.out.println("Query enviada [" + sql + "]");
+			System.out.println("-- Cli -- Prov -- Nombre BBDD enviado [" + bbdd + "]");
 
-//			ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
+			String sql = "SELECT * FROM provincias";
+			System.out.println("-- Cli -- Prov -- Enviando query...");
+			salida.writeObject(sql);
+			System.out.println("-- Cli -- Prov -- Query enviada [" + sql + "]");
+
 			arrayProvincias = (ArrayList<Provincias>) entrada.readObject();
-			
+			System.out.println("-- Cli -- Prov -- arrayProvincias.size(): " + arrayProvincias.size());
+
+			cbProvincia.addItem("");
+			cbProvincia.setSelectedItem(0);
 			String resultado = "";
 			for (Provincias prov : arrayProvincias) {	
 				resultado += prov.toString() + "\n";
 				cbProvincia.addItem(prov.getNombre());
-				
-				System.out.println(prov.toString());
 			}
-			
-			
-			System.out.println("1");
-			
-//			txtDatos.setText(resultado);
-			mostrarTxt(resultado);
-			System.out.println("2");
+
+			System.out.println("-- Cli -- Prov -- Datos recibidos ---------------\n" + resultado + "-------------------------------------------------");
 			resultadoTest = 1;
-			System.out.println("3");
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -193,108 +200,38 @@ public class MostrarDatosCliente extends JFrame{
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
-		} finally {
-			try {
-				if (cliente != null)
-					cliente.close();
-				if (entrada != null)
-					entrada.close();
-				if (salida != null)
-					salida.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Fin cliente");
 		}
 		return resultadoTest;
 	}//
-	
-	public int conseguirCodProv() {
-		int cod_prov = 0;
-		if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Bizkaia")) {
-			for (Provincias prov : arrayProvincias) {	
-				if(prov.getNombre().equalsIgnoreCase("Bizkaia")) {
-					cod_prov = prov.getCod_prov();
-				}
-				
-			}
-		}else if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Gipuzkoa")) {
-			for (Provincias prov : arrayProvincias) {	
-				if(prov.getNombre().equalsIgnoreCase("Gipuzkoa")) {
-					cod_prov = prov.getCod_prov();
-				}
-				
-			}
-		}else if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Araba")) {
-			for (Provincias prov : arrayProvincias) {	
-				if(prov.getNombre().equalsIgnoreCase("Araba")) {
-					cod_prov = prov.getCod_prov();
-				}
-				
-			}
-		}
-		return cod_prov;
-	}
-	
-	public int ejecutarClienteMunicipios(String bbdd, int cod_prov) {
+
+	public int ejecutarClienteMunicipios(String bbdd) {
 		int resultadoTest = 0;
-		Socket cliente = null;
-		ObjectInputStream entrada = null;
-		ObjectOutputStream salida = null;
-		
+
 		try {
-			cliente = new Socket(HOST, PUERTO);
-			System.out.println("Cliente iniciado");
-			System.out.println("Conectando con el servidor...");
-			System.out.println("Conexión realizada con servidor");
+			System.out.println("-- Cli -- Mun -- Cliente iniciado");
+			System.out.println("-- Cli -- Mun -- Conectando con el servidor...");
+			System.out.println("-- Cli -- Mun -- Conexión realizada con servidor");
 
-			entrada = new ObjectInputStream(cliente.getInputStream());
-			salida = new ObjectOutputStream (cliente.getOutputStream());
-			
-			System.out.println("Enviando nombre de la BBDD...");
+			System.out.println("-- Cli -- Mun -- Enviando nombre de la BBDD...");
 			salida.writeObject(bbdd);
-			System.out.println("Nombre BBDD enviado [" + bbdd + "]");
-			
-			String sql = "SELECT * FROM municipios WHERE cod_prov = " + cod_prov;
-			System.out.println("Enviando query...");
-			salida.writeObject(sql);
-			System.out.println("Query enviada [" + sql + "]");
+			System.out.println("-- Cli -- Mun -- Nombre BBDD enviado [" + bbdd + "]");
 
-//			ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
+			String sql = "SELECT * FROM municipios";
+			System.out.println("-- Cli -- Mun -- Enviando query...");
+			salida.writeObject(sql);
+			System.out.println("-- Cli -- Mun -- Query enviada [" + sql + "]");
+
 			arrayMunicipios = (ArrayList<Municipio>) entrada.readObject();
-			
+			System.out.println("-- Cli -- Prov -- arrayMunicipios.size(): " + arrayMunicipios.size());
+
 			String resultado = "";
 			for (Municipio mun : arrayMunicipios) {	
 				resultado += mun.toString() + "\n";
-				cbProvincia.addItem(mun.getNombre());				
-				
-				System.out.println(mun.toString());
 			}
-			
-//			String sql = "SELECT * FROM provincias";
-//			System.out.println("Enviando query...");
-//			salida.writeObject(sql);
-//			System.out.println("Query enviada [" + sql + "]");
-//
-//			ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
-//			arrayProvincias = (ArrayList<Provincias>) entrada.readObject();
-//			
-//			String resultado = "";
-//			for (Provincias prov : arrayProvincias) {	
-//				resultado += prov.toString() + "\n";
-//				cbProvincia.addItem(prov.getNombre());
-//				
-//				System.out.println(prov.toString());
-//			}
-			
-			
-			System.out.println("1");
-			
-//			txtDatos.setText(resultado);
-			mostrarTxt(resultado);
-			System.out.println("2");
+
+			System.out.println("-- Cli -- Mun -- Datos recibidos ---------------\n" + resultado + "-----------------------------------------------");
+			salida.writeObject("false");
 			resultadoTest = 1;
-			System.out.println("3");
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -302,22 +239,10 @@ public class MostrarDatosCliente extends JFrame{
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
-		} finally {
-			try {
-				if (cliente != null)
-					cliente.close();
-				if (entrada != null)
-					entrada.close();
-				if (salida != null)
-					salida.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			System.out.println("Fin cliente");
 		}
 		return resultadoTest;
 	}//
-	
+
 	public static void mostrarTxt (String texto) {
 		txtDatos.setText(texto);
 	}
@@ -329,37 +254,112 @@ public class MostrarDatosCliente extends JFrame{
 	public void setTxtDatos(JTextArea txtDatos) {
 		this.txtDatos = txtDatos;
 	}
-	
-//	public void actionPerformed(ActionEvent e) { 
-//		if (e.getSource() == cbProvincia) {
-//			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Bizkaia")) {
-//				for (Provincias prov : arrayProvincias) {	
-//					if(prov.getNombre().equalsIgnoreCase("Bizkaia")) {
-//						cod_prov = prov.getCod_prov();
-//					}
-//					
-//				}
-//			}else if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Gipuzkoa")) {
-//				for (Provincias prov : arrayProvincias) {	
-//					if(prov.getNombre().equalsIgnoreCase("Gipuzkoa")) {
-//						cod_prov = prov.getCod_prov();
-//					}
-//					
-//				}
-//			}else if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Araba")) {
-//				for (Provincias prov : arrayProvincias) {	
-//					if(prov.getNombre().equalsIgnoreCase("Araba")) {
-//						cod_prov = prov.getCod_prov();
-//					}
-//					
-//				}
-//			}
-//			ejecutarClienteMunicipios(this.bbdd, cod_prov);
-//		}
-//		
-////		if (e.getSource() == cbProvincia) {
-////			ejecutarClienteMunicipios(this.bbdd, cod_prov);
-////		}
-//		
-//	}
+
+	public void actionPerformed(ActionEvent e) { 
+		if (e.getSource() == cbProvincia) {
+			System.out.println(" -- Has seleccionado " + cbProvincia.getSelectedItem() + "  --");
+			datosStr = "";
+			cbMunicipio.removeAllItems();
+
+			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("")) { 	
+
+				System.out.println("-- Cli -- cbBizkaia -- Datos devueltos ---------------\nNo hay datos\n-----------------------------------------------");
+
+			}
+
+			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Bizkaia")) { 	
+				cbMunicipio.addItem("");
+				for (Provincias prov : arrayProvincias) {	
+					if(prov.getNombre().equalsIgnoreCase("Bizkaia")) {
+						cod_prov = prov.getCod_prov();									
+					}
+				}									
+
+				for (Municipio mun : arrayMunicipios) {							
+					if(mun.getCod_prov() == this.cod_prov) {
+						//						datosStr += mun.toString() + "\n";
+						cbMunicipio.addItem(mun.getNombre());
+					}
+				}
+			}
+			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Gipuzkoa")) { 	
+				cbMunicipio.addItem("");
+				for (Provincias prov : arrayProvincias) {	
+					if(prov.getNombre().equalsIgnoreCase("Gipuzkoa")) {
+						cod_prov = prov.getCod_prov();									
+					}
+				}									
+
+				for (Municipio mun : arrayMunicipios) {							
+					if(mun.getCod_prov() == this.cod_prov) {
+						//						datosStr += mun.toString() + "\n";
+						cbMunicipio.addItem(mun.getNombre());
+					}
+				}
+
+			}
+			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Araba")) { 	
+				cbMunicipio.addItem("");
+				for (Provincias prov : arrayProvincias) {	
+					if(prov.getNombre().equalsIgnoreCase("Araba")) {
+						cod_prov = prov.getCod_prov();									
+					}
+				}									
+
+				for (Municipio mun : arrayMunicipios) {							
+					if(mun.getCod_prov() == this.cod_prov) {
+						//						datosStr += mun.toString() + "\n";
+						cbMunicipio.addItem(mun.getNombre());
+					}
+				}
+			}
+		}
+
+		if (e.getSource() == btnBuscar) {
+
+			//			String itemProv = "";
+			//			String itemMun = "";
+			//
+			//			itemProv = (String) cbProvincia.getSelectedItem();
+			//			itemMun = (String) cbMunicipio.getSelectedItem();
+
+			//			if(cbMunicipio.getSelectedItem() == null || cbProvincia.getSelectedItem() == null) {
+			if(cbMunicipio.getSelectedIndex() == 0 || cbProvincia.getSelectedIndex() == 0) {
+				mostrarTxt("");
+				System.out.println("[btnBuscar]  --  (vacío)");
+				JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un municipio", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
+			}else {
+				for (Municipio mun : arrayMunicipios) {							
+					if(mun.getNombre() == (String) cbMunicipio.getSelectedItem()) {
+						mostrarTxt("Municipio seleccionado:\n" + mun.toString());
+						System.out.println("[btnBuscar]  --  Municipio seleccionado:\n" + mun.toString());
+					}
+				}
+			}
+
+			//			if((String) cbMunicipio.getSelectedItem() == null) {
+			//				mostrarTxt("");
+			//				System.out.println("[btnBuscar]  --  (vacío)");
+			//				JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un municipio", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
+			//			}
+
+			//			if((String) cbProvincia.getSelectedItem() != null){
+			//				
+			//				if((String) cbMunicipio.getSelectedItem() != null){
+			//					for (Municipio mun : arrayMunicipios) {							
+			//						if(mun.getNombre() == (String) cbMunicipio.getSelectedItem()) {
+			//							mostrarTxt("Municipio seleccionado:\n" + mun.toString());
+			//							System.out.println("[btnBuscar]  --  Municipio seleccionado:\n" + mun.toString());
+			//						}
+			//					}
+			//				}else {
+			//					JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un municipio", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
+			//				}
+			//			}else {
+			//				JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione una provincia", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
+			//			}
+
+		}
+
+	}
 }

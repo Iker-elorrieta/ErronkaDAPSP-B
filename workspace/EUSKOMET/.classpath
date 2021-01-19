@@ -11,5 +11,6 @@
 	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/MySQl"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Libreriak"/>
+	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/mariadb-java-client-2.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
