@@ -7,9 +7,9 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Librerias"/>
-	<classpathentry kind="lib" path="Libreriak/json-simple-1.1.jar"/>
-	<classpathentry kind="lib" path="Libreriak/gson-2.8.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate"/>
+	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/MySQl"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/mariadb-java-client-2.7.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Libreriak"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
