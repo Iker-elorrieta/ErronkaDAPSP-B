@@ -9,10 +9,71 @@ import java.util.ArrayList;
 import Modelo.Objetuak.EspaciosNaturales;
 import Modelo.Objetuak.Estazioa;
 import Modelo.Objetuak.Municipio;
+import Modelo.Objetuak.Provincias;
 
-public class Consultas {	
+public class Consultas {
+	
+	public static ArrayList<Provincias> consultaProvincias(String sql, String bbdd) {
+		ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
 
-	public static ArrayList<Municipio> consultaMunicipios(String sql) {
+		Connection conn = null;
+		Statement stmt = null;
+
+		try {
+
+			// Konexioa Ireki
+			System.out.println("Conectando a la base de datos...");
+			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
+			conn = MDK.konektatu(bbdd);
+
+			// query edo SQL sententzia egikaritu
+			System.out.println("Creando Statement..");
+			stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			// Erantzunetik informazioa erauzi
+			while (rs.next()) {
+				// Bueltatu zutabeen izenen arabera
+				int cod_prov = rs.getInt("cod_prov");
+				String nombre = rs.getString("nombre");
+
+				// Emaitzak pantailaratu
+				Provincias prov = new Provincias(cod_prov, nombre);
+				arrayProvincias.add(prov);
+			}
+
+			// Garbiketa
+			rs.close();
+			stmt.close();
+			MDK.deskonektatu();
+
+			System.out.println("Resultado devuelto");
+			System.out.println("Conexión con la base de datos cerrada");
+		} catch (SQLException se) {
+			// JDBC erroreak
+			se.printStackTrace();
+		} catch (Exception e) {
+			// Class.forName errorea
+			e.printStackTrace();
+		} finally {
+			// itxi erabilitako errekurtsoak
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException se2) {
+			}
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException se) {
+				se.printStackTrace();
+			}
+		}
+
+		return arrayProvincias;
+	}
+
+	public static ArrayList<Municipio> consultaMunicipios(String sql, String bbdd) {
 		ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
 
 		Connection conn = null;
@@ -23,7 +84,7 @@ public class Consultas {
 			// Konexioa Ireki
 			System.out.println("Conectando a la base de datos...");
 			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
-			conn = MDK.konektatu();
+			conn = MDK.konektatu(bbdd);
 
 			// query edo SQL sententzia egikaritu
 			System.out.println("Creando Statement..");
@@ -73,7 +134,7 @@ public class Consultas {
 		return arrayMunicipios;
 	}
 
-	public static ArrayList<Estazioa> consultaEstaciones(String sql) {
+	public static ArrayList<Estazioa> consultaEstaciones(String sql, String bbdd) {
 
 		ArrayList<Estazioa> arrayEstaciones = new ArrayList<Estazioa>();
 
@@ -85,7 +146,7 @@ public class Consultas {
 			// Konexioa Ireki
 			System.out.println("Conectando a la base de datos...");
 			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
-			conn = MDK.konektatu();
+			conn = MDK.konektatu(bbdd);
 
 			// query edo SQL sententzia egikaritu
 			System.out.println("Creando Statement..");
@@ -140,7 +201,7 @@ public class Consultas {
 
 	}
 
-	public static ArrayList<EspaciosNaturales> consultaEspaciosNaturales(String sql) {
+	public static ArrayList<EspaciosNaturales> consultaEspaciosNaturales(String sql, String bbdd) {
 
 		ArrayList<EspaciosNaturales> arrayEspaciosNaturales = new ArrayList<EspaciosNaturales>();
 
@@ -152,7 +213,7 @@ public class Consultas {
 			// Konexioa Ireki
 			System.out.println("Conectando a la base de datos...");
 			ConnectMariaDB MDK = ConnectMariaDB.getInstance();
-			conn = MDK.konektatu();
+			conn = MDK.konektatu(bbdd);
 
 			// query edo SQL sententzia egikaritu
 			System.out.println("Creando Statement..");

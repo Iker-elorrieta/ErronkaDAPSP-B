@@ -11,17 +11,19 @@ import java.util.ArrayList;
 
 import Modelo.BBDD.Consultas;
 import Modelo.Objetuak.Municipio;
+import Modelo.Objetuak.Provincias;
 
-public class Servidor {
+public class Servidor extends Thread{
 	private final static int PUERTO = 5000;
 
 	private static ServerSocket servidor = null;
 	private static Socket cliente = null;
 	private static ObjectInputStream entrada = null;
 	private static ObjectOutputStream salida = null;
+	
+	private boolean testServidorBueno = false;
 
-	public static int iniciar() {
-		int resultadoTest = 0;
+	public void run() {
 		try {
 			System.out.println("Servidor iniciado");
 			servidor = new ServerSocket(PUERTO);
@@ -32,15 +34,27 @@ public class Servidor {
 			salida = new ObjectOutputStream (cliente.getOutputStream());
 			entrada = new ObjectInputStream(cliente.getInputStream());
 
+			System.out.println("Esperando a recibir nombre de la base de datos..."); 
+			String bbdd = (String) entrada.readObject();
+			System.out.println("[Nombre BBDD recibido: " + bbdd + "]");
+			
 			System.out.println("Esperando a recibir query..."); 
-			String mensaje = (String) entrada.readObject();
-			System.out.println("[Mensaje recibido: " + mensaje + "]");
+			String query = (String) entrada.readObject();
+			System.out.println("[Query recibida: " + query + "]");
+			
+			if(query.contains("municipios")) {
+				ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
+				arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
 
-			ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
-			arrayMunicipios = Consultas.consultaMunicipios(mensaje);
+				salida.writeObject(arrayMunicipios);
+			}else if(query.contains("provincias")) {
+				ArrayList<Provincias> arrayMunicipios = new ArrayList<Provincias>();
+				arrayMunicipios = Consultas.consultaProvincias(query, bbdd);
 
-			salida.writeObject(arrayMunicipios); 
-			resultadoTest = 1;
+				salida.writeObject(arrayMunicipios);
+			}
+			 
+			this.testServidorBueno = false;
 
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
@@ -61,14 +75,22 @@ public class Servidor {
 			}
 			System.out.println("Fin servidor");
 		}
-		return resultadoTest;
 	}
 
 
 	public static void main(String[] args) {
-		Servidor s1 = new Servidor();
-		s1.iniciar();
+		Servidor serv = new Servidor();
+		serv.start();
 	}
+
+
+	public boolean isTestServidorBueno() {
+		return this.testServidorBueno;
+	}
+
+
+	
+	
 
 }
 

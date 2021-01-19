@@ -9,7 +9,8 @@ public class ConnectMariaDB {
 
 	// init database konstanteak
 	private static final String DATABASE_DRIVER = "org.mariadb.jdbc.Driver";
-	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/euskomet";
+//	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/euskomet";
+	private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "1234";
 	private static final String MAX_POOL = "250";
@@ -34,13 +35,13 @@ public class ConnectMariaDB {
 	 * propietateak; }
 	 */
 	// konektatu datubasera
-	public Connection konektatu() {
+	public Connection konektatu(String bbdd) {
 		if (konexioa == null) {
 			try {
 				Class.forName(DATABASE_DRIVER);
 				// konexioa = (Connection) DriverManager.getConnection(DATABASE_URL,
 				// getProperties());
-				konexioa = (Connection) DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
+				konexioa = (Connection) DriverManager.getConnection(DATABASE_URL + bbdd, USERNAME, PASSWORD);
 			} catch (ClassNotFoundException | SQLException e) {
 				System.err.println("Konexioa ezin izan da burutu.");
 				e.printStackTrace();
