@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 19 ene. 2021 10:13:29 by Hibernate Tools 5.4.21.Final
+// Generated 20 ene. 2021 8:58:11 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,27 +9,29 @@ import java.util.Set;
  */
 public class Provincias implements java.io.Serializable {
 
-	private Integer codProv;
+	private int codProv;
 	private String nombre;
 	private Set municipioses = new HashSet(0);
 
 	public Provincias() {
 	}
 
-	public Provincias(String nombre) {
+	public Provincias(int codProv, String nombre) {
+		this.codProv = codProv;
 		this.nombre = nombre;
 	}
 
-	public Provincias(String nombre, Set municipioses) {
+	public Provincias(int codProv, String nombre, Set municipioses) {
+		this.codProv = codProv;
 		this.nombre = nombre;
 		this.municipioses = municipioses;
 	}
 
-	public Integer getCodProv() {
+	public int getCodProv() {
 		return this.codProv;
 	}
 
-	public void setCodProv(Integer codProv) {
+	public void setCodProv(int codProv) {
 		this.codProv = codProv;
 	}
 

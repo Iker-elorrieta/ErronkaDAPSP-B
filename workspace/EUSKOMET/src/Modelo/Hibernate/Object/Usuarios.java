@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 19 ene. 2021 10:13:29 by Hibernate Tools 5.4.21.Final
+// Generated 20 ene. 2021 8:58:11 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class Usuarios implements java.io.Serializable {
 
-	private Integer codUser;
+	private int codUser;
 	private String nombre;
 	private String contra;
 	private String pregunta;
@@ -20,15 +20,17 @@ public class Usuarios implements java.io.Serializable {
 	public Usuarios() {
 	}
 
-	public Usuarios(String nombre, String contra, String pregunta, String respuesta) {
+	public Usuarios(int codUser, String nombre, String contra, String pregunta, String respuesta) {
+		this.codUser = codUser;
 		this.nombre = nombre;
 		this.contra = contra;
 		this.pregunta = pregunta;
 		this.respuesta = respuesta;
 	}
 
-	public Usuarios(String nombre, String contra, String pregunta, String respuesta, Set favoritosEsts,
+	public Usuarios(int codUser, String nombre, String contra, String pregunta, String respuesta, Set favoritosEsts,
 			Set favoritosEsps) {
+		this.codUser = codUser;
 		this.nombre = nombre;
 		this.contra = contra;
 		this.pregunta = pregunta;
@@ -37,11 +39,11 @@ public class Usuarios implements java.io.Serializable {
 		this.favoritosEsps = favoritosEsps;
 	}
 
-	public Integer getCodUser() {
+	public int getCodUser() {
 		return this.codUser;
 	}
 
-	public void setCodUser(Integer codUser) {
+	public void setCodUser(int codUser) {
 		this.codUser = codUser;
 	}
 

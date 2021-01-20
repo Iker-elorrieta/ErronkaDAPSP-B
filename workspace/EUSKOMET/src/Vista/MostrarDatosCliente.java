@@ -62,6 +62,10 @@ public class MostrarDatosCliente extends JFrame{
 	ObjectInputStream entrada = null;
 	ObjectOutputStream salida = null;
 
+	// --  Para tests --
+	private boolean provTest = false;
+	private boolean munTest = false;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -161,8 +165,7 @@ public class MostrarDatosCliente extends JFrame{
 		System.out.println("-- Cli -- Fin cliente");
 	}
 
-	public int ejecutarClienteProvincias(String bbdd) {
-		int resultadoTest = 0;
+	public void ejecutarClienteProvincias(String bbdd) {
 		try {
 			//			clienteSckt = new Socket(HOST, PUERTO);
 			System.out.println("-- Cli -- Prov -- Cliente iniciado");
@@ -186,11 +189,11 @@ public class MostrarDatosCliente extends JFrame{
 			String resultado = "";
 			for (Provincias prov : arrayProvincias) {	
 				resultado += prov.toString() + "\n";
-				cbProvincia.addItem(prov.getNombre());
+//				cbProvincia.addItem(prov.getNombre());
 			}
 
 			System.out.println("-- Cli -- Prov -- Datos recibidos ---------------\n" + resultado + "-------------------------------------------------");
-			resultadoTest = 1;
+			provTest = true;
 			salida.writeObject(true);
 
 		} catch (IOException e) {
@@ -200,12 +203,9 @@ public class MostrarDatosCliente extends JFrame{
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
-		return resultadoTest;
 	}//
 
-	public int ejecutarClienteMunicipios(String bbdd) {
-		int resultadoTest = 0;
-
+	public void ejecutarClienteMunicipios(String bbdd) {
 		try {
 			System.out.println("-- Cli -- Mun -- Cliente iniciado");
 			System.out.println("-- Cli -- Mun -- Conectando con el servidor...");
@@ -229,9 +229,9 @@ public class MostrarDatosCliente extends JFrame{
 			}
 
 			System.out.println("-- Cli -- Mun -- Datos recibidos ---------------\n" + resultado + "-----------------------------------------------");
-			resultadoTest = 1;
+			munTest = true;
 			salida.writeObject(false);
-			mostrarTxt("Municipios:\n" + resultado);
+			mostrarTxt("TODOS LOS MUNICIPIOS: \n\n" + resultado);
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -240,7 +240,6 @@ public class MostrarDatosCliente extends JFrame{
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
-		return resultadoTest;
 	}//
 
 	public static void mostrarTxt (String texto) {
@@ -329,4 +328,15 @@ public class MostrarDatosCliente extends JFrame{
 //		}
 //
 //	}
+
+	public boolean isProvTest() {
+		return provTest;
+	}
+
+	public boolean isMunTest() {
+		return munTest;
+	}
+	
+	
+	
 }

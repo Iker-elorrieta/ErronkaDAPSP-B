@@ -11,26 +11,33 @@ import Vista.MostrarDatosCliente;
 public class TestCliente {
 	
 	Servidor serv = new Servidor();
-	MostrarDatosCliente cli = null;
+	MostrarDatosCliente cli1 = null;
+	MostrarDatosCliente cli2 = null;
 
 		@Test
 		public void testCliente() {
 			serv.start();
-			
 			try {
-				cli = new MostrarDatosCliente();
-				cli.setVisible(true);
+				cli1 = new MostrarDatosCliente();
+				cli1.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
-			int resultado = cli.ejecutarClienteProvincias("euskomet");
-			int esperado = 1;			
-			assertEquals(esperado, resultado);
+			assertEquals(true, cli1.isProvTest());
+			assertEquals(true, cli1.isMunTest());
 			
-			resultado = cli.ejecutarClienteProvincias("prueba");
-			esperado = 1;			
-			assertNotEquals(esperado, resultado);
+//			serv.start();
+//			try {
+//				cli2 = new MostrarDatosCliente();
+//				cli2.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			
+//			resultado = cli2.ejecutarClienteProvincias("prueba");
+//			esperado = 1;			
+//			assertNotEquals(true, resultado);
 		}
 	
 }

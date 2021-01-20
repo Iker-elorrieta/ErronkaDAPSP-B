@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 19 ene. 2021 10:13:29 by Hibernate Tools 5.4.21.Final
+// Generated 20 ene. 2021 8:58:11 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class EspaciosNaturales implements java.io.Serializable {
 
-	private Integer codEspNatural;
+	private int codEspNatural;
 	private String nombre;
 	private String tipo;
 	private double latitud;
@@ -21,15 +21,17 @@ public class EspaciosNaturales implements java.io.Serializable {
 	public EspaciosNaturales() {
 	}
 
-	public EspaciosNaturales(String nombre, String tipo, double latitud, double longitud) {
+	public EspaciosNaturales(int codEspNatural, String nombre, String tipo, double latitud, double longitud) {
+		this.codEspNatural = codEspNatural;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.latitud = latitud;
 		this.longitud = longitud;
 	}
 
-	public EspaciosNaturales(String nombre, String tipo, double latitud, double longitud, Set favoritosEsps,
-			Set fotosEspNaturaleses, Set munEspNas) {
+	public EspaciosNaturales(int codEspNatural, String nombre, String tipo, double latitud, double longitud,
+			Set favoritosEsps, Set fotosEspNaturaleses, Set munEspNas) {
+		this.codEspNatural = codEspNatural;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.latitud = latitud;
@@ -39,11 +41,11 @@ public class EspaciosNaturales implements java.io.Serializable {
 		this.munEspNas = munEspNas;
 	}
 
-	public Integer getCodEspNatural() {
+	public int getCodEspNatural() {
 		return this.codEspNatural;
 	}
 
-	public void setCodEspNatural(Integer codEspNatural) {
+	public void setCodEspNatural(int codEspNatural) {
 		this.codEspNatural = codEspNatural;
 	}
 
