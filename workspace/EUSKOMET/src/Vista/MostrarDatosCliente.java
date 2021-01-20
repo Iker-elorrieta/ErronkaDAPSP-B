@@ -31,8 +31,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
-//public class MostrarDatosCliente extends JFrame{
-public class MostrarDatosCliente extends JFrame implements ActionListener {
+public class MostrarDatosCliente extends JFrame{
+//public class MostrarDatosCliente extends JFrame implements ActionListener {
 
 
 	private JPanel contentPane;
@@ -101,7 +101,7 @@ public class MostrarDatosCliente extends JFrame implements ActionListener {
 
 		cbProvincia = new JComboBox();
 		cbProvincia.setBounds(495, 97, 198, 22);
-		cbProvincia.addActionListener(this);
+//		cbProvincia.addActionListener(this);
 		contentPane.add(cbProvincia);		
 
 		JLabel lblProvincia = new JLabel("Escoja una provincia:");
@@ -118,10 +118,8 @@ public class MostrarDatosCliente extends JFrame implements ActionListener {
 
 		btnBuscar = new JButton("Buscar");
 		btnBuscar.setBounds(495, 204, 198, 23);
-		btnBuscar.addActionListener(this);
+//		btnBuscar.addActionListener(this);
 		contentPane.add(btnBuscar);
-
-		//		JOptionPane.showMessageDialog(contentPane, "Te conectarás al servidor", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
 
 		cliente = new Cliente();
 		abrirES();
@@ -193,6 +191,7 @@ public class MostrarDatosCliente extends JFrame implements ActionListener {
 
 			System.out.println("-- Cli -- Prov -- Datos recibidos ---------------\n" + resultado + "-------------------------------------------------");
 			resultadoTest = 1;
+			salida.writeObject(true);
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -230,8 +229,9 @@ public class MostrarDatosCliente extends JFrame implements ActionListener {
 			}
 
 			System.out.println("-- Cli -- Mun -- Datos recibidos ---------------\n" + resultado + "-----------------------------------------------");
-			salida.writeObject("false");
 			resultadoTest = 1;
+			salida.writeObject(false);
+			mostrarTxt("Municipios:\n" + resultado);
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -255,111 +255,78 @@ public class MostrarDatosCliente extends JFrame implements ActionListener {
 		this.txtDatos = txtDatos;
 	}
 
-	public void actionPerformed(ActionEvent e) { 
-		if (e.getSource() == cbProvincia) {
-			System.out.println(" -- Has seleccionado " + cbProvincia.getSelectedItem() + "  --");
-			datosStr = "";
-			cbMunicipio.removeAllItems();
-
-			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("")) { 	
-
-				System.out.println("-- Cli -- cbBizkaia -- Datos devueltos ---------------\nNo hay datos\n-----------------------------------------------");
-
-			}
-
-			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Bizkaia")) { 	
-				cbMunicipio.addItem("");
-				for (Provincias prov : arrayProvincias) {	
-					if(prov.getNombre().equalsIgnoreCase("Bizkaia")) {
-						cod_prov = prov.getCod_prov();									
-					}
-				}									
-
-				for (Municipio mun : arrayMunicipios) {							
-					if(mun.getCod_prov() == this.cod_prov) {
-						//						datosStr += mun.toString() + "\n";
-						cbMunicipio.addItem(mun.getNombre());
-					}
-				}
-			}
-			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Gipuzkoa")) { 	
-				cbMunicipio.addItem("");
-				for (Provincias prov : arrayProvincias) {	
-					if(prov.getNombre().equalsIgnoreCase("Gipuzkoa")) {
-						cod_prov = prov.getCod_prov();									
-					}
-				}									
-
-				for (Municipio mun : arrayMunicipios) {							
-					if(mun.getCod_prov() == this.cod_prov) {
-						//						datosStr += mun.toString() + "\n";
-						cbMunicipio.addItem(mun.getNombre());
-					}
-				}
-
-			}
-			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Araba")) { 	
-				cbMunicipio.addItem("");
-				for (Provincias prov : arrayProvincias) {	
-					if(prov.getNombre().equalsIgnoreCase("Araba")) {
-						cod_prov = prov.getCod_prov();									
-					}
-				}									
-
-				for (Municipio mun : arrayMunicipios) {							
-					if(mun.getCod_prov() == this.cod_prov) {
-						//						datosStr += mun.toString() + "\n";
-						cbMunicipio.addItem(mun.getNombre());
-					}
-				}
-			}
-		}
-
-		if (e.getSource() == btnBuscar) {
-
-			//			String itemProv = "";
-			//			String itemMun = "";
-			//
-			//			itemProv = (String) cbProvincia.getSelectedItem();
-			//			itemMun = (String) cbMunicipio.getSelectedItem();
-
-			//			if(cbMunicipio.getSelectedItem() == null || cbProvincia.getSelectedItem() == null) {
-			if(cbMunicipio.getSelectedIndex() == 0 || cbProvincia.getSelectedIndex() == 0) {
-				mostrarTxt("");
-				System.out.println("[btnBuscar]  --  (vacío)");
-				JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un municipio", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
-			}else {
-				for (Municipio mun : arrayMunicipios) {							
-					if(mun.getNombre() == (String) cbMunicipio.getSelectedItem()) {
-						mostrarTxt("Municipio seleccionado:\n" + mun.toString());
-						System.out.println("[btnBuscar]  --  Municipio seleccionado:\n" + mun.toString());
-					}
-				}
-			}
-
-			//			if((String) cbMunicipio.getSelectedItem() == null) {
-			//				mostrarTxt("");
-			//				System.out.println("[btnBuscar]  --  (vacío)");
-			//				JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un municipio", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
-			//			}
-
-			//			if((String) cbProvincia.getSelectedItem() != null){
-			//				
-			//				if((String) cbMunicipio.getSelectedItem() != null){
-			//					for (Municipio mun : arrayMunicipios) {							
-			//						if(mun.getNombre() == (String) cbMunicipio.getSelectedItem()) {
-			//							mostrarTxt("Municipio seleccionado:\n" + mun.toString());
-			//							System.out.println("[btnBuscar]  --  Municipio seleccionado:\n" + mun.toString());
-			//						}
-			//					}
-			//				}else {
-			//					JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un municipio", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
-			//				}
-			//			}else {
-			//				JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione una provincia", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
-			//			}
-
-		}
-
-	}
+//	public void actionPerformed(ActionEvent e) { 
+//		if (e.getSource() == cbProvincia) {
+//			System.out.println(" -- Has seleccionado " + cbProvincia.getSelectedItem() + "  --");
+//			datosStr = "";
+//			cbMunicipio.removeAllItems();
+//
+//			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("")) { 	
+//
+//				System.out.println("-- Cli -- cbBizkaia -- Datos devueltos ---------------\nNo hay datos\n-----------------------------------------------");
+//
+//			}
+//
+//			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Bizkaia")) { 	
+//				cbMunicipio.addItem("");
+//				for (Provincias prov : arrayProvincias) {	
+//					if(prov.getNombre().equalsIgnoreCase("Bizkaia")) {
+//						cod_prov = prov.getCod_prov();									
+//					}
+//				}									
+//
+//				for (Municipio mun : arrayMunicipios) {							
+//					if(mun.getCod_prov() == this.cod_prov) {
+//						cbMunicipio.addItem(mun.getNombre());
+//					}
+//				}
+//			}
+//			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Gipuzkoa")) { 	
+//				cbMunicipio.addItem("");
+//				for (Provincias prov : arrayProvincias) {	
+//					if(prov.getNombre().equalsIgnoreCase("Gipuzkoa")) {
+//						cod_prov = prov.getCod_prov();									
+//					}
+//				}									
+//
+//				for (Municipio mun : arrayMunicipios) {							
+//					if(mun.getCod_prov() == this.cod_prov) {
+//						cbMunicipio.addItem(mun.getNombre());
+//					}
+//				}
+//
+//			}
+//			if(((String) cbProvincia.getSelectedItem()).equalsIgnoreCase("Araba")) { 	
+//				cbMunicipio.addItem("");
+//				for (Provincias prov : arrayProvincias) {	
+//					if(prov.getNombre().equalsIgnoreCase("Araba")) {
+//						cod_prov = prov.getCod_prov();									
+//					}
+//				}									
+//
+//				for (Municipio mun : arrayMunicipios) {							
+//					if(mun.getCod_prov() == this.cod_prov) {
+//						cbMunicipio.addItem(mun.getNombre());
+//					}
+//				}
+//			}
+//		}
+//
+//		if (e.getSource() == btnBuscar) {
+//			if(cbMunicipio.getSelectedIndex() == 0 || cbProvincia.getSelectedIndex() == 0) {
+//				mostrarTxt("");
+//				System.out.println("[btnBuscar]  --  (vacío)");
+//				JOptionPane.showMessageDialog(contentPane, "Por favor, seleccione un municipio", "EUSKOMET: Información", JOptionPane.INFORMATION_MESSAGE);
+//			}else {
+//				for (Municipio mun : arrayMunicipios) {							
+//					if(mun.getNombre() == (String) cbMunicipio.getSelectedItem()) {
+//						mostrarTxt("Municipio seleccionado:\n" + mun.toString());
+//						System.out.println("[btnBuscar]  --  Municipio seleccionado:\n" + mun.toString());
+//					}
+//				}
+//			}
+//
+//		}
+//
+//	}
 }

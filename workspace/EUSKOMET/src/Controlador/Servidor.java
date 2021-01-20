@@ -26,6 +26,7 @@ public class Servidor extends Thread{
 	ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
 
 	private boolean testServidorBueno = false;
+	private boolean continuar = false;
 
 	public void run() {
 		try {
@@ -38,6 +39,7 @@ public class Servidor extends Thread{
 			salida = new ObjectOutputStream (cliente.getOutputStream());
 			entrada = new ObjectInputStream(cliente.getInputStream());
 
+			do {
 				// --  Consulta Provincias
 				System.out.println("-- Serv --  ConsProv -- Esperando a recibir nombre de la base de datos..."); 
 				String bbdd = (String) entrada.readObject();
@@ -58,31 +60,31 @@ public class Servidor extends Thread{
 					System.out.println("-- Serv --  ConsProv -- arrayProvincias.size(): " + arrayProvincias.size());
 					salida.writeObject(arrayProvincias);
 				}
+				continuar = (boolean) entrada.readObject();
+		}while (continuar);
 
-				// --  Consulta Municipios
-				System.out.println("-- Serv -- ConsMun -- Esperando a recibir nombre de la base de datos...");
-				bbdd = (String) entrada.readObject();
-				System.out.println("[Nombre BBDD recibido: " + bbdd + "]");
+//				// --  Consulta Municipios
+//				System.out.println("-- Serv -- ConsMun -- Esperando a recibir nombre de la base de datos...");
+//				bbdd = (String) entrada.readObject();
+//				System.out.println("[Nombre BBDD recibido: " + bbdd + "]");
+//
+//				System.out.println("-- Serv -- ConsMun -- Esperando a recibir query..."); 
+//				query = (String) entrada.readObject();
+//				System.out.println("-- Serv -- ConsMun -- [Query recibida: " + query + "]");
+//
+//				if(query.contains("municipios")) {
+//					arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
+//
+//					System.out.println("-- Serv -- ConsMun -- arrayProvincias.size(): " + arrayMunicipios.size());
+//					salida.writeObject(arrayMunicipios);
+//				}else if(query.contains("provincias")) {
+//					arrayProvincias = Consultas.consultaProvincias(query, bbdd);
+//
+//					System.out.println("-- Serv -- ConsMun -- arrayProvincias.size(): " + arrayProvincias.size());
+//					salida.writeObject(arrayProvincias);
+//				}
 
-				System.out.println("-- Serv -- ConsMun -- Esperando a recibir query..."); 
-				query = (String) entrada.readObject();
-				System.out.println("-- Serv -- ConsMun -- [Query recibida: " + query + "]");
-
-				if(query.contains("municipios")) {
-					arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
-
-					System.out.println("-- Serv -- ConsMun -- arrayProvincias.size(): " + arrayMunicipios.size());
-					salida.writeObject(arrayMunicipios);
-				}else if(query.contains("provincias")) {
-					arrayProvincias = Consultas.consultaProvincias(query, bbdd);
-
-					System.out.println("-- Serv -- ConsMun -- arrayProvincias.size(): " + arrayProvincias.size());
-					salida.writeObject(arrayProvincias);
-				}
-
-				String continuar = (String) entrada.readObject();
-
-			this.testServidorBueno = false;
+			this.testServidorBueno = true;
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		} catch (Exception e) {
