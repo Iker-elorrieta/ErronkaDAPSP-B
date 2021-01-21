@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 20 ene. 2021 8:58:11 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 ene. 2021 14:03:01 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="euskomet" dynamic-insert="false" dynamic-update="false" mutable="true" name="Modelo.Hibernate.Object.Estaciones" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="estaciones">
         <id name="codEst" type="int">
@@ -10,10 +10,10 @@
             <column name="cod_mun" not-null="true"/>
         </many-to-one>
         <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
-            <column length="20" name="nombre" not-null="true"/>
+            <column length="50" name="nombre" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="pueblo" optimistic-lock="true" type="string" unique="false">
-            <column length="20" name="pueblo" not-null="true"/>
+            <column length="50" name="pueblo" not-null="true"/>
         </property>
         <property generated="never" lazy="false" name="latitud" optimistic-lock="true" type="double" unique="false">
             <column name="latitud" not-null="true" precision="22" scale="0"/>

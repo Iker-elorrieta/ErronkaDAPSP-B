@@ -5,10 +5,12 @@ import java.util.LinkedHashMap;
 
 import Modelo.DatuKudeaketa.JSONIrakurri;
 import Modelo.DatuKudeaketa.XMLIdatzi;
-import Modelo.Objetuak.EspaciosNaturales;
-import Modelo.Objetuak.Estazioa;
-import Modelo.Objetuak.MunEspNa;
-import Modelo.Objetuak.Municipio;
+import Modelo.Hibernate.Insert;
+import Modelo.Hibernate.Object.EspaciosNaturales;
+import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.MunEspNa;
+import Modelo.Hibernate.Object.Municipios;
+import Modelo.Hibernate.ObjectExtras.ToString;
 
 public class Launcher {
 
@@ -24,38 +26,33 @@ public class Launcher {
 		
 		JSONIrakurri jsonirak = new JSONIrakurri();
 		
-		LinkedHashMap<String, Municipio> lhmMunicipio = jsonirak.herriaIrakurri();
+		LinkedHashMap<Integer, Municipios> lhmMunicipio = jsonirak.herriaIrakurri();
 		
-		for (Municipio e : lhmMunicipio.values()) {
-			System.out.println(e.toString());
+		for (Municipios e : lhmMunicipio.values()) {
+			System.out.println(ToString.toString(e));
 		}
 		
 		xmlidatzi.XMLMunicipio(lhmMunicipio);
 		
-		LinkedHashMap<String, Estazioa> lhmEstazioak = jsonirak.estazioakIrakurri(lhmMunicipio);
-		for (Estazioa e : lhmEstazioak.values()) {
-			if (e.getCod_mun() == 0) {
-				System.err.println(e.toString());
-			}
-			else {
-				System.out.println(e.toString());
-			}
+		LinkedHashMap<Integer, Estaciones> lhmEstazioak = jsonirak.estazioakIrakurri(lhmMunicipio);
+		for (Estaciones e : lhmEstazioak.values()) {
+			System.out.println(ToString.toString(e));
 		}
 		
 		xmlidatzi.XMLEstazioak(lhmEstazioak);
 		
 		Object[] o = jsonirak.espazioNaturalakIrakurri(lhmMunicipio);
-		LinkedHashMap<String, EspaciosNaturales> lhmEspNat = (LinkedHashMap<String, EspaciosNaturales>) o[0];
+		LinkedHashMap<Integer, EspaciosNaturales> lhmEspNat = (LinkedHashMap<Integer, EspaciosNaturales>) o[0];
 		ArrayList<MunEspNa> alMunEsp = (ArrayList<MunEspNa>) o[1];
 		
 		for (EspaciosNaturales e : lhmEspNat.values()) {
-			System.out.println(e.toString());
+			System.out.println(ToString.toString(e));
 		}
 		
 		xmlidatzi.XMLEspazioNaturalak(lhmEspNat);
 		
 		for (MunEspNa e : alMunEsp) {
-			System.out.println(e.toString());
+			System.out.println(ToString.toString(e));
 		}
 		
 		xmlidatzi.XMLMunEspNa(alMunEsp);

@@ -1,4 +1,4 @@
-package Modelo.Hibernate.Object;
+package Modelo.Hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;

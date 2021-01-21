@@ -18,14 +18,15 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import Modelo.Objetuak.EspaciosNaturales;
-import Modelo.Objetuak.Estazioa;
-import Modelo.Objetuak.MunEspNa;
-import Modelo.Objetuak.Municipio;
+import Modelo.Hibernate.Object.EspaciosNaturales;
+import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.MunEspNa;
+import Modelo.Hibernate.Object.Municipios;
+import Modelo.Hibernate.ObjectExtras.GetElement;
 
 public class XMLIdatzi {
 
-	public void XMLEstazioak(LinkedHashMap<String, Estazioa> lhm) {
+	public void XMLEstazioak(LinkedHashMap<Integer, Estaciones> lhm) {
 		String name = "Estazioak.xml";
 		String folder = "CopiasXML/";
 		File dir = new File(folder);
@@ -49,14 +50,14 @@ public class XMLIdatzi {
 		}
 		Document doc = docBuilder.newDocument();
 		Element emailelement = doc.createElement("estazioak");
-		for (Estazioa o : lhm.values()) {
-			emailelement.appendChild(o.getElement(doc));
+		for (Estaciones o : lhm.values()) {
+			emailelement.appendChild(GetElement.getElement(doc, o));
 		}
 		doc.appendChild(emailelement);
 		formatXml(doc, "CopiasXML/Estazioak.xml");
 	}
 	
-	public void XMLEspazioNaturalak(LinkedHashMap<String, EspaciosNaturales> lhm) {
+	public void XMLEspazioNaturalak(LinkedHashMap<Integer, EspaciosNaturales> lhm) {
 		String name = "EspaciosNaturales.xml";
 		String folder = "CopiasXML/";
 		File dir = new File(folder);
@@ -81,13 +82,13 @@ public class XMLIdatzi {
 		Document doc = docBuilder.newDocument();
 		Element emailelement = doc.createElement("espacios_naturales");
 		for (EspaciosNaturales o : lhm.values()) {
-			emailelement.appendChild(o.getElement(doc));
+			emailelement.appendChild(GetElement.getElement(doc, o));
 		}
 		doc.appendChild(emailelement);
 		formatXml(doc, "CopiasXML/EspaciosNaturales.xml");
 	}
 
-	public void XMLMunicipio(LinkedHashMap<String, Municipio> lhm) {
+	public void XMLMunicipio(LinkedHashMap<Integer, Municipios> lhm) {
 		String name = "Municipios.xml";
 		String folder = "CopiasXML/";
 		File dir = new File(folder);
@@ -111,8 +112,8 @@ public class XMLIdatzi {
 		}
 		Document doc = docBuilder.newDocument();
 		Element emailelement = doc.createElement("municipios");
-		for (Municipio o : lhm.values()) {
-			emailelement.appendChild(o.getElement(doc));
+		for (Municipios o : lhm.values()) {
+			emailelement.appendChild(GetElement.getElement(doc, o));
 		}
 		doc.appendChild(emailelement);
 		formatXml(doc, "CopiasXML/Municipios.xml");
@@ -143,7 +144,7 @@ public class XMLIdatzi {
 		Document doc = docBuilder.newDocument();
 		Element emailelement = doc.createElement("erlazioak");
 		for (MunEspNa o : al) {
-			emailelement.appendChild(o.getElement(doc));
+			emailelement.appendChild(GetElement.getElement(doc, o));
 		}
 		doc.appendChild(emailelement);
 		formatXml(doc, "CopiasXML/MunEspNa.xml");
