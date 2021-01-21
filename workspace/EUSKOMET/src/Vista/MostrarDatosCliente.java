@@ -38,7 +38,7 @@ public class MostrarDatosCliente extends JFrame{
 	private JPanel contentPane;
 	private final static int PUERTO = 5000;
 	//	private final String HOST = "127.0.0.1";
-	private final static String HOST = "localhost";
+	private final static String HOST = "192.168.106.12";
 
 	Cliente cliente  = null;
 	Socket socket = null;

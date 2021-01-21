@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import Modelo.BBDD.Consultas;
 import Modelo.Objetuak.Municipio;
 import Modelo.Objetuak.Provincias;
+import Vista.Launcher;
 
 public class Servidor extends Thread{
 	private final static int PUERTO = 5000;
@@ -29,6 +30,7 @@ public class Servidor extends Thread{
 	private boolean continuar = false;
 
 	public void run() {
+		Launcher.ejecutar();
 		try {
 			System.out.println("-- Serv -- Servidor iniciado");
 			servidor = new ServerSocket(PUERTO);
