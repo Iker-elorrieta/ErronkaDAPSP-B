@@ -23,9 +23,8 @@ public class Select {
 
 		LinkedHashMap<Integer, Estaciones> lhm = new LinkedHashMap<Integer, Estaciones>();
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		
 		Query q = session.createQuery("from Estaciones");
@@ -45,9 +44,8 @@ public class Select {
 
 		LinkedHashMap<Integer, EspaciosNaturales> lhm = new LinkedHashMap<Integer, EspaciosNaturales>();
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		
 		Query q = session.createQuery("from EspaciosNaturales");
@@ -67,9 +65,8 @@ public class Select {
 
 		LinkedHashMap<Integer, Municipios> lhm = new LinkedHashMap<Integer, Municipios>();
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		
 		Query q = session.createQuery("from Municipios");
@@ -89,9 +86,8 @@ public class Select {
 
 		LinkedHashMap<String, MunEspNa> lhm = new LinkedHashMap<String, MunEspNa>();
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		//Transaction tx = session.beginTransaction();
 		
@@ -112,9 +108,8 @@ public class Select {
 
 		LinkedHashMap<Integer, Provincias> lhm = new LinkedHashMap<Integer, Provincias>();
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		//Transaction tx = session.beginTransaction();
 		
@@ -134,9 +129,8 @@ public class Select {
 		
 		int codigo = 0;
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		
 			Query q2 = session.createQuery("SELECT MAX(codEspNatural) FROM EspaciosNaturales");
@@ -153,9 +147,8 @@ public class Select {
 		
 		int codigo = 0;
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 
 			Query q2 = session.createQuery("SELECT MAX(codEst) FROM Estaciones");
@@ -172,9 +165,8 @@ public class Select {
 		
 		int codigo = 0;
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 
 			Query q2 = session.createQuery("SELECT MAX(codMun) FROM Municipios");
@@ -193,9 +185,8 @@ public class Select {
 		
 		int codigo = 0;
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 
 		Query q1 = session.createQuery("SELECT codEspNatural FROM EspaciosNaturales WHERE nombre = '" + nom + "'");
@@ -212,9 +203,8 @@ public class Select {
 		
 		int codigo = 0;
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 
 		Query q1 = session.createQuery("SELECT codEst FROM Estaciones WHERE nombre = '" + nom + "'");
@@ -231,9 +221,8 @@ public class Select {
 		
 		int codigo = 0;
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 
 		Query q1 = session.createQuery("SELECT codMun FROM Municipios WHERE nombre = '" + nom + "'");
@@ -250,9 +239,8 @@ public class Select {
 		
 		boolean existe;
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
-		LogManager.getLogManager().getLogger("").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 
 		Query q1 = session.createQuery("SELECT codRelacion FROM MunEspNa WHERE codRelacion = '" + nom + "'");

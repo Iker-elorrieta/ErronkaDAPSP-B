@@ -1,5 +1,7 @@
 package Modelo.Hibernate;
 
+import java.util.logging.Level;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

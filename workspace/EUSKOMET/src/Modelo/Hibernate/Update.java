@@ -16,9 +16,9 @@ import Modelo.Hibernate.Object.Municipios;
 public class Update {
 	
 	public static void actualizar(Estaciones o) {
-		
+
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		SessionFactory sesioa = HibernateUtil.getSessionFactory();
-		Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -35,8 +35,8 @@ public class Update {
 	
 	public static void actualizar(Municipios o) {
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -53,8 +53,8 @@ public class Update {
 	
 	public static void actualizar(EspaciosNaturales o) {
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -71,8 +71,8 @@ public class Update {
 	
 	public static void actualizar(MunEspNa o) {
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		

@@ -38,8 +38,8 @@ public class Insert {
 	
 	public static void insertar(Municipios o) {
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -58,8 +58,8 @@ public class Insert {
 	
 	public static void insertar(EspaciosNaturales o) {
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -77,8 +77,8 @@ public class Insert {
 	
 	public static void insertar(MunEspNa o) {
 		
-		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		
