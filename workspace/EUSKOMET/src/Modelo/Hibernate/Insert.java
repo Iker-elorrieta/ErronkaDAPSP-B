@@ -15,12 +15,21 @@ import Modelo.Hibernate.Object.Municipios;
 
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException; 
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane; 
+
 public class Insert {
 	
 	public static void insertar(Estaciones o) {
 		
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		SessionFactory sesioa = HibernateUtil.getSessionFactory();
-		Logger.getLogger("org.hibernate").setLevel(Level.OFF);
 		Session session = sesioa.openSession();
 		Transaction tx = session.beginTransaction();
 		
@@ -93,6 +102,19 @@ public class Insert {
 		if (session.isOpen()) session.close();
 		
 	}
+	
+
+
+	 
+	    
+	    
+	 
+	    
+	  
+	
+	      
+
+	
 
 }
 

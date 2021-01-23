@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -118,69 +119,69 @@ public class JSONIrakurri {
 			while(true) {
 				jr.beginArray();
 				todo:
-				while (jr.hasNext()) {
-					jr.beginObject();
-					est = new Estaciones();
-					try {
 					while (jr.hasNext()) {
-						switch (jr.nextName()) {
-						case "Name":
-							est.setNombre(jr.nextString());
-							break;
-						case "Town":
-							est.setPueblo(jr.nextString());
-							if (est.getPueblo().equals("Amorebieta-Etxano"))
-								est.setPueblo("Zornotza");
-							break;
-						case "Latitude":
-							est.setLatitud(Double.parseDouble(jr.nextString().replace(",", ".")));
-							break;
-						case "Longitude":
-							est.setLongitud(Double.parseDouble(jr.nextString().replace(",", ".")));
-							break;
-						default:
-							jr.nextString();
-						};
-					}
-					}
-					catch (Exception e) {
-						if (!e.getMessage().contains("Unterminated object at line")) {
-							e.printStackTrace();
+						jr.beginObject();
+						est = new Estaciones();
+						try {
+							while (jr.hasNext()) {
+								switch (jr.nextName()) {
+								case "Name":
+									est.setNombre(jr.nextString());
+									break;
+								case "Town":
+									est.setPueblo(jr.nextString());
+//									if (est.getPueblo().equals("Amorebieta-Etxano"))
+//										est.setPueblo("Zornotza");
+									break;
+								case "Latitude":
+									est.setLatitud(Double.parseDouble(jr.nextString().replace(",", ".")));
+									break;
+								case "Longitude":
+									est.setLongitud(Double.parseDouble(jr.nextString().replace(",", ".")));
+									break;
+								default:
+									jr.nextString();
+								};
+							}
+						}
+						catch (Exception e) {
+							if (!e.getMessage().contains("Unterminated object at line")) {
+								e.printStackTrace();
+							}
+							else {
+								jr.skipValue();
+								jr.skipValue();
+								jr.endObject();
+								continue todo;
+							}
+						}
+						if (est.getNombre() != null) {
+							String s = est.getNombre();
+							s = s.replace(" ", "_");
+							s = s.replace("(", "");
+							s = s.replace(")", "");
+							s = s.replace("Ñ", "N");
+							s = s.replace("ñ", "n");
+							s = s.replace(".", "");
+							s = s.replace("ª", "");
+							est.setIcaEstacion(kalitateaIrakurri("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/datos_indice/"+ s +".json"  /*lhmEstekak.get(est.getIzena())*/));
+						}
+						int cod;
+						cod = Select.existeEstacion(est.getNombre());
+						if (cod == -1) {
+							cod = Select.obtCodEstacion();
+							est.setCodEst(cod);
+							est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
+							Insert.insertar(est);
 						}
 						else {
-							jr.skipValue();
-							jr.skipValue();
-							jr.endObject();
-							continue todo;
+							est.setCodEst(cod);
+							est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
+							Update.actualizar(est);
 						}
+						lhmEstazioa.put(est.getCodEst(), est);
+						jr.endObject();
 					}
-					if (est.getNombre() != null) {
-					String s = est.getNombre();
-					s = s.replace(" ", "_");
-					s = s.replace("(", "");
-					s = s.replace(")", "");
-					s = s.replace("Ñ", "N");
-					s = s.replace("ñ", "n");
-					s = s.replace(".", "");
-					s = s.replace("ª", "");
-					est.setIcaEstacion(kalitateaIrakurri("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/datos_indice/"+ s +".json"  /*lhmEstekak.get(est.getIzena())*/));
-					}
-					int cod;
-					cod = Select.existeEstacion(est.getNombre());
-					if (cod == -1) {
-						cod = Select.obtCodEstacion();
-						est.setCodEst(cod);
-						est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
-						Insert.insertar(est);
-					}
-					else {
-						est.setCodEst(cod);
-						est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
-						Update.actualizar(est);
-					}
-					lhmEstazioa.put(est.getCodEst(), est);
-					jr.endObject();
-				}
 				jr.endArray();
 			}
 		} catch (FileNotFoundException e) {
@@ -215,6 +216,7 @@ public class JSONIrakurri {
 		EspaciosNaturales est;
 		JsonReader jr;
 		String mun = null;
+		String muncod = null;
 		try {
 			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
 			jr.setLenient(true);
@@ -242,6 +244,9 @@ public class JSONIrakurri {
 						case "municipality":
 							mun = jr.nextString();
 							break;
+						case "municipalitycode":
+							muncod = jr.nextString();
+							break;
 						default:
 							jr.nextString();
 						};
@@ -256,6 +261,11 @@ public class JSONIrakurri {
 					else {
 						est.setCodEspNatural(cod);
 						Update.actualizar(est);
+					}
+					if (mun.contains("Trapagaran")) {
+						mun = "Valle_de_Trápaga-Trapagaran";
+					} else if (mun.contains("Donostia")) {
+						mun = "Donostia/San_Sebastián";
 					}
 					erlazioMunEsp(lhmMunicipio, mun, est, alMunEsp);
 					lhmEstazioa.put(est.getCodEspNatural(), est);
@@ -280,12 +290,18 @@ public class JSONIrakurri {
 
 	private void erlazioMunEsp(LinkedHashMap<Integer, Municipios> lhmMunicipio, String mun, EspaciosNaturales esp, ArrayList<MunEspNa> alMunEsp) {
 		for (Municipios m : lhmMunicipio.values()) {
-			if (mun.contains(m.getNombre()) || m.getNombre().contains(mun)) {
-				MunEspNa e = new MunEspNa(esp.getCodEspNatural() + "-" + m.getCodMun(), esp, m);
-				alMunEsp.add(e);
-				if (!Select.existeMunEspNa(e.getCodRelacion()))
-					Insert.insertar(e);
+			boolean esta = false;
+			for (String s : mun.split(" ")) {
+				if (s.equals(m.getNombre())) {
+					esta = true;
+				}
 			}
+			if (esta) {
+			MunEspNa e = new MunEspNa(m.getCodMun() + "-" + esp.getCodEspNatural(), esp, m);
+			alMunEsp.add(e);
+			if (!Select.existeMunEspNa(e.getCodRelacion()))
+					Insert.insertar(e);
+		}
 		}
 	}
 
@@ -304,8 +320,16 @@ public class JSONIrakurri {
 					est = new Municipios();
 					while (jr.hasNext()) {
 						switch (jr.nextName()) {
-						case "documentName":
-							est.setNombre(jr.nextString());
+						case "municipality":
+							String nombre = jr.nextString();
+							if (nombre.contains("Trapagaran")) {
+								nombre = "Valle_de_Trápaga-Trapagaran";
+							} else if (nombre.contains("Donostia")) {
+								nombre = "Donostia/San_Sebastián";
+							} else if (nombre.indexOf(" ") != -1) {
+								nombre = nombre.substring(0, nombre.indexOf(" "));
+							}
+							est.setNombre(nombre);
 							break;
 						case "territorycode":
 							est.setProvincias(Select.obtProvincias().get(Integer.parseInt(jr.nextString().split(" ")[0])));
@@ -336,7 +360,7 @@ public class JSONIrakurri {
 			e.printStackTrace();
 		} catch (Exception e) {
 			if (!e.getMessage().contains("Expected BEGIN_ARRAY but was END_DOCUMENT") && !e.getMessage().contains("Expected BEGIN_OBJECT but was END_DOCUMENT")) {
-			e.printStackTrace();
+				e.printStackTrace();
 			}
 			else {
 				return lhmMun;
