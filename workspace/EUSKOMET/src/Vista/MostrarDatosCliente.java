@@ -2,16 +2,10 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,17 +14,18 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Modelo.DatuKudeaketa.Cliente;
-import Modelo.Objetuak.Municipio;
-import Modelo.Objetuak.Provincias;
+import Modelo.Hibernate.Object.Municipios;
+import Modelo.Hibernate.Object.Provincias;
+import Modelo.Hibernate.ObjectExtras.ToString;
 
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class MostrarDatosCliente extends JFrame{
 //public class MostrarDatosCliente extends JFrame implements ActionListener {
 
@@ -47,16 +42,20 @@ public class MostrarDatosCliente extends JFrame{
 
 	private static JTextArea txtDatos;
 	private JScrollPane scrollPane;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cbProvincia;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cbMunicipio;
 	private JButton btnBuscar;
 
 	Scanner sc = new Scanner(System.in); // abrir escaner
 
 	ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
-	ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
+	ArrayList<Municipios> arrayMunicipios = new ArrayList<Municipios>();
 
+	@SuppressWarnings("unused")
 	private int cod_prov = 0;
+	@SuppressWarnings("unused")
 	private String datosStr = "";
 
 	Socket clienteSckt = null;
@@ -86,6 +85,7 @@ public class MostrarDatosCliente extends JFrame{
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("rawtypes")
 	public MostrarDatosCliente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 719, 400);
@@ -166,6 +166,7 @@ public class MostrarDatosCliente extends JFrame{
 		System.out.println("-- Cli -- Fin cliente");
 	}
 
+	@SuppressWarnings("unchecked")
 	public void ejecutarClienteProvincias(String bbdd) {
 		try {
 			//			clienteSckt = new Socket(HOST, PUERTO);
@@ -177,7 +178,7 @@ public class MostrarDatosCliente extends JFrame{
 			salida.writeObject(bbdd);
 			System.out.println("-- Cli -- Prov -- Nombre BBDD enviado [" + bbdd + "]");
 
-			String sql = "SELECT * FROM provincias";
+			String sql = "FROM Provincias";
 			System.out.println("-- Cli -- Prov -- Enviando query...");
 			salida.writeObject(sql);
 			System.out.println("-- Cli -- Prov -- Query enviada [" + sql + "]");
@@ -189,7 +190,7 @@ public class MostrarDatosCliente extends JFrame{
 			cbProvincia.setSelectedItem(0);
 			String resultado = "";
 			for (Provincias prov : arrayProvincias) {	
-				resultado += prov.toString() + "\n";
+				resultado += ToString.toString(prov) + "\n";
 //				cbProvincia.addItem(prov.getNombre());
 			}
 
@@ -204,8 +205,9 @@ public class MostrarDatosCliente extends JFrame{
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
-	}//
+	}
 
+	@SuppressWarnings("unchecked")
 	public void ejecutarClienteMunicipios(String bbdd) {
 		try {
 			System.out.println("-- Cli -- Mun -- Cliente iniciado");
@@ -216,17 +218,17 @@ public class MostrarDatosCliente extends JFrame{
 			salida.writeObject(bbdd);
 			System.out.println("-- Cli -- Mun -- Nombre BBDD enviado [" + bbdd + "]");
 
-			String sql = "SELECT * FROM municipios";
+			String sql = "FROM Municipios";
 			System.out.println("-- Cli -- Mun -- Enviando query...");
 			salida.writeObject(sql);
 			System.out.println("-- Cli -- Mun -- Query enviada [" + sql + "]");
 
-			arrayMunicipios = (ArrayList<Municipio>) entrada.readObject();
+			arrayMunicipios = (ArrayList<Municipios>) entrada.readObject();
 			System.out.println("-- Cli -- Prov -- arrayMunicipios.size(): " + arrayMunicipios.size());
 
 			String resultado = "";
-			for (Municipio mun : arrayMunicipios) {	
-				resultado += mun.toString() + "\n";
+			for (Municipios mun : arrayMunicipios) {	
+				resultado += ToString.toString(mun, false) + "\n";
 			}
 
 			System.out.println("-- Cli -- Mun -- Datos recibidos ---------------\n" + resultado + "-----------------------------------------------");
@@ -241,7 +243,7 @@ public class MostrarDatosCliente extends JFrame{
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
 		}
-	}//
+	}
 
 	public static void mostrarTxt (String texto) {
 		txtDatos.setText(texto);
@@ -251,6 +253,7 @@ public class MostrarDatosCliente extends JFrame{
 		return txtDatos;
 	}
 
+	@SuppressWarnings("static-access")
 	public void setTxtDatos(JTextArea txtDatos) {
 		this.txtDatos = txtDatos;
 	}

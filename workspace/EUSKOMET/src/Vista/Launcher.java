@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 
 import Modelo.DatuKudeaketa.JSONIrakurri;
 import Modelo.DatuKudeaketa.XMLIdatzi;
-import Modelo.Hibernate.Insert;
 import Modelo.Hibernate.Object.EspaciosNaturales;
 import Modelo.Hibernate.Object.Estaciones;
 import Modelo.Hibernate.Object.MunEspNa;
@@ -20,6 +19,7 @@ public class Launcher {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static int ejecutar() {
 		int estado = 1;
 		XMLIdatzi xmlidatzi = new XMLIdatzi();
@@ -29,7 +29,7 @@ public class Launcher {
 		LinkedHashMap<Integer, Municipios> lhmMunicipio = jsonirak.herriaIrakurri();
 		
 		for (Municipios e : lhmMunicipio.values()) {
-			System.out.println(ToString.toString(e));
+			System.out.println(ToString.toString(e, true));
 		}
 		
 		xmlidatzi.XMLMunicipio(lhmMunicipio);
@@ -46,7 +46,7 @@ public class Launcher {
 		ArrayList<MunEspNa> alMunEsp = (ArrayList<MunEspNa>) o[1];
 		
 		for (EspaciosNaturales e : lhmEspNat.values()) {
-			System.out.println(ToString.toString(e));
+			System.out.println(ToString.toString(e, true));
 		}
 		
 		xmlidatzi.XMLEspazioNaturalak(lhmEspNat);

@@ -1,14 +1,13 @@
 package Modelo.Hibernate;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import Modelo.Hibernate.Object.EspaciosNaturales;
 import Modelo.Hibernate.Object.Estaciones;
@@ -17,6 +16,23 @@ import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
 
 public class Select {
+	
+	@SuppressWarnings("unchecked")
+	public static ArrayList<Object> selectQuery(String query) {
+		
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
+		Session session = sesioa.openSession();
+		
+		Query q = session.createQuery(query);
+		
+		List<Object> list = q.list();
+		
+		session.close();
+		
+		return new ArrayList<Object>(list);
+		
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static LinkedHashMap<Integer, Estaciones> obtEstaciones() {

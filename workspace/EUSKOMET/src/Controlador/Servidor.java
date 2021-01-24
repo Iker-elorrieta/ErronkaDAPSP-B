@@ -5,13 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import Modelo.BBDD.Consultas;
-import Modelo.Objetuak.Municipio;
-import Modelo.Objetuak.Provincias;
+import Modelo.Hibernate.Select;
 import Vista.Launcher;
 
 public class Servidor extends Thread{
@@ -23,8 +19,8 @@ public class Servidor extends Thread{
 	private static ObjectInputStream entrada = null;
 	private static ObjectOutputStream salida = null;
 
-	ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
-	ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
+//	ArrayList<Municipio> arrayMunicipios = new ArrayList<Municipio>();
+//	ArrayList<Provincias> arrayProvincias = new ArrayList<Provincias>();
 
 	private boolean testServidorBueno = false;
 	private boolean continuar = false;
@@ -51,17 +47,15 @@ public class Servidor extends Thread{
 				String query = (String) entrada.readObject();
 				System.out.println("-- Serv --  ConsProv -- [Query recibida: " + query + "]");
 
-				if(query.contains("municipios")) {
-					arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
+//				arrayMunicipios = Consultas.consultaMunicipios(query, bbdd);
+					
+				ArrayList<Object> array = Select.selectQuery(query);
 
-					System.out.println("-- Serv --  ConsProv -- arrayProvincias.size(): " + arrayMunicipios.size());
-					salida.writeObject(arrayMunicipios);
-				}else if(query.contains("provincias")) {
-					arrayProvincias = Consultas.consultaProvincias(query, bbdd);
+//				System.out.println("-- Serv --  ConsProv -- arrayProvincias.size(): " + arrayMunicipios.size());
+				System.out.println("-- Serv --  ConsProv -- arrayProvincias.size(): " + array.size());
+//				salida.writeObject(arrayMunicipios);
 
-					System.out.println("-- Serv --  ConsProv -- arrayProvincias.size(): " + arrayProvincias.size());
-					salida.writeObject(arrayProvincias);
-				}
+				salida.writeObject(array);
 				continuar = (boolean) entrada.readObject();
 			}while (continuar);
 
