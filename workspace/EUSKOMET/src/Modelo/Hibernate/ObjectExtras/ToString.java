@@ -11,6 +11,7 @@ public class ToString {
 		return "EspaciosNaturales [" + 
 				"codEspNatural=" + espnat.getCodEspNatural() + 
 				", nombre=" + espnat.getNombre() + 
+				", descripcion=" + espnat.getDescripcion() +
 				", tipo=" + espnat.getTipo() + 
 				", latitud=" + espnat.getLatitud() + 
 				", longitud=" + espnat.getLongitud() + 
@@ -42,6 +43,7 @@ public class ToString {
 				"codMun=" + mun.getCodMun() + 
 				", provincias=" + mun.getProvincias().getCodProv() + 
 				", nombre=" + mun.getNombre() + 
+				", descripcion=" + mun.getDescripcion() +
 				"]";
 	}
 	

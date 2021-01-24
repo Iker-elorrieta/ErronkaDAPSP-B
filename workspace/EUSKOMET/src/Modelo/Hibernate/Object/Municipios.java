@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 20 ene. 2021 14:03:01 by Hibernate Tools 5.4.21.Final
+// Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,6 +12,7 @@ public class Municipios implements java.io.Serializable {
 	private int codMun;
 	private Provincias provincias;
 	private String nombre;
+	private String descripcion;
 	private Set munEspNas = new HashSet(0);
 	private Set estacioneses = new HashSet(0);
 
@@ -24,10 +25,12 @@ public class Municipios implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	public Municipios(int codMun, Provincias provincias, String nombre, Set munEspNas, Set estacioneses) {
+	public Municipios(int codMun, Provincias provincias, String nombre, String descripcion, Set munEspNas,
+			Set estacioneses) {
 		this.codMun = codMun;
 		this.provincias = provincias;
 		this.nombre = nombre;
+		this.descripcion = descripcion;
 		this.munEspNas = munEspNas;
 		this.estacioneses = estacioneses;
 	}
@@ -54,6 +57,14 @@ public class Municipios implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return this.descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Set getMunEspNas() {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 20 ene. 2021 14:03:01 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="euskomet" dynamic-insert="false" dynamic-update="false" mutable="true" name="Modelo.Hibernate.Object.EspaciosNaturales" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="espacios_naturales">
         <id name="codEspNatural" type="int">
@@ -8,6 +8,9 @@
         </id>
         <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
             <column length="50" name="nombre" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="descripcion" optimistic-lock="true" type="string" unique="false">
+            <column length="5000" name="descripcion"/>
         </property>
         <property generated="never" lazy="false" name="tipo" optimistic-lock="true" type="string" unique="false">
             <column length="20" name="tipo" not-null="true"/>

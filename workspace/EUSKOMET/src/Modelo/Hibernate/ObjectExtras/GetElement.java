@@ -19,6 +19,9 @@ public class GetElement {
 		Element nombre = doc.createElement("nombre");
 		nombre.setTextContent(espnat.getNombre());
 		espazionat.appendChild(nombre);
+		Element descripcion = doc.createElement("descripcion");
+		descripcion.setTextContent(espnat.getDescripcion());
+		espazionat.appendChild(descripcion);
 		Element tipo = doc.createElement("tipo");
 		tipo.setTextContent(espnat.getTipo());
 		espazionat.appendChild(tipo);
@@ -53,6 +56,9 @@ public class GetElement {
 		Element nombre = doc.createElement("nombre");
 		nombre.setTextContent(mun.getNombre());
 		municipio.appendChild(nombre);
+		Element descripcion = doc.createElement("descripcion");
+		descripcion.setTextContent(mun.getDescripcion());
+		municipio.appendChild(descripcion);
 		Element cod_prov = doc.createElement("codProv");
 		cod_prov.setTextContent(String.valueOf(mun.getProvincias().getCodProv()));
 		municipio.appendChild(cod_prov);

@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 20 ene. 2021 14:03:01 by Hibernate Tools 5.4.21.Final
+// Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,7 @@ public class EspaciosNaturales implements java.io.Serializable {
 
 	private int codEspNatural;
 	private String nombre;
+	private String descripcion;
 	private String tipo;
 	private double latitud;
 	private double longitud;
@@ -29,10 +30,11 @@ public class EspaciosNaturales implements java.io.Serializable {
 		this.longitud = longitud;
 	}
 
-	public EspaciosNaturales(int codEspNatural, String nombre, String tipo, double latitud, double longitud,
-			Set favoritosEsps, Set fotosEspNaturaleses, Set munEspNas) {
+	public EspaciosNaturales(int codEspNatural, String nombre, String descripcion, String tipo, double latitud,
+			double longitud, Set favoritosEsps, Set fotosEspNaturaleses, Set munEspNas) {
 		this.codEspNatural = codEspNatural;
 		this.nombre = nombre;
+		this.descripcion = descripcion;
 		this.tipo = tipo;
 		this.latitud = latitud;
 		this.longitud = longitud;
@@ -55,6 +57,14 @@ public class EspaciosNaturales implements java.io.Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return this.descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getTipo() {

@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import org.jsoup.Jsoup;
+
 import com.google.gson.stream.JsonReader;
 
 import Modelo.Hibernate.Insert;
@@ -224,11 +226,21 @@ public class JSONIrakurri {
 				jr.beginArray();
 				while (jr.hasNext()) {
 					jr.beginObject();
+					boolean largo = false;
 					est = new EspaciosNaturales();
 					while (jr.hasNext()) {
 						switch (jr.nextName()) {
 						case "documentName":
 							est.setNombre(jr.nextString());
+							break;
+						case "turismDescription":
+							if (!largo) {
+								jr.nextString();
+								largo = true;
+							}
+							else {
+								est.setDescripcion(htmlGarbitu(jr.nextString()));
+							}
 							break;
 						case "natureType":
 							est.setTipo(jr.nextString());
@@ -331,6 +343,9 @@ public class JSONIrakurri {
 							}
 							est.setNombre(nombre);
 							break;
+						case "turismDescription":
+							est.setDescripcion(htmlGarbitu(jr.nextString()));
+							break;
 						case "territorycode":
 							est.setProvincias(Select.obtProvincias().get(Integer.parseInt(jr.nextString().split(" ")[0])));
 							break;
@@ -411,6 +426,10 @@ public class JSONIrakurri {
 			}
 		}
 		return kalit;
+	}
+	
+	public static String htmlGarbitu(String html) { 
+		return Jsoup.parse(html).text(); 
 	}
 
 }

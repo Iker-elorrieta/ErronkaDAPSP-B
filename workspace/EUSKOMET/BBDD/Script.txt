@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `provincias` (
 CREATE TABLE IF NOT EXISTS `municipios` (
   `cod_mun` int(3) NOT NULL,
   `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(5000),
   `cod_prov` int(3) NOT NULL,
   PRIMARY KEY (`cod_mun`),
   KEY `FK_MUN_PROV` (`cod_prov`),
@@ -21,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `municipios` (
 CREATE TABLE IF NOT EXISTS `espacios_naturales` (
   `cod_esp_natural` int(3) NOT NULL,
   `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(5000),
   `tipo` varchar(20) NOT NULL,
   `latitud` double NOT NULL,
   `longitud` double NOT NULL,
