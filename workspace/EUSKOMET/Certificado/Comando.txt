@@ -1,0 +1,4 @@
+keytool -importcert -keystore "C:\Program Files\Java\jdk-14.0.1\lib\security\cacerts" -file "C:\Users\Admin1\Downloads\euskadi.cer"
+
+
+keytool -importcert -keystore "C:\Program Files\Java\jdk-12.0.2\lib\security\cacerts" -file "C:\Users\IN2DAM\Desktop\Certificado\euskadi.cer"

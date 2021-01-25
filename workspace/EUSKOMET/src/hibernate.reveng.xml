@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table catalog="euskomet" name="espacios_naturales">
+		<column name="cod_esp_natural"></column>
+		<column name="latitud"></column>
+		<column name="longitud"></column>
+		<column name="tipo"></column>
+		<column name="nombre"></column>
+	</table>
+	<table catalog="euskomet" name="estaciones">
+		<column name="cod_est"></column>
+		<column name="ICA_estacion"></column>
+		<column name="nombre"></column>
+		<column name="cod_mun"></column>
+		<column name="latitud"></column>
+		<column name="longitud"></column>
+	</table>
+	<table catalog="euskomet" name="favoritos_esp">
+		<column name="cod_relacion"></column>
+		<column name="cod_user"></column>
+		<column name="cod_esp_natural"></column>
+	</table>
+	<table catalog="euskomet" name="favoritos_est">
+		<column name="cod_relacion"></column>
+		<column name="cod_est"></column>
+		<column name="cod_user"></column>
+	</table>
+	<table catalog="euskomet" name="fotos_esp_naturales">
+		<column name="cod_foto"></column>
+		<column name="cod_esp_natural"></column>
+		<column name="archivo"></column>
+	</table>
+	<table catalog="euskomet" name="fotos_estaciones">
+		<column name="cod_foto"></column>
+		<column name="cod_est"></column>
+		<column name="archivo"></column>
+	</table>
+	<table catalog="euskomet" name="mun_esp_na">
+		<column name="cod_relacion"></column>
+		<column name="cod_esp_natural"></column>
+		<column name="cod_mun"></column>
+	</table>
+	<table catalog="euskomet" name="municipios">
+		<column name="cod_mun"></column>
+		<column name="nombre"></column>
+		<column name="cod_prov"></column>
+	</table>
+	<table catalog="euskomet" name="provincias">
+		<column name="cod_prov"></column>
+		<column name="nombre"></column>
+	</table>
+	<table catalog="euskomet" name="usuarios">
+		<column name="cod_user"></column>
+		<column name="nombre"></column>
+		<column name="respuesta"></column>
+		<column name="pregunta"></column>
+		<column name="contra"></column>
+	</table>
+</hibernate-reverse-engineering>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="euskomet" dynamic-insert="false" dynamic-update="false" mutable="true" name="Modelo.Hibernate.Object.FotosEstaciones" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="fotos_estaciones">
+        <id name="codFoto" type="int">
+            <column name="cod_foto"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="Modelo.Hibernate.Object.Estaciones" embed-xml="true" fetch="select" insert="true" name="estaciones" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="cod_est" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="archivo" optimistic-lock="true" type="string" unique="false">
+            <column length="30" name="archivo" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
