@@ -193,10 +193,10 @@ CREATE TABLE `favoritos_esp` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `favoritos_est`
+-- Estructura de tabla para la tabla `favoritos_mun`
 --
 
-CREATE TABLE `favoritos_est` (
+CREATE TABLE `favoritos_mun` (
   `cod_relacion` varchar(30) NOT NULL,
   `cod_est` int(3) NOT NULL,
   `cod_user` int(3) NOT NULL
@@ -649,9 +649,9 @@ ALTER TABLE `favoritos_esp`
   ADD KEY `FK_FAV_USER_ESP` (`cod_user`);
 
 --
--- Indices de la tabla `favoritos_est`
+-- Indices de la tabla `favoritos_mun`
 --
-ALTER TABLE `favoritos_est`
+ALTER TABLE `favoritos_mun`
   ADD PRIMARY KEY (`cod_relacion`),
   ADD KEY `FK_FAV_EST` (`cod_est`),
   ADD KEY `FK_FAV_USER_EST` (`cod_user`);
@@ -725,9 +725,9 @@ ALTER TABLE `favoritos_esp`
   ADD CONSTRAINT `FK_FAV_USER_ESP` FOREIGN KEY (`cod_user`) REFERENCES `usuarios` (`cod_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `favoritos_est`
+-- Filtros para la tabla `favoritos_mun`
 --
-ALTER TABLE `favoritos_est`
+ALTER TABLE `favoritos_mun`
   ADD CONSTRAINT `FK_FAV_EST` FOREIGN KEY (`cod_est`) REFERENCES `estaciones` (`cod_est`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_FAV_USER_EST` FOREIGN KEY (`cod_user`) REFERENCES `usuarios` (`cod_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 

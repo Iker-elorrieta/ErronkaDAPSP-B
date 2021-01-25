@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `favoritos_esp` (
   CONSTRAINT `FK_FAV_USER_ESP` FOREIGN KEY (`cod_user`) REFERENCES `usuarios` (`cod_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `favoritos_est` (
+CREATE TABLE IF NOT EXISTS `favoritos_mun` (
 `cod_relacion` varchar(30) NOT NULL,
   `cod_est` int(3) NOT NULL,
   `cod_user` int(3) NOT NULL,
