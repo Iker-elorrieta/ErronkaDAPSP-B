@@ -44,9 +44,9 @@ CREATE TABLE IF NOT EXISTS `estaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `cod_user` int(3) NOT NULL,
+  `cod_user` int(3) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
-  `contra` varchar(20) NOT NULL,
+  `contra` varchar(200) NOT NULL,
   `pregunta` varchar(20) NOT NULL,
   `respuesta` varchar(30) NOT NULL,
   PRIMARY KEY (`cod_user`)
@@ -75,6 +75,7 @@ PRIMARY KEY (`cod_relacion`),
 CREATE TABLE IF NOT EXISTS `fotos_esp_naturales` (
   `cod_foto` int(3) NOT NULL,
   `cod_esp_natural` int(3) NOT NULL,
+  `tam` int(8) NOT NULL,
   `archivo` varchar(30) NOT NULL,
   PRIMARY KEY (`cod_foto`),
   KEY `FK_FOTO_ESP_NAT` (`cod_esp_natural`),
@@ -84,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `fotos_esp_naturales` (
 CREATE TABLE IF NOT EXISTS `fotos_estaciones` (
   `cod_foto` int(3) NOT NULL,
   `cod_est` int(3) NOT NULL,
+  `tam` int(8) NOT NULL,
   `archivo` varchar(30) NOT NULL,
   PRIMARY KEY (`cod_foto`),
   KEY `FK_FOTO_EST` (`cod_est`),
