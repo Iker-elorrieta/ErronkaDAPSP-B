@@ -10,15 +10,19 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
+
+import org.jsoup.Jsoup;
 
 import com.google.gson.stream.JsonReader;
 
-import Modelo.Objetuak.EspaciosNaturales;
-import Modelo.Objetuak.Estazioa;
-import Modelo.Objetuak.MunEspNa;
-import Modelo.Objetuak.Municipio;
+import Modelo.Hibernate.Insert;
+import Modelo.Hibernate.Select;
+import Modelo.Hibernate.Update;
+import Modelo.Hibernate.Object.EspaciosNaturales;
+import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.MunEspNa;
+import Modelo.Hibernate.Object.Municipios;
 
 public class JSONIrakurri {
 
@@ -103,73 +107,82 @@ public class JSONIrakurri {
 		return file;
 	}
 
-	public LinkedHashMap<String, Estazioa> estazioakIrakurri(LinkedHashMap<String, Municipio> lhmMunicipio) {
+	public LinkedHashMap<Integer, Estaciones> estazioakIrakurri(LinkedHashMap<Integer, Municipios> lhmMunicipio) {
 
 		//LinkedHashMap<String, String> lhmEstekak = estekakIrakurri();
-		LinkedHashMap<String, Estazioa> lhmEstazioa = new LinkedHashMap<String, Estazioa>();
+		LinkedHashMap<Integer, Estaciones> lhmEstazioa = new LinkedHashMap<Integer, Estaciones>();
 		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json");
-		Estazioa est;
+		Estaciones est;
 		JsonReader jr;
-		int cod = 1;
 		try {
 			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
 			jr.setLenient(true);
 			while(true) {
 				jr.beginArray();
 				todo:
-				while (jr.hasNext()) {
-					jr.beginObject();
-					est = new Estazioa();
-					est.setId(cod++);
-					try {
 					while (jr.hasNext()) {
-						switch (jr.nextName()) {
-						case "Name":
-							est.setIzena(jr.nextString());
-							System.out.println(est.getIzena());
-							break;
-						case "Town":
-							est.setHerria(jr.nextString());
-							if (est.getHerria().equals("Amorebieta-Etxano"))
-								est.setHerria("Zornotza");
-							est.setCod_mun(erlazioMunEst(lhmMunicipio, est.getHerria(), est.getId()));
-							break;
-						case "Latitude":
-							est.setLatitudea(jr.nextString());
-							break;
-						case "Longitude":
-							est.setLongitudea(jr.nextString());
-							break;
-						default:
-							jr.nextString();
-						};
-					}
-					}
-					catch (Exception e) {
-						if (!e.getMessage().contains("Unterminated object at line")) {
-							e.printStackTrace();
+						jr.beginObject();
+						est = new Estaciones();
+						try {
+							while (jr.hasNext()) {
+								switch (jr.nextName()) {
+								case "Name":
+									est.setNombre(jr.nextString());
+									break;
+								case "Town":
+									est.setPueblo(jr.nextString());
+//									if (est.getPueblo().equals("Amorebieta-Etxano"))
+//										est.setPueblo("Zornotza");
+									break;
+								case "Latitude":
+									est.setLatitud(Double.parseDouble(jr.nextString().replace(",", ".")));
+									break;
+								case "Longitude":
+									est.setLongitud(Double.parseDouble(jr.nextString().replace(",", ".")));
+									break;
+								default:
+									jr.nextString();
+								};
+							}
+						}
+						catch (Exception e) {
+							if (!e.getMessage().contains("Unterminated object at line")) {
+								e.printStackTrace();
+							}
+							else {
+								jr.skipValue();
+								jr.skipValue();
+								jr.endObject();
+								continue todo;
+							}
+						}
+						if (est.getNombre() != null) {
+							String s = est.getNombre();
+							s = s.replace(" ", "_");
+							s = s.replace("(", "");
+							s = s.replace(")", "");
+							s = s.replace("Ñ", "N");
+							s = s.replace("ñ", "n");
+							s = s.replace(".", "");
+							s = s.replace("ª", "");
+							est.setIcaEstacion(kalitateaIrakurri("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/datos_indice/"+ s +".json"  /*lhmEstekak.get(est.getIzena())*/));
+						}
+						int cod;
+						cod = Select.existeEstacion(est.getNombre());
+						if (cod == -1) {
+							cod = Select.obtCodEstacion();
+							est.setCodEst(cod);
+							est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
+							Insert.insertar(est);
 						}
 						else {
-							jr.skipValue();
-							jr.skipValue();
-							jr.endObject();
-							continue todo;
+							est.setCodEst(cod);
+							est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
+							Update.actualizar(est);
 						}
+						lhmEstazioa.put(est.getCodEst(), est);
+						jr.endObject();
 					}
-					if (est.getIzena() != null) {
-					String s = est.getIzena();
-					s = s.replace(" ", "_");
-							s = s.replace("(", "");
-									s = s.replace(")", "");
-											s = s.replace("Ñ", "N");
-													s = s.replace("ñ", "n");
-															s = s.replace(".", "");
-															s = s.replace("ª", "");
-					est.setICAEstacion(kalitateaIrakurri("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/datos_indice/"+ s +".json"  /*lhmEstekak.get(est.getIzena())*/));
-					}
-					lhmEstazioa.put((est.getIzena() == null ? "fallo-" + new Date().toInstant() : est.getIzena()), est);
-					jr.endObject();
-				}
 				jr.endArray();
 			}
 		} catch (FileNotFoundException e) {
@@ -187,23 +200,25 @@ public class JSONIrakurri {
 		return lhmEstazioa;
 	}
 
-	private int erlazioMunEst(LinkedHashMap<String, Municipio> lhmMunicipio, String mun, int codesp) {
-		for (Municipio m : lhmMunicipio.values()) {
+	private Municipios erlazioMunEst(LinkedHashMap<Integer, Municipios> lhmMunicipio, String mun, int codesp) {
+		for (Municipios m : lhmMunicipio.values()) {
 			if (mun.contains(m.getNombre()) || m.getNombre().contains(mun)) {
-				return m.getCod_mun();
+				return m;
 			}
 		}
-		return 0;
+		return null;
 	}
 
-	public Object[] espazioNaturalakIrakurri(LinkedHashMap<String, Municipio> lhmMunicipio) {
+	@SuppressWarnings("unused")
+	public Object[] espazioNaturalakIrakurri(LinkedHashMap<Integer, Municipios> lhmMunicipio) {
 
-		LinkedHashMap<String, EspaciosNaturales> lhmEstazioa = new LinkedHashMap<String, EspaciosNaturales>();
+		LinkedHashMap<Integer, EspaciosNaturales> lhmEstazioa = new LinkedHashMap<Integer, EspaciosNaturales>();
 		ArrayList<MunEspNa> alMunEsp = new ArrayList<MunEspNa>();
 		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json");
 		EspaciosNaturales est;
 		JsonReader jr;
-		int cod = 1;
+		String mun = null;
+		String muncod = null;
 		try {
 			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
 			jr.setLenient(true);
@@ -211,33 +226,61 @@ public class JSONIrakurri {
 				jr.beginArray();
 				while (jr.hasNext()) {
 					jr.beginObject();
+					boolean largo = false;
 					est = new EspaciosNaturales();
-					est.setCod_esp_natural(cod++);
 					while (jr.hasNext()) {
 						switch (jr.nextName()) {
 						case "documentName":
 							est.setNombre(jr.nextString());
 							break;
+						case "turismDescription":
+							if (!largo) {
+								jr.nextString();
+								largo = true;
+							}
+							else {
+								est.setDescripcion(htmlGarbitu(jr.nextString()));
+							}
+							break;
 						case "natureType":
 							est.setTipo(jr.nextString());
 							break;
 						case "lonwgs84":
-							String s1 = jr.nextString();
+							String s1 = jr.nextString().replace(",", ".");
 							est.setLongitud((s1.equals("") ? 0 : Double.parseDouble(s1)));
 							break;
 						case "latwgs84":
-							String s2 = jr.nextString();
+							String s2 = jr.nextString().replace(",", ".");
 							est.setLatitud((s2.equals("") ? 0 : Double.parseDouble(s2)));
 							break;
 						case "municipality":
-							String mun = jr.nextString();
-							erlazioMunEsp(lhmMunicipio, mun, est.getCod_esp_natural(), alMunEsp);
+							mun = jr.nextString();
+							break;
+						case "municipalitycode":
+							muncod = jr.nextString();
 							break;
 						default:
 							jr.nextString();
 						};
 					}
-					lhmEstazioa.put(est.getNombre(), est);
+					int cod;
+					cod = Select.existeEspNat(est.getNombre());
+					if (cod == -1) {
+						cod = Select.obtCodEspNat();
+						est.setCodEspNatural(cod);
+						Insert.insertar(est);
+					}
+					else {
+						est.setCodEspNatural(cod);
+						Update.actualizar(est);
+					}
+					if (mun.contains("Trapagaran")) {
+						mun = "Valle_de_Trápaga-Trapagaran";
+					} else if (mun.contains("Donostia")) {
+						mun = "Donostia/San_Sebastián";
+					}
+					erlazioMunEsp(lhmMunicipio, mun, est, alMunEsp);
+					lhmEstazioa.put(est.getCodEspNatural(), est);
 					jr.endObject();
 				}
 				jr.endArray();
@@ -257,19 +300,27 @@ public class JSONIrakurri {
 		return new Object[] {lhmEstazioa, alMunEsp};
 	}
 
-	private void erlazioMunEsp(LinkedHashMap<String, Municipio> lhmMunicipio, String mun, int codesp, ArrayList<MunEspNa> alMunEsp) {
-		for (Municipio m : lhmMunicipio.values()) {
-			if (mun.contains(m.getNombre()) || m.getNombre().contains(mun)) {
-				alMunEsp.add(new MunEspNa(codesp, m.getCod_mun()));
+	private void erlazioMunEsp(LinkedHashMap<Integer, Municipios> lhmMunicipio, String mun, EspaciosNaturales esp, ArrayList<MunEspNa> alMunEsp) {
+		for (Municipios m : lhmMunicipio.values()) {
+			boolean esta = false;
+			for (String s : mun.split(" ")) {
+				if (s.equals(m.getNombre())) {
+					esta = true;
+				}
 			}
+			if (esta) {
+			MunEspNa e = new MunEspNa(m.getCodMun() + "-" + esp.getCodEspNatural(), esp, m);
+			alMunEsp.add(e);
+			if (!Select.existeMunEspNa(e.getCodRelacion()))
+					Insert.insertar(e);
+		}
 		}
 	}
 
-	public LinkedHashMap<String, Municipio> herriaIrakurri() {
-		LinkedHashMap<String, Municipio> lhmMun = new LinkedHashMap<String, Municipio>();
+	public LinkedHashMap<Integer, Municipios> herriaIrakurri() {
+		LinkedHashMap<Integer, Municipios> lhmMun = new LinkedHashMap<Integer, Municipios>();
 		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/pueblos_euskadi_turismo/opendata/herriak.json");
-		Municipio est;
-		int cod = 1;
+		Municipios est;
 		JsonReader jr;
 		try {
 			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
@@ -278,21 +329,42 @@ public class JSONIrakurri {
 				jr.beginArray();
 				while (jr.hasNext()) {
 					jr.beginObject();
-					est = new Municipio();
-					est.setCod_mun(cod++);
+					est = new Municipios();
 					while (jr.hasNext()) {
 						switch (jr.nextName()) {
-						case "documentName":
-							est.setNombre(jr.nextString());
+						case "municipality":
+							String nombre = jr.nextString();
+							if (nombre.contains("Trapagaran")) {
+								nombre = "Valle_de_Trápaga-Trapagaran";
+							} else if (nombre.contains("Donostia")) {
+								nombre = "Donostia/San_Sebastián";
+							} else if (nombre.indexOf(" ") != -1) {
+								nombre = nombre.substring(0, nombre.indexOf(" "));
+							}
+							est.setNombre(nombre);
+							break;
+						case "turismDescription":
+							est.setDescripcion(htmlGarbitu(jr.nextString()));
 							break;
 						case "territorycode":
-							est.setCod_prov(jr.nextString().split(" ")[0]);
+							est.setProvincias(Select.obtProvincias().get(Integer.parseInt(jr.nextString().split(" ")[0])));
 							break;
 						default:
 							jr.nextString();
 						};
 					}
-					lhmMun.put(est.getNombre(), est);
+					int cod;
+					cod = Select.existeMunicipio(est.getNombre());
+					if (cod == -1) {
+						cod = Select.obtCodMunicipio();
+						est.setCodMun(cod);
+						Insert.insertar(est);
+					}
+					else {
+						est.setCodMun(cod);
+						Update.actualizar(est);
+					}
+					lhmMun.put(est.getCodMun(), est);
 					jr.endObject();
 				}
 				jr.endArray();
@@ -326,7 +398,7 @@ public class JSONIrakurri {
 					while (jr.hasNext()) {
 						switch (jr.nextName()) {
 						case "ICAEstacion":
-							if (kalit.equals("")) {
+							if (kalit.equals("") || kalit.equals("Sin datos / Daturik gabe")) {
 								kalit = jr.nextString();
 							}
 							else {
@@ -354,6 +426,10 @@ public class JSONIrakurri {
 			}
 		}
 		return kalit;
+	}
+	
+	public static String htmlGarbitu(String html) { 
+		return Jsoup.parse(html).text(); 
 	}
 
 }

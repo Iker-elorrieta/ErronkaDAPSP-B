@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="euskomet" dynamic-insert="false" dynamic-update="false" mutable="true" name="Modelo.Hibernate.Object.EspaciosNaturales" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="espacios_naturales">
+        <id name="codEspNatural" type="int">
+            <column name="cod_esp_natural"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="nombre" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="descripcion" optimistic-lock="true" type="string" unique="false">
+            <column length="5000" name="descripcion"/>
+        </property>
+        <property generated="never" lazy="false" name="tipo" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="tipo" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="latitud" optimistic-lock="true" type="double" unique="false">
+            <column name="latitud" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="longitud" optimistic-lock="true" type="double" unique="false">
+            <column name="longitud" not-null="true" precision="22" scale="0"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="favoritosEsps" optimistic-lock="true" sort="unsorted" table="favoritos_esp">
+            <key on-delete="noaction">
+                <column name="cod_esp_natural" not-null="true"/>
+            </key>
+            <one-to-many class="Modelo.Hibernate.Object.FavoritosEsp" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="fotosEspNaturaleses" optimistic-lock="true" sort="unsorted" table="fotos_esp_naturales">
+            <key on-delete="noaction">
+                <column name="cod_esp_natural" not-null="true"/>
+            </key>
+            <one-to-many class="Modelo.Hibernate.Object.FotosEspNaturales" embed-xml="true" not-found="exception"/>
+        </set>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="munEspNas" optimistic-lock="true" sort="unsorted" table="mun_esp_na">
+            <key on-delete="noaction">
+                <column name="cod_esp_natural" not-null="true"/>
+            </key>
+            <one-to-many class="Modelo.Hibernate.Object.MunEspNa" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>
