@@ -218,10 +218,10 @@ CREATE TABLE `fotos_esp_naturales` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `fotos_estaciones`
+-- Estructura de tabla para la tabla `fotos_municipios`
 --
 
-CREATE TABLE `fotos_estaciones` (
+CREATE TABLE `fotos_municipios` (
   `cod_foto` int(3) NOT NULL,
   `cod_est` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
@@ -664,9 +664,9 @@ ALTER TABLE `fotos_esp_naturales`
   ADD KEY `FK_FOTO_ESP_NAT` (`cod_esp_natural`);
 
 --
--- Indices de la tabla `fotos_estaciones`
+-- Indices de la tabla `fotos_municipios`
 --
-ALTER TABLE `fotos_estaciones`
+ALTER TABLE `fotos_municipios`
   ADD PRIMARY KEY (`cod_foto`),
   ADD KEY `FK_FOTO_EST` (`cod_est`);
 
@@ -738,9 +738,9 @@ ALTER TABLE `fotos_esp_naturales`
   ADD CONSTRAINT `FK_FOTO_ESP_NAT` FOREIGN KEY (`cod_esp_natural`) REFERENCES `espacios_naturales` (`cod_esp_natural`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `fotos_estaciones`
+-- Filtros para la tabla `fotos_municipios`
 --
-ALTER TABLE `fotos_estaciones`
+ALTER TABLE `fotos_municipios`
   ADD CONSTRAINT `FK_FOTO_EST` FOREIGN KEY (`cod_est`) REFERENCES `estaciones` (`cod_est`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

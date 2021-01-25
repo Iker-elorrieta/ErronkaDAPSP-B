@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `fotos_esp_naturales` (
   CONSTRAINT `FK_FOTO_ESP_NAT` FOREIGN KEY (`cod_esp_natural`) REFERENCES `espacios_naturales` (`cod_esp_natural`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `fotos_estaciones` (
+CREATE TABLE IF NOT EXISTS `fotos_municipios` (
   `cod_foto` int(3) NOT NULL,
   `cod_est` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
