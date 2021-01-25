@@ -1,7 +1,19 @@
 package Vista;
 
+import java.net.http.HttpClient;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import Modelo.DatuKudeaketa.JSONIrakurri;
 import Modelo.DatuKudeaketa.XMLIdatzi;
@@ -21,7 +33,11 @@ public class Launcher {
 
 	@SuppressWarnings("unchecked")
 	public static int ejecutar() {
+		
 		int estado = 1;
+		
+		trustEveryone();
+		
 		XMLIdatzi xmlidatzi = new XMLIdatzi();
 		
 		JSONIrakurri jsonirak = new JSONIrakurri();
@@ -59,6 +75,30 @@ public class Launcher {
 		
 		estado = 0;
 		return estado;
+	}
+	
+	private static void trustEveryone() {
+		try {
+			HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+				public boolean verify(String arg0, SSLSession arg1) {
+					return false;
+				}
+			});
+			SSLContext context = SSLContext.getInstance("TLS");
+			context.init(null, new X509TrustManager[] {new X509TrustManager() {
+				public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+				}
+				public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+				}
+				@Override
+				public X509Certificate[] getAcceptedIssuers() {
+					return new X509Certificate[0];
+				}
+			}}, new SecureRandom());
+			HttpsURLConnection.setDefaultSSLSocketFactory(context.getSocketFactory());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
