@@ -1,6 +1,6 @@
 package Test.DA;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +10,7 @@ public class TestVista {
 
 	@Test
 	public void testLauncher() {
-		int resultado = Launcher.ejecutar();
-		int esperado = 0;
-		
-		assertEquals(esperado, resultado);
+		assertTrue(Launcher.main(null) == 0);
 	}
 	
 }

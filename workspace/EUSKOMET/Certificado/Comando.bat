@@ -1,3 +1,4 @@
-keytool -import -keystore "C:\Program Files\Java\jdk-14.0.1\lib\security\cacerts" -file c:\ruta_archivo_certificado.cer -alias euskadicer storepass
+cd C:\Program Files\Java\jdk-12.0.2\bin
+keytool -importcert -keystore "C:\Program Files\Java\jdk-12.0.2\lib\security\cacerts" -file "euskadi.cer"
 changeit
 PAUSE
