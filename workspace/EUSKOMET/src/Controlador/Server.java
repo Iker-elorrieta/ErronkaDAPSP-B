@@ -35,9 +35,9 @@ public class Server extends Thread{
 			servidor = new ServerSocket(PUERTO);
 			System.out.println("[Server]\t--\tServidor iniciado");
 			
-			System.out.println("[Server]\t--\tActualizando datos...");
-			Launcher.ejecutar();
-			System.out.println("[Server]\t--\tDatos actualizados");
+//			System.out.println("[Server]\t--\tActualizando datos...");
+//			Launcher.ejecutar();
+//			System.out.println("[Server]\t--\tDatos actualizados");
 			
 			
 			System.out.println("[Server]\t--\tEsperando conexiones del cliente...");

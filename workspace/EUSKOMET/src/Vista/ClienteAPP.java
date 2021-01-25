@@ -204,24 +204,18 @@ public class ClienteAPP extends JFrame {
 		ClienteAPP.arrayEstaciones = arrayEstaciones;
 	}
 
-	public void ejecutarClienteProvincias(String bbdd) {
+	public void ejecutarClienteProvincias() {
 		try {
 
-			System.out.println("[Provincias]\t--\tProv\t--\tEnviando nombre de la BBDD...");
-			salida.writeObject(bbdd);
-			System.out.println("[Provincias]\t--\tProv\t--\tNombre BBDD enviado [" + bbdd + "]");
-
-			String sql = "FROM Provincias";
-			//			String sql = "SELECT * FROM provincias";
+			String hql = "FROM Provincias";
 			System.out.println("[Provincias]\t--\tProv\t--\tEnviando query...");
-			salida.writeObject(sql);
-			System.out.println("[Provincias]\t--\tProv\t--\tQuery enviada [" + sql + "]");
+			salida.writeObject(hql);
+			System.out.println("[Provincias]\t--\tProv\t--\tQuery enviada [" + hql + "]");
 
 			arrayProvincias = (ArrayList<Provincias>) entrada.readObject();
 			System.out.println("[EspNat]\t--\tProv\t--\tarrayProvincias.size(): " + arrayProvincias.size());
 
 			provinciasTest = true;
-			salida.writeObject(true);
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -232,24 +226,17 @@ public class ClienteAPP extends JFrame {
 		}
 	}//
 
-	public void ejecutarClienteEspaciosNaturales(String bbdd) {
+	public void ejecutarClienteEspaciosNaturales() {
 		try {
 
-			System.out.println("[EspNat]\t--\tEnviando nombre de la BBDD...");
-			salida.writeObject(bbdd);
-			System.out.println("[EspNat]\t--\tNombre BBDD enviado [" + bbdd + "]");
-
-			String sql = "FROM EspaciosNaturales";
-			//			String sql = "SELECT * FROM espacios_naturales";
+			String hql = "FROM EspaciosNaturales";
 			System.out.println("[EspNat]\t--\tEnviando query...");
-			salida.writeObject(sql);
-			System.out.println("[EspNat]\t--\tQuery enviada [" + sql + "]");
+			salida.writeObject(hql);
+			System.out.println("[EspNat]\t--\tQuery enviada [" + hql + "]");
 
 			arrayEspaciosNaturales = (ArrayList<EspaciosNaturales>) entrada.readObject();
 			System.out.println("[EspNat]\t--\tarrayEspaciosNaturales.size(): " + arrayEspaciosNaturales.size());
 
-			salida.writeObject(true); //continuar con el do while del servidor
-			espaciosNaturalesTest = true;
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -260,24 +247,18 @@ public class ClienteAPP extends JFrame {
 		}
 	}//
 
-	public void ejecutarClienteMunicipios(String bbdd) {
+	public void ejecutarClienteMunicipios() {
 		try {
 
-			System.out.println("[Municipios]\t--\tMun\t--\tEnviando nombre de la BBDD...");
-			salida.writeObject(bbdd);
-			System.out.println("[Municipios]\t--\tMun\t--\tNombre BBDD enviado [" + bbdd + "]");
-
-			String sql = "FROM Municipios";
-			//			String sql = "SELECT * FROM municipios";
+			String hql = "FROM Municipios";
 			System.out.println("[Municipios]\t--\tMun\t--\tEnviando query...");
-			salida.writeObject(sql);
-			System.out.println("[Municipios]\t--\tMun\t--\tQuery enviada [" + sql + "]");
+			salida.writeObject(hql);
+			System.out.println("[Municipios]\t--\tMun\t--\tQuery enviada [" + hql + "]");
 
 			arrayMunicipios = (ArrayList<Municipios>) entrada.readObject();
 			System.out.println("[Municipios]\t--\tMun\t--\tarrayMunicipios.size(): " + arrayMunicipios.size());
 
 			municipiosTest = true;
-			salida.writeObject(true);
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -288,25 +269,18 @@ public class ClienteAPP extends JFrame {
 		}
 	}//
 
-	public void ejecutarClienteEspNatMunicipios(String bbdd) {
+	public void ejecutarClienteEspNatMunicipios() {
 		try {
 
-			System.out.println("[EspNat_Mun]\t--\tProv\t--\tEnviando nombre de la BBDD...");
-			salida.writeObject(bbdd);
-			System.out.println("[EspNat_Mun]\t--\tProv\t--\tNombre BBDD enviado [" + bbdd + "]");
-
-			String sql = "FROM MunEspNa";
-			//			String sql = "SELECT * FROM mun_esp_na";
+			String hql = "FROM MunEspNa";
 			System.out.println("[EspNat_Mun]\t--\tProv\t--\tEnviando query...");
-			salida.writeObject(sql);
-			System.out.println("[EspNat_Mun]\t--\tProv\t--\tQuery enviada [" + sql + "]");
+			salida.writeObject(hql);
+			System.out.println("[EspNat_Mun]\t--\tProv\t--\tQuery enviada [" + hql + "]");
 
 			arrayEspNatMunicipios = (ArrayList<MunEspNa>) entrada.readObject();
 			System.out.println("[EspNat_Mun]\t--\tProv\t--\tarrayEspNatMunicipios.size(): " + arrayEspNatMunicipios.size());
 
-
 			espNatMunicipiosTest = true;
-			salida.writeObject(true);
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -317,25 +291,19 @@ public class ClienteAPP extends JFrame {
 		}
 	}//
 
-	public void ejecutarClienteEstaciones(String bbdd) {
+	public void ejecutarClienteEstaciones() {
 		try {
 
-			System.out.println("[Estaciones]\t--\tProv\t--\tEnviando nombre de la BBDD...");
-			salida.writeObject(bbdd);
-			System.out.println("[Estaciones]\t--\tProv\t--\tNombre BBDD enviado [" + bbdd + "]");
-
-			String sql = "FROM Estaciones";
-			//			String sql = "SELECT * FROM estaciones";
+			String hql = "FROM Estaciones";
 			System.out.println("[Estaciones]\t--\tProv\t--\tEnviando query...");
-			salida.writeObject(sql);
-			System.out.println("[Estaciones]\t--\tProv\t--\tQuery enviada [" + sql + "]");
+			salida.writeObject(hql);
+			System.out.println("[Estaciones]\t--\tProv\t--\tQuery enviada [" + hql + "]");
 
 			arrayEstaciones = (ArrayList<Estaciones>) entrada.readObject();
 			System.out.println("[Estaciones]\t--\tProv\t--\tarrayEspNatMunicipios.size(): " + arrayEstaciones.size());
 
 
 			estacionesTest = true;
-			salida.writeObject(true);
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -347,20 +315,20 @@ public class ClienteAPP extends JFrame {
 	}//
 
 	private void obtenerDatos() {
-		ejecutarClienteProvincias(this.bbdd);
-		ejecutarClienteMunicipios(this.bbdd);
-		ejecutarClienteEstaciones(this.bbdd);
-		ejecutarClienteEspaciosNaturales(this.bbdd);
-		ejecutarClienteEspNatMunicipios(this.bbdd);
+		ejecutarClienteProvincias();
+		ejecutarClienteMunicipios();
+		ejecutarClienteEstaciones();
+		ejecutarClienteEspaciosNaturales();
+		ejecutarClienteEspNatMunicipios();
 		
 	}
 	
 	private void actualizarDatos() {
-		ejecutarClienteProvincias(this.bbdd);
-		ejecutarClienteMunicipios(this.bbdd);
-		ejecutarClienteEstaciones(this.bbdd);
-		ejecutarClienteEspaciosNaturales(this.bbdd);
-		ejecutarClienteEspNatMunicipios(this.bbdd);
+		ejecutarClienteProvincias();
+		ejecutarClienteMunicipios();
+		ejecutarClienteEstaciones();
+		ejecutarClienteEspaciosNaturales();
+		ejecutarClienteEspNatMunicipios();
 		
 		mostrarMunicipios.setArrayProvincias(null);
 		mostrarMunicipios.setArrayMunicipios(null);

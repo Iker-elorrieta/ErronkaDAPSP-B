@@ -46,27 +46,14 @@ public class HiloServer extends Thread {
 		try {
 			int i = 0;
 			do {
-				// --  Consultas -- Según la query se hace de municipios o de provincias
-				System.out.println("[HiloId:" +idCliente+ "]\t--\tEsperando a recibir nombre de la base de datos..."); 
-				try {
-					bbdd = (String) entrada.readObject();
-				}catch (Exception e) {
-					System.out.println("No se ha recibido ningún dato");
-				}
-				System.out.println("[HiloId:" +idCliente+ "]\t--\t[Nombre BBDD recibido: " + bbdd + "]");
-
+				// --  Consultas -- 
 				System.out.println("[HiloId:" +idCliente+ "]\t--\tEsperando a recibir query...");
-
 				query = (String) entrada.readObject();
 				System.out.println("[HiloId:" +idCliente+ "]\t--\t[Query recibida: " + query + "]");
 
 				ArrayList<Object> array = Select.selectQuery(query);
-
-
 				System.out.println("[HiloId:" +idCliente+ "]\t--\tarray.size(): " + array.size());
-
 				salida.writeObject(array);
-				continuar = (boolean) entrada.readObject();
 				i++;
 			}while (i < 5);
 
