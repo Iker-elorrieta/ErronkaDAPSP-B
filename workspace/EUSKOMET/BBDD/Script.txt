@@ -63,33 +63,33 @@ CREATE TABLE IF NOT EXISTS `favoritos_esp` (
 
 CREATE TABLE IF NOT EXISTS `favoritos_mun` (
 `cod_relacion` varchar(30) NOT NULL,
-  `cod_est` int(3) NOT NULL,
+  `cod_mun` int(3) NOT NULL,
   `cod_user` int(3) NOT NULL,
 
 PRIMARY KEY (`cod_relacion`),
 
-  CONSTRAINT `FK_FAV_EST` FOREIGN KEY (`cod_est`) REFERENCES `estaciones` (`cod_est`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_FAV_EST` FOREIGN KEY (`cod_mun`) REFERENCES `municipios` (`cod_mun`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_FAV_USER_EST` FOREIGN KEY (`cod_user`) REFERENCES `usuarios` (`cod_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `fotos_esp_naturales` (
-  `cod_foto` int(3) NOT NULL,
+  `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
   `cod_esp_natural` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` varchar(30) NOT NULL,
+  `archivo` BLOB NOT NULL,
   PRIMARY KEY (`cod_foto`),
   KEY `FK_FOTO_ESP_NAT` (`cod_esp_natural`),
   CONSTRAINT `FK_FOTO_ESP_NAT` FOREIGN KEY (`cod_esp_natural`) REFERENCES `espacios_naturales` (`cod_esp_natural`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `fotos_municipios` (
-  `cod_foto` int(3) NOT NULL,
-  `cod_est` int(3) NOT NULL,
+  `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
+  `cod_mun` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` varchar(30) NOT NULL,
+  `archivo` BLOB NOT NULL,
   PRIMARY KEY (`cod_foto`),
-  KEY `FK_FOTO_EST` (`cod_est`),
-  CONSTRAINT `FK_FOTO_EST` FOREIGN KEY (`cod_est`) REFERENCES `estaciones` (`cod_est`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `FK_FOTO_EST` (`cod_mun`),
+  CONSTRAINT `FK_FOTO_EST` FOREIGN KEY (`cod_mun`) REFERENCES `municipios` (`cod_mun`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `mun_esp_na` (

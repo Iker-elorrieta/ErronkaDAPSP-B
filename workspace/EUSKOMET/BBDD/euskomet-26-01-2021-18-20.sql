@@ -198,7 +198,7 @@ CREATE TABLE `favoritos_esp` (
 
 CREATE TABLE `favoritos_mun` (
   `cod_relacion` varchar(30) NOT NULL,
-  `cod_est` int(3) NOT NULL,
+  `cod_mun` int(3) NOT NULL,
   `cod_user` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -208,11 +208,11 @@ CREATE TABLE `favoritos_mun` (
 -- Estructura de tabla para la tabla `fotos_esp_naturales`
 --
 
-CREATE TABLE `fotos_esp_naturales` (
-  `cod_foto` int(3) NOT NULL,
+CREATE TABLE `fotos_esp_naturales` (GOIEEEEEEEN
+  `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
   `cod_esp_natural` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` varchar(30) NOT NULL
+  `archivo` LARGEBLOB NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -222,10 +222,10 @@ CREATE TABLE `fotos_esp_naturales` (
 --
 
 CREATE TABLE `fotos_municipios` (
-  `cod_foto` int(3) NOT NULL,
-  `cod_est` int(3) NOT NULL,
+  `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
+  `cod_mun` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` varchar(30) NOT NULL
+  `archivo` BLOB NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -653,7 +653,7 @@ ALTER TABLE `favoritos_esp`
 --
 ALTER TABLE `favoritos_mun`
   ADD PRIMARY KEY (`cod_relacion`),
-  ADD KEY `FK_FAV_EST` (`cod_est`),
+  ADD KEY `FK_FAV_EST` (`cod_mun`),
   ADD KEY `FK_FAV_USER_EST` (`cod_user`);
 
 --
@@ -668,7 +668,7 @@ ALTER TABLE `fotos_esp_naturales`
 --
 ALTER TABLE `fotos_municipios`
   ADD PRIMARY KEY (`cod_foto`),
-  ADD KEY `FK_FOTO_EST` (`cod_est`);
+  ADD KEY `FK_FOTO_EST` (`cod_mun`);
 
 --
 -- Indices de la tabla `municipios`
@@ -741,7 +741,7 @@ ALTER TABLE `fotos_esp_naturales`
 -- Filtros para la tabla `fotos_municipios`
 --
 ALTER TABLE `fotos_municipios`
-  ADD CONSTRAINT `FK_FOTO_EST` FOREIGN KEY (`cod_est`) REFERENCES `estaciones` (`cod_est`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `FK_FOTO_EST` FOREIGN KEY (`cod_mun`) REFERENCES `municipios` (`cod_mun`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `municipios`
