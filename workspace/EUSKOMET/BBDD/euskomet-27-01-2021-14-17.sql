@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-01-2021 a las 17:51:27
+-- Tiempo de generación: 27-01-2021 a las 14:16:40
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.11
 
@@ -118,7 +118,7 @@ CREATE TABLE `estaciones` (
 --
 
 INSERT INTO `estaciones` (`cod_est`, `nombre`, `pueblo`, `latitud`, `longitud`, `ICA_estacion`, `cod_mun`) VALUES
-(1, '3 DE MARZO', 'Vitoria-Gasteiz', 42.85604797053618, -2.667784994714487, 'Muy bueno / Oso ona', 111),
+(1, '3 DE MARZO', 'Vitoria-Gasteiz', 42.85604797053618, -2.667784994714487, 'Bueno / Ona', 111),
 (2, 'ABANTO', 'Abanto y Ciérvana-Abanto Zierbena', 43.32047399433485, -3.0741559961978044, 'Muy bueno / Oso ona', 3),
 (3, 'AGURAIN', 'Agurain/Salvatierra', 42.84901250588428, -2.3937033896081683, 'Muy bueno / Oso ona', 5),
 (4, 'ALGORTA (BBIZI2)', 'Getxo', 43.362055748944286, -3.0227822073211765, 'Muy bueno / Oso ona', 118),
@@ -126,21 +126,21 @@ INSERT INTO `estaciones` (`cod_est`, `nombre`, `pueblo`, `latitud`, `longitud`, 
 (6, 'ANDOAIN', 'Andoain', 43.22137866586519, -2.02332524753123, 'Muy bueno / Oso ona', 19),
 (7, 'ARRAIZ (Monte)', 'Bilbao', 43.245553729819484, -2.960475856567045, 'Muy bueno / Oso ona', 71),
 (8, 'ATEGORRIETA', 'Donostia / San Sebastián', 43.32199194732484, -1.960650618338729, 'Muy bueno / Oso ona', 77),
-(9, 'AV. GASTEIZ', 'Vitoria-Gasteiz', 42.85478118366939, -2.6807098224581067, 'Muy bueno / Oso ona', 111),
+(9, 'AV. GASTEIZ', 'Vitoria-Gasteiz', 42.85478118366939, -2.6807098224581067, 'Bueno / Ona', 111),
 (10, 'AVDA. TOLOSA', 'Donostia / San Sebastián', 43.30941344063433, -2.010938423674493, 'Muy bueno / Oso ona', 77),
-(11, 'AZPEITIA', 'Azpeitia', 43.180370053194196, -2.2682104189344456, 'Muy bueno / Oso ona', 46),
+(11, 'AZPEITIA', 'Azpeitia', 43.180370053194196, -2.2682104189344456, 'Bueno / Ona', 46),
 (12, 'AÑORGA', 'Donostia / San Sebastián', 43.29053138556358, -1.9957411467011474, 'Muy bueno / Oso ona', 77),
 (13, 'BANDERAS (meteo)', 'Bilbao', 43.28099012364825, -2.953278416670214, 'Sin datos / Daturik gabe', 71),
-(14, 'BARAKALDO', 'Barakaldo', 43.298378997955, -2.987132999827669, 'Muy bueno / Oso ona', 51),
-(15, 'BASAURI', 'Basauri', 43.24113129588412, -2.8837610228035238, 'Muy bueno / Oso ona', 54),
-(16, 'BEASAIN', 'Beasain', 43.04809432240711, -2.191380269702985, 'Muy bueno / Oso ona', 56),
+(14, 'BARAKALDO', 'Barakaldo', 43.298378997955, -2.987132999827669, 'Bueno / Ona', 51),
+(15, 'BASAURI', 'Basauri', 43.24113129588412, -2.8837610228035238, 'Bueno / Ona', 54),
+(16, 'BEASAIN', 'Beasain', 43.04809432240711, -2.191380269702985, 'Bueno / Ona', 56),
 (17, 'BOROA METEO', 'Amorebieta-Etxano', 43.23590459584916, -2.7506874305174405, 'Sin datos / Daturik gabe', 248),
 (18, 'CASTREJANA', 'Barakaldo', 43.25807942736176, -2.973456590856772, 'Muy bueno / Oso ona', 51),
 (19, 'DURANGO', 'Durango', 43.168285997690994, -2.6379580009450136, 'Muy bueno / Oso ona', 80),
 (20, 'EASO', 'Donostia / San Sebastián', 43.31215280742268, -1.9809008637096939, 'Muy bueno / Oso ona', 77),
 (21, 'ELCIEGO', 'Elciego', 42.51824807424149, -2.61947521199466, 'Muy bueno / Oso ona', 85),
-(22, 'ERANDIO', 'Erandio', 43.3026526345891, -2.9772399863752486, 'Muy bueno / Oso ona', 90),
-(23, 'EUROPA', 'Bilbao', 43.25491056506432, -2.902376115931137, 'Muy bueno / Oso ona', 71),
+(22, 'ERANDIO', 'Erandio', 43.3026526345891, -2.9772399863752486, 'Bueno / Ona', 90),
+(23, 'EUROPA', 'Bilbao', 43.25491056506432, -2.902376115931137, 'Bueno / Ona', 71),
 (24, 'FARMACIA', 'Vitoria-Gasteiz', 42.840099615592926, -2.672563184280286, 'Muy bueno / Oso ona', 111),
 (25, 'FERIA (meteo)', 'Bilbao', 43.26522199716327, -2.9475439999557134, 'Sin datos / Daturik gabe', 71),
 (26, 'HERNANI', 'Hernani', 43.26743142273141, -1.977715640356133, 'Muy bueno / Oso ona', 125),
@@ -150,24 +150,24 @@ INSERT INTO `estaciones` (`cod_est`, `nombre`, `pueblo`, `latitud`, `longitud`, 
 (30, 'LASARTE-ORIA', 'Lasarte-Oria', 43.26870022418793, -2.0191293415933154, 'Muy bueno / Oso ona', 153),
 (31, 'LEZO', 'Lezo', 43.32152243586307, -1.900131049811533, 'Muy bueno / Oso ona', 168),
 (32, 'LLODIO', 'Laudio/Llodio', 43.1440289422417, -2.9633852821260223, 'Muy bueno / Oso ona', 154),
-(33, 'LOS HERRAN', 'Vitoria-Gasteiz', 42.84370295644861, -2.661230556636825, 'Muy bueno / Oso ona', 111),
-(34, 'MAZARREDO', 'Bilbao', 43.26750551179745, -2.935188110338201, 'Muy bueno / Oso ona', 71),
-(35, 'MONDRAGON', 'Arrasate/Mondragón', 43.06412079434686, -2.4903966831445423, 'Muy bueno / Oso ona', 31),
+(33, 'LOS HERRAN', 'Vitoria-Gasteiz', 42.84370295644861, -2.661230556636825, 'Bueno / Ona', 111),
+(34, 'MAZARREDO', 'Bilbao', 43.26750551179745, -2.935188110338201, 'Bueno / Ona', 71),
+(35, 'MONDRAGON', 'Arrasate/Mondragón', 43.06412079434686, -2.4903966831445423, 'Bueno / Ona', 31),
 (36, 'MONTORRA', 'Amorebieta-Etxano', 43.209014222504145, -2.7165885073623226, 'Muy bueno / Oso ona', 248),
 (37, 'MUNDAKA', 'Mundaka', 43.40588884294258, -2.7031593675211343, 'Muy bueno / Oso ona', 182),
 (38, 'MUNOA', 'Barakaldo', 43.28558799716144, -2.978696000976749, 'Sin datos / Daturik gabe', 51),
 (39, 'MUSKIZ', 'Muskiz', 43.32071311956527, -3.1127162723783197, 'Muy bueno / Oso ona', 186),
-(40, 'Mª DIAZ HARO', 'Bilbao', 43.25880286639215, -2.945656664175787, 'Muy bueno / Oso ona', 71),
+(40, 'Mª DIAZ HARO', 'Bilbao', 43.25880286639215, -2.945656664175787, 'Bueno / Ona', 71),
 (41, 'NAUTICA', 'Portugalete', 43.32694444265417, -3.023333333735672, 'Sin datos / Daturik gabe', 208),
 (42, 'PAGOETA', 'Aia', 43.25060521979407, -2.1548873966664503, 'Muy bueno / Oso ona', 6),
 (43, 'PUYO', 'Donostia / San Sebastián', 43.302777170621106, -1.9840112864449164, 'Muy bueno / Oso ona', 77),
-(44, 'SAN JULIAN', 'Muskiz', 43.33265015831669, -3.112994770178107, 'Bueno / Ona', 186),
+(44, 'SAN JULIAN', 'Muskiz', 43.33265015831669, -3.112994770178107, 'Muy bueno / Oso ona', 186),
 (45, 'SAN MIGUEL', 'Basauri', 43.2212234317361, -2.886508983250916, 'Muy bueno / Oso ona', 54),
 (46, 'SANGRONIZ', 'Sondika', 43.29842135635236, -2.93038581833024, 'Muy bueno / Oso ona', 213),
 (47, 'SANTURCE', 'Santurtzi', 43.33301199742545, -3.042560000349237, 'Muy bueno / Oso ona', 77),
 (48, 'SERANTES', 'Santurtzi', 43.3344367083824, -3.0629905698856272, 'Muy bueno / Oso ona', 77),
-(49, 'SESTAO', 'Sestao', 43.307726099387494, -2.9959496198447484, 'Muy bueno / Oso ona', 212),
-(50, 'TOLOSA', 'Tolosa', 43.13078067861342, -2.078002156707588, 'Muy bueno / Oso ona', 218),
+(49, 'SESTAO', 'Sestao', 43.307726099387494, -2.9959496198447484, 'Bueno / Ona', 212),
+(50, 'TOLOSA', 'Tolosa', 43.13078067861342, -2.078002156707588, 'Bueno / Ona', 218),
 (51, 'URKIOLA', 'Abadiño', 43.100442429429606, -2.6508700717196243, 'Muy bueno / Oso ona', 1),
 (52, 'USURBIL', 'Usurbil', 43.27378032307657, -2.0505110667115676, 'Muy bueno / Oso ona', 229),
 (53, 'VALDEREJO', 'Valdegovía/Gaubea', 42.87516709375477, -3.231732505322038, 'Muy bueno / Oso ona', 113),
@@ -208,11 +208,11 @@ CREATE TABLE `favoritos_mun` (
 -- Estructura de tabla para la tabla `fotos_esp_naturales`
 --
 
-CREATE TABLE `fotos_esp_naturales` (GOIEEEEEEEN
-  `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `fotos_esp_naturales` (
+  `cod_foto` int(3) NOT NULL,
   `cod_esp_natural` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` LARGEBLOB NOT NULL
+  `archivo` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -222,10 +222,10 @@ CREATE TABLE `fotos_esp_naturales` (GOIEEEEEEEN
 --
 
 CREATE TABLE `fotos_municipios` (
-  `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
+  `cod_foto` int(3) NOT NULL,
   `cod_mun` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` BLOB NOT NULL
+  `archivo` longblob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -398,7 +398,7 @@ INSERT INTO `municipios` (`cod_mun`, `nombre`, `descripcion`, `cod_prov`) VALUES
 INSERT INTO `municipios` (`cod_mun`, `nombre`, `descripcion`, `cod_prov`) VALUES
 (147, 'Lanestosa', 'Batetik, geografikoki duen kokapen pribilegiatua, nola naturaren ikuspegitik, hala estrategiaren aldetik, eta, bestetik, berezkoa duen historia aberatsa, hiribildu honen erakarpen indar handienak dira. Hiribildu hau da, hain zuzen, Bizkaian eratu zen lehenetarikoa. Lanestosak Erdi Aroko izaera dauka, denboraren joanak ezabatu ez duena. Eta horixe da udalerriaren bereizgarri nagusia, garai hartako elementuz josita dagoen erdigune zoragarrian ikus daitekeen bezalaxe. Balkoiz betetako etxeak, kale estuak, plaza arkupeduna eta XVII. eta XVIII. mendeetako jauregiak direla tarteko, bisitariak ikuskizun bereziaz gozatu ahal izango du. Multzo arkitektoniko interesgarria Hasteko, herriko erdigunean bertan San Pedro eliza dago, XVI. mendeko eraikin errenazentista ikusgarria. Halaber, Lanestosako Colina jauregia ere bisitatuko dugu, eraikin barroko dotorea. Udalerriko beste aparteko leku bat karobia da, kareharritik karea sortzeko erabiltzen zen labea, alegia. Gure ibilbideari azken ukitua eskaintzeko, bestalde, zubi zaharrera joko dugu, garai batean Laredo eta Burgos batzen zituen zubira, hain zuzen. Horretaz guztiaz gain, Lanestosara abuztuan gerturatzen den orok herriko jaietaz gozatu ahal izango du, izan ere, Elurretako Andre Mariren jaien ospakizunetan, arku loretsuen dantza egiten da herrian abuztuaren 5ean, eta abuztuaren 16an, ostera, San Rokeren omenezko jai herrikoia ospatzen da.', 48),
 (148, 'Lantarón', 'Udalerri txiki hau 12 herritxok osatzen dute, Ebro ibaiko urak bustitzen du, eta Obarenes mendiaren eta Arkamoko, Arcenako eta Urduñ ako mendilerroen artean dago kokatuta. Norako turistiko erakargarria da oso, eta hainbat jarduera egiteko aukera emango digu izan ere, bisitari ugari joaten dira gune horretara. Kultur ondare aberatsa Kultur ondare oparoa du Lantaronek, udalerria eratzen duten hamabi herrietan antzinako altxor paregabeak baitaude. Salcedoko San Esteban eliza, esaterako, deigarria da oso arkitekturari dagokionez. Gainera, kaleetan zehar, antzinako galtzada erromatarretan gabiltzala ohartuko gara. Fontecha herrian, bestalde, Orgaz eta Kondestable dorreak azpimarra ditzakegu. Harresia, dorrea eta jauregia dituen ondare-multzo ikusgarria da lehena Kondestable dorretzarra, ostera, harlanduzko eraikin ederra da. Komunioi herrian ere ezinbestean bisitatu beharreko gune bat aurkituko dugu: Cabriana erromatar herrigunea, antzinako eraikinen hondar garrantzitsuak gordetzen dituen lekua, alegia. Uretako kirola eta arrantza atsegin dituztenek ere aukera bikaina dute Ebro eta Omecillo ibaietan zein Sobroneko, Puentelarrako eta Cabrianako urtegietan.', 1),
-(149, 'Lanciego/Lantziego', 'Arabako lurralde historikoaren hegoaldean dago Lantziego, Errioxarekin mugan, Guardia-Arabako Errioxako Koadrillan. Armarridun etxez eta jauregiz jositako herri honetan San Acisclori eta Santa Victoriari eskainitako eliza nabarmenduko dugu lehenik eta behin. Hasiera batean errenazentista zen, baina elementu neoklasikoak gehitu zizkioten gerora. Mendiko Ama Birjinaren baseliza ere nahitaez azpimarratu behar da. Lantziegoko herri-arkitekturari erreparatuta, Arabako Errioxako erdigune historikorik ederrenetako bat duela jabetuko gara, eraikin errenazentista zein barroko ugari baititu. Egun udaletx\r\n\r\nearen egoitza den Armendarizko markesaren jauregia gailentzen da beste ororen gainetik. Mantibleko erromatar zubia Erdigunetik bost kilometrora, Asa auzoan, Mantibleko erromatar zubiaren hondarrak aurkituko ditugu. Igarobide garrantzitsua izan zen erromatarren garaian, Ebro ibaiaren bi ertzak lotzen baitzituen. 164 metro zituen luzeran eta 30 metro garaieran. Zazpi arku erdizirkular zituen, baina bi soilik mantentzen dira egun. Jai egitarauari dagokionez, azaroaren 17an ospatzen dituzte Lantziegon San Acisclo eta Santa Victoriaren omenezko festak.', 1),
+(149, 'Lanciego/Lantziego', 'Arabako lurralde historikoaren hegoaldean dago Lantziego, Errioxarekin mugan, Guardia-Arabako Errioxako Koadrillan. Armarridun etxez eta jauregiz jositako herri honetan San Acisclori eta Santa Victoriari eskainitako eliza nabarmenduko dugu lehenik eta behin. Hasiera batean errenazentista zen, baina elementu neoklasikoak gehitu zizkioten gerora. Mendiko Ama Birjinaren baseliza ere nahitaez azpimarratu behar da. Lantziegoko herri-arkitekturari erreparatuta, Arabako Errioxako erdigune historikorik ederrenetako bat duela jabetuko gara, eraikin errenazentista zein barroko ugari baititu. Egun udaletxearen egoitza den Armendarizko markesaren jauregia gailentzen da beste ororen gainetik. Mantibleko erromatar zubia Erdigunetik bost kilometrora, Asa auzoan, Mantibleko erromatar zubiaren hondarrak aurkituko ditugu. Igarobide garrantzitsua izan zen erromatarren garaian, Ebro ibaiaren bi ertzak lotzen baitzituen. 164 metro zituen luzeran eta 30 metro garaieran. Zazpi arku erdizirkular zituen, baina bi soilik mantentzen dira egun. Jai egitarauari dagokionez, azaroaren 17an ospatzen dituzte Lantziegon San Acisclo eta Santa Victoriaren omenezko festak.', 1),
 (150, 'Lapuebla', 'Ebro ibaiaren ertzean dago Lapuebla de Labarca, Arabako lurralde historikoaren hegoaldeko muturrean, Guardia-Arabako Errioxako Koadrilan. \" El Risco\" izeneko gune malkartsu batean eraiki zuten. Antzina Ebro ibai emaritsua zeharkatzen zuen ontzi bati zor dio izena udalerriak. Lapuebla de Labarcara iristean, zur eta lur utziko gaitu alde zaharraren edertasunak. Egoera onean mantentzen diren armarriak ageri dituzten hainbat eraikin errenazentista ikusiko ditugu bertan. Arabako Errioxako beste herri askotan bezala, udalerri honetan ere Jasokundeko Andre Mariari eskainitako eliza dago, XVI. mendekoa. Erdigunean bertan dago Udaletxea ere. Eraikin moderno samarra da eta Lapuebla de Labarcaren harriz landutako armarria dauka fatxadaren goiko aldean. Eraikinaren atzeko aldetik, berriz, Ebro ibaiaren eta inguruko mahastien ikuspegi bikainez goza dezakegu. Ardoa eta upeltegiak Ardoak eta ardoaren kulturak aparteko garrantzia dute udalerrian eta, beraz, ardoaren ibilbide ezagunean ezinbestekoa da Lapuebla de Labarca bisitatzea. Bertako ardandegietan eta upeltegietan ardo bikainak dastatzeko eta edari honen ekoizpen-prozesua ezagutzeko aukera izango du bisitariak.', 1),
 (151, 'Larrabetzu', 'Txorierri haraneko udalerri honek hirigune historiko ederra dauka, Monumentu Multzo izendatutakoa. Estilo neoklasikoko ereduei jarraituz eraiki zuten. Ingurune horretako eraikinei dagokienez, nabarmentzekoa da Jasokundeko Andre Mariaren eliza, Larrabetzuren nukleo historikoa osatzen duena. Bestalde, Goikolexea auzora joz, aipamen berezia merezi duen eraikina izango dugu han, San Emeterio eta San Celedonio eliza haren erretaula ere ikusgarria da, Bizkaia lurralde historikoko ederrenetakoa. Monumentu Multzo Herriko plazan dauden eraikinek multzo arkitektoniko ikusgarria osatzen dute horien artean, Ikaza jauregia bereiz dezakegu, udaletxearen ondoan kokatutako XV. mendeko eraikina. Honen alboan, Anguleri jauregia bisita dezakegu eraikin kubikoa da eta baserrien zein jauregien ezaugarriak batzen dituenez, interes artistiko eta etnografiko handia dauka. Horretaz gain, zelai eta berdegunez betetako ingurune paregabean dago Larrabetzu, eta Santiagoko Bideari dagokion Kostako Bidea delakoa bertatik igarotzen denez, bidazti ugari jasotzen ditu Larrabetzuk. Bestalde, Bizkaiko udalerri honek hainbat ospakizun egiten ditu urtean zehar, baina jaiegun nagusiak maiatzaren erdialdean ospatzen dira, San Isidroren omenez.', 48),
 (152, 'Larraul', 'Larraulera iritsiko gara, Tolosaldea eskualdeko udalerrira, Murgil mendiaren adarretan dagoena. Hirigune txiki bat dauka, eta mendi mazelaren erdialdean dago kokatuta, aranaren jaun eta jabe izateko. XIV. mendeaz gero, hainbat errota izan ditu, baita burdinola bat ere, Usarrobi errekaren indar hidraulikoari etekina ateratzen ziona. Nahiz eta ez izan inolako gune industrialik, Oria haranean aurkitzen dute lanbidea bertako biztanle askok. Ingurune natural paregabea Erdiguneko txoko nagusiak ezagutu ondoren, ingurune naturalak aukera paregabea eskaintzen dio turistari txango atseginak egiteko. Plazatik irteten den bidean zehar abiatuz gero, ondoko herrietako eta Ernio (1.075 m) mendiko bista liluragarriez gozatu ahal izango dugu. Halaber, baserri dotoreak eta inguruotan XIV. mendea ezkeroztik dauden errota ugari ikusteko aukera ere izango dugu. Bestalde, abuztuan festa giroa izaten da nagusi Larraulen, izan ere, hilaren 3an San Esteban jaiak hasten dira, eta hilabete amaieran, ostera, San Bartolomeren omenezko festak ospatzen dituzte.', 20),
@@ -702,6 +702,18 @@ ALTER TABLE `usuarios`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `fotos_esp_naturales`
+--
+ALTER TABLE `fotos_esp_naturales`
+  MODIFY `cod_foto` int(3) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `fotos_municipios`
+--
+ALTER TABLE `fotos_municipios`
+  MODIFY `cod_foto` int(3) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -728,7 +740,7 @@ ALTER TABLE `favoritos_esp`
 -- Filtros para la tabla `favoritos_mun`
 --
 ALTER TABLE `favoritos_mun`
-  ADD CONSTRAINT `FK_FAV_EST` FOREIGN KEY (`cod_est`) REFERENCES `estaciones` (`cod_est`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_FAV_EST` FOREIGN KEY (`cod_mun`) REFERENCES `municipios` (`cod_mun`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_FAV_USER_EST` FOREIGN KEY (`cod_user`) REFERENCES `usuarios` (`cod_user`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

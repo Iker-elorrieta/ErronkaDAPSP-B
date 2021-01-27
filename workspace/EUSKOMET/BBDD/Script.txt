@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `fotos_esp_naturales` (
   `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
   `cod_esp_natural` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` BLOB NOT NULL,
+  `archivo` LONGBLOB NOT NULL,
   PRIMARY KEY (`cod_foto`),
   KEY `FK_FOTO_ESP_NAT` (`cod_esp_natural`),
   CONSTRAINT `FK_FOTO_ESP_NAT` FOREIGN KEY (`cod_esp_natural`) REFERENCES `espacios_naturales` (`cod_esp_natural`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `fotos_municipios` (
   `cod_foto` int(3) NOT NULL AUTO_INCREMENT,
   `cod_mun` int(3) NOT NULL,
   `tam` int(8) NOT NULL,
-  `archivo` BLOB NOT NULL,
+  `archivo` LONGBLOB NOT NULL,
   PRIMARY KEY (`cod_foto`),
   KEY `FK_FOTO_EST` (`cod_mun`),
   CONSTRAINT `FK_FOTO_EST` FOREIGN KEY (`cod_mun`) REFERENCES `municipios` (`cod_mun`) ON DELETE CASCADE ON UPDATE CASCADE
