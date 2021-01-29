@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 29 ene. 2021 8:27:12 by Hibernate Tools 5.4.21.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="euskomet" dynamic-insert="false" dynamic-update="false" mutable="true" name="Modelo.Hibernate.Object.Estaciones" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="estaciones">
         <id name="codEst" type="int">
@@ -24,17 +24,5 @@
         <property generated="never" lazy="false" name="icaEstacion" optimistic-lock="true" type="string" unique="false">
             <column length="30" name="ICA_estacion" not-null="true"/>
         </property>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="favoritosEsts" optimistic-lock="true" sort="unsorted" table="favoritos_est">
-            <key on-delete="noaction">
-                <column name="cod_est" not-null="true"/>
-            </key>
-            <one-to-many class="Modelo.Hibernate.Object.FavoritosEst" embed-xml="true" not-found="exception"/>
-        </set>
-        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="fotosEstacioneses" optimistic-lock="true" sort="unsorted" table="fotos_estaciones">
-            <key on-delete="noaction">
-                <column name="cod_est" not-null="true"/>
-            </key>
-            <one-to-many class="Modelo.Hibernate.Object.FotosEstaciones" embed-xml="true" not-found="exception"/>
-        </set>
     </class>
 </hibernate-mapping>

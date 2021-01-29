@@ -21,8 +21,8 @@ public class ToString {
 	}
 	
 	public static String toStringFormat(EspaciosNaturales espnat, boolean mostrar_descripcion) {
-		return "ESPACIO NATURAL\n" + 
-				"Código:\t" + espnat.getCodEspNatural() + 
+		return "ESPACIO NATURAL" + 
+//				"\nCódigo:\t" + espnat.getCodEspNatural() + 
 				"\nNombre:\t" + espnat.getNombre() + 
 				"\nTipo:\t" + espnat.getTipo() + 
 				"\nLatitud:\t" + espnat.getLatitud() + 
@@ -44,8 +44,8 @@ public class ToString {
 	}
 	
 	public static String toStringFormat(Estaciones est, boolean mostrar_descripcion) {
-		return "ESTACION\n" + 
-				"Código:\t" + est.getCodEst() + 
+		return "ESTACION" + 
+//				"\nCódigo:\t" + est.getCodEst() + 
 				"\nMunicipio:\t" + est.getMunicipios().getCodMun()+
 				"\nNombre:\t" + est.getNombre() + 
 				"\nLatitud:\t" + est.getLatitud() + 
@@ -72,13 +72,22 @@ public class ToString {
 	}
 	
 	public static String toStringFormat(Municipios mun, boolean mostrar_descripcion) {
-		return "MUNICIPIO\n" + 
-				"Código:\t" + mun.getCodMun() + 
+		return "MUNICIPIO" + 
+//				"\nCódigo:\t" + mun.getCodMun() + 
 //				"\nProvincia:\t" + mun.getProvincias().getCodProv() + 
 				"\nProvincia:\t" + (mun.getProvincias().getCodProv() == 48 ? "Bizkaia" : (mun.getProvincias().getCodProv() == 20 ? "Gipuzkoa" : "Araba")) + 
 				"\nNombre:\t" + mun.getNombre() + 
 				(mostrar_descripcion ? "\nDescripcion:\t" + mun.getDescripcion() : "") +
 				"\n--------------------------------------------------------------------";
+	}
+	
+	public static String toStringFormat(Municipios mun, boolean mostrar_descripcion, boolean estaciones) {
+		return "MUNICIPIO" + 
+//				"ºnCódigo:  " + mun.getCodMun() + 
+//				"\nProvincia:\t" + mun.getProvincias().getCodProv() + 
+				"\nProvincia:  " + (mun.getProvincias().getCodProv() == 48 ? "Bizkaia" : (mun.getProvincias().getCodProv() == 20 ? "Gipuzkoa" : "Araba")) + 
+				"\nNombre:  " + mun.getNombre() + 
+				"\nDescripcion:\n" + mun.getDescripcion();
 	}
 
 	public static String toString(Provincias prov) {

@@ -34,7 +34,7 @@ public class ClienteAPP extends JFrame {
 
 	private JPanel contentPane;
 
-	Cliente cliente  = null;
+	Cliente cliente  = new Cliente();
 	Socket socket = null;
 	private String bbdd = "euskomet";
 	Socket clienteSckt = null;
@@ -86,7 +86,7 @@ public class ClienteAPP extends JFrame {
 	 */
 	public ClienteAPP() {
 
-		Cliente.iniciarCliente();
+		cliente.iniciarCliente();
 
 		salida = Cliente.salida;
 		entrada = Cliente.entrada;
@@ -131,7 +131,7 @@ public class ClienteAPP extends JFrame {
 		JButton btnNewButton = new JButton("SALIR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Cliente.desconectarCliente();
+				cliente.desconectarCliente();
 				//				Server.setContinuar(false);
 				System.exit(0);
 			}
@@ -147,6 +147,7 @@ public class ClienteAPP extends JFrame {
 		lblEuskomet.setBounds(10, 385, 214, 53);
 		contentPane.add(lblEuskomet);
 		
+		cliente.desconectarCliente();
 
 //		JButton btnActualizarDatos = new JButton("ACTUALIZAR DATOS");
 //		btnActualizarDatos.addActionListener(new ActionListener() {
@@ -168,41 +169,41 @@ public class ClienteAPP extends JFrame {
 		return arrayProvincias;
 	}
 
-	public static void setArrayProvincias(ArrayList<Provincias> newArrayProvincias) {
-		arrayProvincias = newArrayProvincias;
-	}
+//	public static void setArrayProvincias(ArrayList<Provincias> newArrayProvincias) {
+//		arrayProvincias = newArrayProvincias;
+//	}
 
 	public static ArrayList<Municipios> getArrayMunicipios() {
 		return arrayMunicipios;
 	}
 
-	public static void setArrayMunicipios(ArrayList<Municipios> newArrayMunicipios) {
-		arrayMunicipios = newArrayMunicipios;
-	}
+//	public static void setArrayMunicipios(ArrayList<Municipios> newArrayMunicipios) {
+//		arrayMunicipios = newArrayMunicipios;
+//	}
 
 	public static ArrayList<EspaciosNaturales> getArrayEspaciosNaturales() {
 		return arrayEspaciosNaturales;
 	}
 
-	public static void setArrayEspaciosNaturales(ArrayList<EspaciosNaturales> newArrayEspaciosNaturales) {
-		arrayEspaciosNaturales = newArrayEspaciosNaturales;
-	}
+//	public static void setArrayEspaciosNaturales(ArrayList<EspaciosNaturales> newArrayEspaciosNaturales) {
+//		arrayEspaciosNaturales = newArrayEspaciosNaturales;
+//	}
 
 	public static ArrayList<MunEspNa> getArrayEspNatMunicipios() {
 		return arrayEspNatMunicipios;
 	}
 
-	public static void setArrayEspNatMunicipios(ArrayList<MunEspNa> arrayEspNatMunicipios) {
-		ClienteAPP.arrayEspNatMunicipios = arrayEspNatMunicipios;
-	}
+//	public static void setArrayEspNatMunicipios(ArrayList<MunEspNa> arrayEspNatMunicipios) {
+//		ClienteAPP.arrayEspNatMunicipios = arrayEspNatMunicipios;
+//	}
 
 	public static ArrayList<Estaciones> getArrayEstaciones() {
 		return arrayEstaciones;
 	}
 
-	public static void setArrayEstaciones(ArrayList<Estaciones> arrayEstaciones) {
-		ClienteAPP.arrayEstaciones = arrayEstaciones;
-	}
+//	public static void setArrayEstaciones(ArrayList<Estaciones> arrayEstaciones) {
+//		ClienteAPP.arrayEstaciones = arrayEstaciones;
+//	}
 
 	public void ejecutarClienteProvincias() {
 		try {
@@ -213,7 +214,7 @@ public class ClienteAPP extends JFrame {
 			System.out.println("[Provincias]\t--\tProv\t--\tQuery enviada [" + hql + "]");
 
 			arrayProvincias = (ArrayList<Provincias>) entrada.readObject();
-			System.out.println("[EspNat]\t--\tProv\t--\tarrayProvincias.size(): " + arrayProvincias.size());
+			System.out.println("[EspNat]\t--\t--\tarrayProvincias.size(): " + arrayProvincias.size());
 
 			provinciasTest = true;
 
@@ -237,6 +238,7 @@ public class ClienteAPP extends JFrame {
 			arrayEspaciosNaturales = (ArrayList<EspaciosNaturales>) entrada.readObject();
 			System.out.println("[EspNat]\t--\tarrayEspaciosNaturales.size(): " + arrayEspaciosNaturales.size());
 
+			espaciosNaturalesTest = true;
 
 		} catch (IOException e) {
 			System.out.println("Error (IOException): " + e.getMessage());
@@ -256,7 +258,7 @@ public class ClienteAPP extends JFrame {
 			System.out.println("[Municipios]\t--\tMun\t--\tQuery enviada [" + hql + "]");
 
 			arrayMunicipios = (ArrayList<Municipios>) entrada.readObject();
-			System.out.println("[Municipios]\t--\tMun\t--\tarrayMunicipios.size(): " + arrayMunicipios.size());
+			System.out.println("[Municipios]\t--\t--\tarrayMunicipios.size(): " + arrayMunicipios.size());
 
 			municipiosTest = true;
 
@@ -273,12 +275,12 @@ public class ClienteAPP extends JFrame {
 		try {
 
 			String hql = "FROM MunEspNa";
-			System.out.println("[EspNat_Mun]\t--\tProv\t--\tEnviando query...");
+			System.out.println("[EspNat_Mun]\t--\t--\tEnviando query...");
 			salida.writeObject(hql);
-			System.out.println("[EspNat_Mun]\t--\tProv\t--\tQuery enviada [" + hql + "]");
+			System.out.println("[EspNat_Mun]\t--\t--\tQuery enviada [" + hql + "]");
 
 			arrayEspNatMunicipios = (ArrayList<MunEspNa>) entrada.readObject();
-			System.out.println("[EspNat_Mun]\t--\tProv\t--\tarrayEspNatMunicipios.size(): " + arrayEspNatMunicipios.size());
+			System.out.println("[EspNat_Mun]\t--\t--\tarrayEspNatMunicipios.size(): " + arrayEspNatMunicipios.size());
 
 			espNatMunicipiosTest = true;
 
@@ -323,34 +325,34 @@ public class ClienteAPP extends JFrame {
 		
 	}
 	
-	private void actualizarDatos() {
-		ejecutarClienteProvincias();
-		ejecutarClienteMunicipios();
-		ejecutarClienteEstaciones();
-		ejecutarClienteEspaciosNaturales();
-		ejecutarClienteEspNatMunicipios();
-		
-		mostrarMunicipios.setArrayProvincias(null);
-		mostrarMunicipios.setArrayMunicipios(null);
-		mostrarMunicipios.setArrayProvincias(arrayProvincias);
-		mostrarMunicipios.setArrayMunicipios(arrayMunicipios);
-		
-		mostrarEspaciosNaturales.setArrayProvincias(null);
-		mostrarEspaciosNaturales.setArrayEspNatMunicipios(null);
-		mostrarEspaciosNaturales.setArrayEspaciosNaturales(null);
-		mostrarEspaciosNaturales.setArrayEspNatMunicipios(null);
-		mostrarEspaciosNaturales.setArrayProvincias(arrayProvincias);
-		mostrarEspaciosNaturales.setArrayEspNatMunicipios(arrayEspNatMunicipios);
-		mostrarEspaciosNaturales.setArrayEspaciosNaturales(arrayEspaciosNaturales);
-		mostrarEspaciosNaturales.setArrayEspNatMunicipios(arrayEspNatMunicipios);
-		
-		mostrarEstaciones.setArrayProvincias(null);
-		mostrarEstaciones.setArrayMunicipios(null);
-		mostrarEstaciones.setArrayEstaciones(null);
-		mostrarEstaciones.setArrayProvincias(arrayProvincias);
-		mostrarEstaciones.setArrayMunicipios(arrayMunicipios);
-		mostrarEstaciones.setArrayEstaciones(arrayEstaciones);
-	}
+//	private void actualizarDatos() {
+//		ejecutarClienteProvincias();
+//		ejecutarClienteMunicipios();
+//		ejecutarClienteEstaciones();
+//		ejecutarClienteEspaciosNaturales();
+//		ejecutarClienteEspNatMunicipios();
+//		
+//		mostrarMunicipios.setArrayProvincias(null);
+//		mostrarMunicipios.setArrayMunicipios(null);
+//		mostrarMunicipios.setArrayProvincias(arrayProvincias);
+//		mostrarMunicipios.setArrayMunicipios(arrayMunicipios);
+//		
+//		mostrarEspaciosNaturales.setArrayProvincias(null);
+//		mostrarEspaciosNaturales.setArrayEspNatMunicipios(null);
+//		mostrarEspaciosNaturales.setArrayEspaciosNaturales(null);
+//		mostrarEspaciosNaturales.setArrayEspNatMunicipios(null);
+//		mostrarEspaciosNaturales.setArrayProvincias(arrayProvincias);
+//		mostrarEspaciosNaturales.setArrayEspNatMunicipios(arrayEspNatMunicipios);
+//		mostrarEspaciosNaturales.setArrayEspaciosNaturales(arrayEspaciosNaturales);
+//		mostrarEspaciosNaturales.setArrayEspNatMunicipios(arrayEspNatMunicipios);
+//		
+//		mostrarEstaciones.setArrayProvincias(null);
+//		mostrarEstaciones.setArrayMunicipios(null);
+//		mostrarEstaciones.setArrayEstaciones(null);
+//		mostrarEstaciones.setArrayProvincias(arrayProvincias);
+//		mostrarEstaciones.setArrayMunicipios(arrayMunicipios);
+//		mostrarEstaciones.setArrayEstaciones(arrayEstaciones);
+//	}
 
 	public boolean isProvinciasTest() {
 		return provinciasTest;
