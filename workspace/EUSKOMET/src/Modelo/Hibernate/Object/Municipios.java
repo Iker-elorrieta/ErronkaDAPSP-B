@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final
+// Generated 29 ene. 2021 8:27:12 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +13,8 @@ public class Municipios implements java.io.Serializable {
 	private Provincias provincias;
 	private String nombre;
 	private String descripcion;
+	private Set favoritosMuns = new HashSet(0);
+	private Set fotosMunicipioses = new HashSet(0);
 	private Set munEspNas = new HashSet(0);
 	private Set estacioneses = new HashSet(0);
 
@@ -25,12 +27,14 @@ public class Municipios implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	public Municipios(int codMun, Provincias provincias, String nombre, String descripcion, Set munEspNas,
-			Set estacioneses) {
+	public Municipios(int codMun, Provincias provincias, String nombre, String descripcion, Set favoritosMuns,
+			Set fotosMunicipioses, Set munEspNas, Set estacioneses) {
 		this.codMun = codMun;
 		this.provincias = provincias;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
+		this.favoritosMuns = favoritosMuns;
+		this.fotosMunicipioses = fotosMunicipioses;
 		this.munEspNas = munEspNas;
 		this.estacioneses = estacioneses;
 	}
@@ -65,6 +69,22 @@ public class Municipios implements java.io.Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Set getFavoritosMuns() {
+		return this.favoritosMuns;
+	}
+
+	public void setFavoritosMuns(Set favoritosMuns) {
+		this.favoritosMuns = favoritosMuns;
+	}
+
+	public Set getFotosMunicipioses() {
+		return this.fotosMunicipioses;
+	}
+
+	public void setFotosMunicipioses(Set fotosMunicipioses) {
+		this.fotosMunicipioses = fotosMunicipioses;
 	}
 
 	public Set getMunEspNas() {

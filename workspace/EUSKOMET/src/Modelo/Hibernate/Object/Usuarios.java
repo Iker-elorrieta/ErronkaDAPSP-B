@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 24 ene. 2021 15:49:15 by Hibernate Tools 5.4.21.Final
+// Generated 29 ene. 2021 8:27:12 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,41 +9,39 @@ import java.util.Set;
  */
 public class Usuarios implements java.io.Serializable {
 
-	private int codUser;
+	private Integer codUser;
 	private String nombre;
 	private String contra;
 	private String pregunta;
 	private String respuesta;
-	private Set favoritosEsts = new HashSet(0);
+	private Set favoritosMuns = new HashSet(0);
 	private Set favoritosEsps = new HashSet(0);
 
 	public Usuarios() {
 	}
 
-	public Usuarios(int codUser, String nombre, String contra, String pregunta, String respuesta) {
-		this.codUser = codUser;
+	public Usuarios(String nombre, String contra, String pregunta, String respuesta) {
 		this.nombre = nombre;
 		this.contra = contra;
 		this.pregunta = pregunta;
 		this.respuesta = respuesta;
 	}
 
-	public Usuarios(int codUser, String nombre, String contra, String pregunta, String respuesta, Set favoritosEsts,
+	public Usuarios(String nombre, String contra, String pregunta, String respuesta, Set favoritosMuns,
 			Set favoritosEsps) {
-		this.codUser = codUser;
 		this.nombre = nombre;
 		this.contra = contra;
 		this.pregunta = pregunta;
 		this.respuesta = respuesta;
-		this.favoritosEsts = favoritosEsts;
+		this.favoritosMuns = favoritosMuns;
 		this.favoritosEsps = favoritosEsps;
 	}
 
-	public int getCodUser() {
+	public Integer getCodUser() {
 		return this.codUser;
 	}
 
-	public void setCodUser(int codUser) {
+	public void setCodUser(Integer codUser) {
 		this.codUser = codUser;
 	}
 
@@ -79,12 +77,12 @@ public class Usuarios implements java.io.Serializable {
 		this.respuesta = respuesta;
 	}
 
-	public Set getFavoritosEsts() {
-		return this.favoritosEsts;
+	public Set getFavoritosMuns() {
+		return this.favoritosMuns;
 	}
 
-	public void setFavoritosEsts(Set favoritosEsts) {
-		this.favoritosEsts = favoritosEsts;
+	public void setFavoritosMuns(Set favoritosMuns) {
+		this.favoritosMuns = favoritosMuns;
 	}
 
 	public Set getFavoritosEsps() {
