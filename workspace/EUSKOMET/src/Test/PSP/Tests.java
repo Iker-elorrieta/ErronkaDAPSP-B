@@ -24,6 +24,9 @@ class Tests {
 		assertTrue(cli.isEspaciosNaturalesTest());
 		assertTrue(cli.isEstacionesTest());
 		assertTrue(cli.isEspNatMunicipiosTest());
+		assertTrue(cli.isFavoritosMunBizkaiaTest());
+		assertTrue(cli.isFavoritosMunGipuzkoaTest());
+		assertTrue(cli.isFavoritosMunArabaTest());
 		
 		assertTrue(cli.isClienteTest());
 	}
