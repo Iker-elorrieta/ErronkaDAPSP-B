@@ -1,6 +1,7 @@
 package Modelo.Hibernate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -284,6 +285,51 @@ public class Select {
 		session.close();
 		
 		return existe;
+		
+	}
+	
+	public static String existeHash(String url) {
+		
+		String existe = "";
+		
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
+		Session session = sesioa.openSession();
+
+		Query q1 = session.createQuery("SELECT hash FROM Hashes WHERE url = '" + url + "'");
+		
+		List<String> list = q1.list();
+		
+		if (list.size() != 0) {
+			existe = list.get(0);
+		}
+		System.out.println("[Hash Viejo] -- " + existe);
+		session.close();
+		
+		return existe;
+		
+	}
+	
+
+	
+	public static Date historicoReciente(int codest) {
+		
+		Date reciente = null;
+		
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
+		Session session = sesioa.openSession();
+
+		Query q1 = session.createQuery("SELECT MAX(fecha) FROM Historico WHERE estaciones.codEst = " + codest);
+		
+		List<Date> list = q1.list();
+		
+		if (list.size() != 0) {
+			reciente = list.get(0);
+		}
+		session.close();
+		
+		return reciente;
 		
 	}
 

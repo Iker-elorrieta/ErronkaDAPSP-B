@@ -1,5 +1,5 @@
 package Modelo.Hibernate.Object;
-// Generated 29 ene. 2021 8:27:12 by Hibernate Tools 5.4.21.Final
+// Generated 2 feb. 2021 9:19:47 by Hibernate Tools 5.4.21.Final
 
 import java.util.HashSet;
 import java.util.Set;

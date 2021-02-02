@@ -9,22 +9,77 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 
 import org.jsoup.Jsoup;
 
 import com.google.gson.stream.JsonReader;
 
+import Modelo.Hibernate.Delete;
 import Modelo.Hibernate.Insert;
 import Modelo.Hibernate.Select;
 import Modelo.Hibernate.Update;
 import Modelo.Hibernate.Object.EspaciosNaturales;
 import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.Hashes;
+import Modelo.Hibernate.Object.Historico;
 import Modelo.Hibernate.Object.MunEspNa;
 import Modelo.Hibernate.Object.Municipios;
 
 public class JSONIrakurri {
+
+	public static String getHash(File f) {
+		MessageDigest md;
+		String txt2 = "";
+		try {
+			md = MessageDigest.getInstance("SHA");
+			byte dataBytes[] = Files.readAllBytes(f.toPath());
+			md.update(dataBytes);
+			byte resum[] = md.digest();
+			for (byte b : resum) {
+				txt2 += b;
+			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("[getHash] -- " + txt2);
+		return txt2;
+	}
+	
+	public static Date getDate(String fecha, String hora) {
+		
+		String[] str = fecha.split("/");
+		int dia = Integer.parseInt(str[0]);
+		int mes = Integer.parseInt(str[1]);
+		int año = Integer.parseInt(str[2]);
+		
+		str = hora.split(":");
+		int hor = Integer.parseInt(str[0]);
+		hor = (hor == 24 ? 0 : hor);
+		int min = Integer.parseInt(str[1]);
+		
+		LocalDate ld = LocalDate.of(año, mes, dia);
+		
+		Date date = Date.from(ld.atTime(hor, min, 0).atZone(ZoneId.systemDefault()).toInstant());
+		
+		Date semana = Date.from(LocalDate.now().minusDays(7).atStartOfDay(ZoneId.systemDefault()).toInstant());
+		
+		if (date.before(semana)) {
+			return null;
+		}
+		
+		return date;
+		
+	}
 
 	private File JSONDeskargatuFixed(String url) {
 
@@ -111,91 +166,98 @@ public class JSONIrakurri {
 
 		//LinkedHashMap<String, String> lhmEstekak = estekakIrakurri();
 		LinkedHashMap<Integer, Estaciones> lhmEstazioa = new LinkedHashMap<Integer, Estaciones>();
-		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json");
+		String url = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/estaciones.json";
+		File file = JSONDeskargatuFixed(url);
 		Estaciones est;
 		JsonReader jr;
-		try {
-			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
-			jr.setLenient(true);
-			while(true) {
-				jr.beginArray();
-				todo:
-					while (jr.hasNext()) {
-						jr.beginObject();
-						est = new Estaciones();
-						try {
-							while (jr.hasNext()) {
-								switch (jr.nextName()) {
-								case "Name":
-									est.setNombre(jr.nextString());
-									break;
-								case "Town":
-									est.setPueblo(jr.nextString());
-//									if (est.getPueblo().equals("Amorebieta-Etxano"))
-//										est.setPueblo("Zornotza");
-									break;
-								case "Latitude":
-									est.setLatitud(Double.parseDouble(jr.nextString().replace(",", ".")));
-									break;
-								case "Longitude":
-									est.setLongitud(Double.parseDouble(jr.nextString().replace(",", ".")));
-									break;
-								default:
-									jr.nextString();
-								};
+		if (!Select.existeHash(url).equals(getHash(file))) {
+			try {
+				jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
+				jr.setLenient(true);
+				while(true) {
+					jr.beginArray();
+					todo:
+						while (jr.hasNext()) {
+							jr.beginObject();
+							est = new Estaciones();
+							try {
+								while (jr.hasNext()) {
+									switch (jr.nextName()) {
+									case "Name":
+										est.setNombre(jr.nextString());
+										break;
+									case "Town":
+										est.setPueblo(jr.nextString());
+										break;
+									case "Latitude":
+										est.setLatitud(Double.parseDouble(jr.nextString().replace(",", ".")));
+										break;
+									case "Longitude":
+										est.setLongitud(Double.parseDouble(jr.nextString().replace(",", ".")));
+										break;
+									default:
+										jr.nextString();
+									};
+								}
 							}
-						}
-						catch (Exception e) {
-							if (!e.getMessage().contains("Unterminated object at line")) {
-								e.printStackTrace();
+							catch (Exception e) {
+								if (!e.getMessage().contains("Unterminated object at line")) {
+									e.printStackTrace();
+								}
+								else {
+									jr.skipValue();
+									jr.skipValue();
+									jr.endObject();
+									continue todo;
+								}
+							}
+							int cod;
+							cod = Select.existeEstacion(est.getNombre());
+							if (cod == -1) {
+								cod = Select.obtCodEstacion();
+								est.setCodEst(cod);
+								est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
+								est.setIcaEstacion("Sin datos / Daturik gabe");
+								Insert.insertar(est);
+								est.setIcaEstacion(kalitateaIrakurri(est));
+								Update.actualizar(est);
 							}
 							else {
-								jr.skipValue();
-								jr.skipValue();
-								jr.endObject();
-								continue todo;
+								est.setCodEst(cod);
+								est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
+								est.setIcaEstacion(kalitateaIrakurri(est));
+								Update.actualizar(est);
 							}
+							lhmEstazioa.put(est.getCodEst(), est);
+							jr.endObject();
 						}
-						if (est.getNombre() != null) {
-							String s = est.getNombre();
-							s = s.replace(" ", "_");
-							s = s.replace("(", "");
-							s = s.replace(")", "");
-							s = s.replace("Ñ", "N");
-							s = s.replace("ñ", "n");
-							s = s.replace(".", "");
-							s = s.replace("ª", "");
-							est.setIcaEstacion(kalitateaIrakurri("https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/datos_indice/"+ s +".json"  /*lhmEstekak.get(est.getIzena())*/));
-						}
-						int cod;
-						cod = Select.existeEstacion(est.getNombre());
-						if (cod == -1) {
-							cod = Select.obtCodEstacion();
-							est.setCodEst(cod);
-							est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
-							Insert.insertar(est);
-						}
-						else {
-							est.setCodEst(cod);
-							est.setMunicipios(erlazioMunEst(lhmMunicipio, est.getPueblo(), est.getCodEst()));
-							Update.actualizar(est);
-						}
-						lhmEstazioa.put(est.getCodEst(), est);
-						jr.endObject();
-					}
-				jr.endArray();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			if (!e.getMessage().contains("Expected BEGIN_ARRAY but was END_DOCUMENT") && !e.getMessage().contains("Expected BEGIN_OBJECT but was END_DOCUMENT")) {
+					jr.endArray();
+				}
+			} catch (FileNotFoundException e) {
 				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				if (!e.getMessage().contains("Expected BEGIN_ARRAY but was END_DOCUMENT") && !e.getMessage().contains("Expected BEGIN_OBJECT but was END_DOCUMENT")) {
+					e.printStackTrace();
+				}
+				else {
+					return lhmEstazioa;
+				}
 			}
-			else {
-				return lhmEstazioa;
+		}
+		else {
+			lhmEstazioa = Select.obtEstaciones();
+			for (Estaciones es : lhmEstazioa.values()) {
+				es.setIcaEstacion(kalitateaIrakurri(es));
+				Update.actualizar(es);
 			}
+		}
+		if (Select.existeHash(url).equals("")) {
+			Insert.insertar(new Hashes(url, getHash(file)));
+		}
+		else {
+			Update.actualizar(new Hashes(url, getHash(file)));
 		}
 		return lhmEstazioa;
 	}
@@ -212,13 +274,15 @@ public class JSONIrakurri {
 	@SuppressWarnings("unused")
 	public Object[] espazioNaturalakIrakurri(LinkedHashMap<Integer, Municipios> lhmMunicipio) {
 
-		LinkedHashMap<Integer, EspaciosNaturales> lhmEstazioa = new LinkedHashMap<Integer, EspaciosNaturales>();
+		LinkedHashMap<Integer, EspaciosNaturales> lhmEspNat = new LinkedHashMap<Integer, EspaciosNaturales>();
 		ArrayList<MunEspNa> alMunEsp = new ArrayList<MunEspNa>();
-		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json");
+		String url = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/playas_de_euskadi/opendata/espacios-naturales.json";
+		File file = JSONDeskargatuFixed(url);
 		EspaciosNaturales est;
 		JsonReader jr;
 		String mun = null;
 		String muncod = null;
+		if (!Select.existeHash(url).equals(getHash(file))) {
 		try {
 			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
 			jr.setLenient(true);
@@ -280,7 +344,7 @@ public class JSONIrakurri {
 						mun = "Donostia/San_Sebastián";
 					}
 					erlazioMunEsp(lhmMunicipio, mun, est, alMunEsp);
-					lhmEstazioa.put(est.getCodEspNatural(), est);
+					lhmEspNat.put(est.getCodEspNatural(), est);
 					jr.endObject();
 				}
 				jr.endArray();
@@ -294,10 +358,23 @@ public class JSONIrakurri {
 				e.printStackTrace();
 			}
 			else {
-				return new Object[] {lhmEstazioa, alMunEsp};
+				return new Object[] {lhmEspNat, alMunEsp};
 			}
 		}
-		return new Object[] {lhmEstazioa, alMunEsp};
+		}
+		else {
+			lhmEspNat = Select.obtEspNaturales();
+			for (MunEspNa men : Select.obtMunEspNats().values()) {
+				alMunEsp.add(men);
+			}
+		}
+		if (Select.existeHash(url).equals("")) {
+			Insert.insertar(new Hashes(url, getHash(file)));
+		}
+		else {
+			Update.actualizar(new Hashes(url, getHash(file)));
+		}
+		return new Object[] {lhmEspNat, alMunEsp};
 	}
 
 	private void erlazioMunEsp(LinkedHashMap<Integer, Municipios> lhmMunicipio, String mun, EspaciosNaturales esp, ArrayList<MunEspNa> alMunEsp) {
@@ -309,19 +386,21 @@ public class JSONIrakurri {
 				}
 			}
 			if (esta) {
-			MunEspNa e = new MunEspNa(m.getCodMun() + "-" + esp.getCodEspNatural(), esp, m);
-			alMunEsp.add(e);
-			if (!Select.existeMunEspNa(e.getCodRelacion()))
+				MunEspNa e = new MunEspNa(m.getCodMun() + "-" + esp.getCodEspNatural(), esp, m);
+				alMunEsp.add(e);
+				if (!Select.existeMunEspNa(e.getCodRelacion()))
 					Insert.insertar(e);
-		}
+			}
 		}
 	}
 
 	public LinkedHashMap<Integer, Municipios> herriaIrakurri() {
 		LinkedHashMap<Integer, Municipios> lhmMun = new LinkedHashMap<Integer, Municipios>();
-		File file = JSONDeskargatuFixed("https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/pueblos_euskadi_turismo/opendata/herriak.json");
+		String url = "https://opendata.euskadi.eus/contenidos/ds_recursos_turisticos/pueblos_euskadi_turismo/opendata/herriak.json";
+		File file = JSONDeskargatuFixed(url);
 		Municipios est;
 		JsonReader jr;
+		if (!Select.existeHash(url).equals(getHash(file))) {
 		try {
 			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
 			jr.setLenient(true);
@@ -381,28 +460,61 @@ public class JSONIrakurri {
 				return lhmMun;
 			}
 		}
+		}
+		else {
+			lhmMun = Select.obtMunicipios();
+		}
+		if (Select.existeHash(url).equals("")) {
+			Insert.insertar(new Hashes(url, getHash(file)));
+		}
+		else {
+			Update.actualizar(new Hashes(url, getHash(file)));
+		}
 		return lhmMun;
 	}
 
-	public String kalitateaIrakurri(String url) {
+	public String kalitateaIrakurri(Estaciones est) {
 		String kalit = "";
+		String nom = est.getNombre();
+		nom = nom.replace(" ", "_");
+		nom = nom.replace("(", "");
+		nom = nom.replace(")", "");
+		nom = nom.replace("Ñ", "N");
+		nom = nom.replace("ñ", "n");
+		nom = nom.replace(".", "");
+		nom = nom.replace("ª", "");
+		String url = "https://opendata.euskadi.eus/contenidos/ds_informes_estudios/calidad_aire_2021/es_def/adjuntos/datos_indice/"+ nom +".json";
 		File file = JSONDeskargatuFixed(url);
 		JsonReader jr;
+		if (!Select.existeHash(url).equals(getHash(file))) {
 		try {
 			jr = new JsonReader(new FileReader(file, StandardCharsets.UTF_8));
 			jr.setLenient(true);
+			Delete.borrarHistoricosViejos(est);
 			while(true) {
 				jr.beginArray();
 				while (jr.hasNext()) {
+					String fecha = "";
+					String hora = "";
 					jr.beginObject();
 					while (jr.hasNext()) {
 						switch (jr.nextName()) {
+						case "Date":
+							fecha = jr.nextString();
+							break;
+						case "Hour":
+							hora = jr.nextString();
+							break;
 						case "ICAEstacion":
+							String ica = jr.nextString();
 							if (kalit.equals("") || kalit.equals("Sin datos / Daturik gabe")) {
-								kalit = jr.nextString();
+								kalit = ica;
 							}
 							else {
-								jr.nextString();
+								if (!ica.equals("Sin datos / Daturik gabe")) {
+									Date date = getDate(fecha, hora);
+									if (date != null) Insert.insertar(new Historico(est, date, ica));
+								}
 							}
 							break;
 						default:
@@ -425,9 +537,19 @@ public class JSONIrakurri {
 				return kalit;
 			}
 		}
+		}
+		else {
+			kalit = est.getIcaEstacion();
+		}
+		if (Select.existeHash(url).equals("")) {
+			Insert.insertar(new Hashes(url, getHash(file)));
+		}
+		else {
+			Update.actualizar(new Hashes(url, getHash(file)));
+		}
 		return kalit;
 	}
-	
+
 	public static String htmlGarbitu(String html) { 
 		return Jsoup.parse(html).text(); 
 	}

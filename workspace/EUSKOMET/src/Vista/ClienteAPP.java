@@ -473,4 +473,16 @@ public class ClienteAPP extends JFrame {
 	public boolean isClienteTest() {
 		return clienteTest;
 	}
+
+	public boolean isFavoritosMunBizkaiaTest() {
+		return favoritosMunBizkaiaTest;
+	}
+
+	public boolean isFavoritosMunGipuzkoaTest() {
+		return favoritosMunGipuzkoaTest;
+	}
+
+	public boolean isFavoritosMunArabaTest() {
+		return favoritosMunArabaTest;
+	}
 }

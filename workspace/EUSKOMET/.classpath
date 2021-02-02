@@ -8,24 +8,25 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/MySQL"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/activation-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/antlr-2.7.7.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/classmate-1.3.0.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/hibernate-commons-annotations-5.0.1.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/hibernate-core-5.1.0.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/istack-commons-runtime-4.0.0-M3.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/javassist-3.20.0-GA.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/jaxb-api-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/jaxb-impl-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/jboss-logging-3.3.0.Final.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/mysql-connector-java-5.1.49-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/slf4j-api-1.7.25.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/slf4j-simple-1.7.25-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/gson-2.8.6.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/json-simple-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/classmate-1.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/geronimo-jta_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/hibernate-commons-annotations-5.0.1.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/hibernate-core-5.1.0.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/istack-commons-runtime-4.0.0-M3.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/javassist-3.20.0-GA.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/jaxb-api-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/jaxb-impl-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/jboss-logging-3.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/mysql-connector-java-5.1.49-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/slf4j-simple-1.7.25-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="C:/Git Erronka/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/mysql-connector-java-5.1.49-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
