@@ -3,6 +3,7 @@ package Modelo.Hibernate.ObjectExtras;
 import Modelo.Hibernate.Select;
 import Modelo.Hibernate.Object.EspaciosNaturales;
 import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.FavoritosMun;
 import Modelo.Hibernate.Object.MunEspNa;
 import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
@@ -29,6 +30,16 @@ public class ToString {
 				"\nLongitud:\t" + espnat.getLongitud() + 
 				(mostrar_descripcion ? "\nDescripcion:\t" + espnat.getDescripcion() : "") +
 				"\n--------------------------------------------------------------------";
+	}
+	
+	public static String toStringFormat(EspaciosNaturales espnat, boolean mostrar_descripcion, boolean estaciones) {
+		return  
+//				"\nCódigo:\t" + espnat.getCodEspNatural() + 
+				"\nNombre: " + espnat.getNombre() + 
+				"\nTipo: " + espnat.getTipo() + 
+				"\nLatitud: " + espnat.getLatitud() + 
+				"\nLongitud: " + espnat.getLongitud() + 
+				"\nDescripcion:\n" + espnat.getDescripcion();
 	}
 	
 	public static String toString(Estaciones est) {
@@ -82,7 +93,7 @@ public class ToString {
 	}
 	
 	public static String toStringFormat(Municipios mun, boolean mostrar_descripcion, boolean estaciones) {
-		return "MUNICIPIO" + 
+		return 
 //				"ºnCódigo:  " + mun.getCodMun() + 
 //				"\nProvincia:\t" + mun.getProvincias().getCodProv() + 
 				"\nProvincia:  " + (mun.getProvincias().getCodProv() == 48 ? "Bizkaia" : (mun.getProvincias().getCodProv() == 20 ? "Gipuzkoa" : "Araba")) + 
@@ -94,6 +105,12 @@ public class ToString {
 		return "Provincias [" + 
 				"codProv=" + prov.getCodProv() + 
 				", nombre=" + prov.getNombre() + 
+				"]";
+	}
+	
+	public static String toString(FavoritosMun favMun) {
+		return "FavoritosMun [" + 
+				"codMun=" + favMun.getMunicipios().getCodMun() + 
 				"]";
 	}
 	
