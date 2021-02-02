@@ -51,11 +51,18 @@ public class HiloServer extends Thread {
 				query = (String) entrada.readObject();
 				System.out.println("[HiloId:" +idCliente+ "]\t--\t[Query recibida: " + query + "]");
 
-				ArrayList<Object> array = Select.selectQuery(query);
+//				ArrayList<Object> array = Select.selectQuery(query);
+				ArrayList<Object> array = null;
+				if (i < 5) {
+					array = Select.selectQuery(query);
+				}else {
+					array = Select.selectQueryFav(query);
+				}
+				
 				System.out.println("[HiloId:" +idCliente+ "]\t--\tarray.size(): " + array.size());
 				salida.writeObject(array);
 				i++;
-			}while (i < 5);
+			}while (i < 8);
 
 			Cliente.desconectarCliente();
 

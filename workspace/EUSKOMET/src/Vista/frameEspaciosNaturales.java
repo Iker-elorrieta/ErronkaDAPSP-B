@@ -12,7 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import Modelo.Hibernate.Object.EspaciosNaturales;
 import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.MunEspNa;
 import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
 import Modelo.Hibernate.ObjectExtras.ToString;
@@ -27,12 +29,15 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Color;
 
-public class frameMunicipio extends JFrame implements ActionListener{
+public class frameEspaciosNaturales extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	
-	Municipios municipio = null;
+	EspaciosNaturales espNat = null;
 	ArrayList<Estaciones> arrayEstaciones = new ArrayList<Estaciones>();
+	ArrayList<MunEspNa> arrayEspNatMunicipios = new ArrayList<MunEspNa>();
+	
+	
 	private JScrollPane scrollPaneDatos;
 	private JComboBox comboBox;
 
@@ -41,7 +46,7 @@ public class frameMunicipio extends JFrame implements ActionListener{
 	private JLabel lblICAEstacion;
 	private JTextField txtICA;
 	private JTextArea txtDatos;
-	private JLabel lblMunicipio;
+	private JLabel lblPlaya;
 	
 	private boolean existeEstacion = false;
 	
@@ -49,9 +54,10 @@ public class frameMunicipio extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public frameMunicipio(Municipios municipio, ArrayList<Estaciones> arrayEstaciones)
+	public frameEspaciosNaturales(EspaciosNaturales espNat, ArrayList<MunEspNa> arrayEspNatMunicipios, ArrayList<Estaciones> arrayEstaciones)
 			throws HeadlessException {
-		this.municipio = municipio;
+		this.espNat = espNat;
+		this.arrayEspNatMunicipios = arrayEspNatMunicipios;
 		this.arrayEstaciones = arrayEstaciones;
 		
 		
@@ -104,22 +110,37 @@ public class frameMunicipio extends JFrame implements ActionListener{
 		contentPane.add(btnCerrar);
 		
 		
-		lblMunicipio = new JLabel(municipio.getNombre());
-		lblMunicipio.setForeground(Color.BLUE);
-		lblMunicipio.setFont(new Font("Century Gothic", Font.PLAIN, 35));
-		lblMunicipio.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMunicipio.setBounds(10, 11, 400, 49);
-		contentPane.add(lblMunicipio);
+		lblPlaya = new JLabel(espNat.getNombre());
+		lblPlaya.setForeground(Color.BLUE);
+		lblPlaya.setFont(new Font("Century Gothic", Font.PLAIN, 35));
+		lblPlaya.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPlaya.setBounds(10, 11, 400, 49);
+		contentPane.add(lblPlaya);
 		
 		comboBox.addItem("");
 		comboBox.setSelectedItem(0);
-		for (Estaciones est : arrayEstaciones) {
-			if(municipio.getCodMun() == est.getMunicipios().getCodMun()) {
-				existeEstacion = true;
-				comboBox.addItem(est.getNombre());
+		
+		for (MunEspNa espNatMun : arrayEspNatMunicipios) {							
+			if(espNatMun.getEspaciosNaturales().getCodEspNatural() == espNat.getCodEspNatural()) {							
+				int i = 0;
+				for (Estaciones est : arrayEstaciones) {							
+					if(espNatMun.getMunicipios().getCodMun() == est.getMunicipios().getCodMun()) {
+						//----------------------------------------------
+						existeEstacion = true;
+						comboBox.addItem(est.getNombre());
+						//----------------------------------------------										
+					}
+				}
 			}
 		}
-		datos = ToString.toStringFormat(municipio, true, true) + "\n";
+		
+//		for (Estaciones est : arrayEstaciones) {
+//			if(est.getMunicipios().getCodMun() == espNat.getCodEspNatural()) {
+//				existeEstacion = true;
+//				comboBox.addItem(est.getNombre());
+//			}
+//		}
+		datos = ToString.toStringFormat(espNat, true, true) + "\n";
 		
 		if(!existeEstacion) {
 			ica = "No tiene estación";

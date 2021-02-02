@@ -14,6 +14,7 @@ import Modelo.Hibernate.Object.Estaciones;
 import Modelo.Hibernate.Object.MunEspNa;
 import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
+import Modelo.Hibernate.ObjectExtras.ToString;
 
 public class Select {
 	
@@ -30,6 +31,23 @@ public class Select {
 		
 		session.close();
 		
+		return new ArrayList<Object>(list);
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static ArrayList<Object> selectQueryFav(String query) {
+		
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		SessionFactory sesioa = HibernateUtil.getSessionFactory();
+		Session session = sesioa.openSession();
+		
+		Query q = session.createQuery(query);
+		q.setMaxResults(5);
+		List<Object> list = q.list();
+		
+		session.close();
+				
 		return new ArrayList<Object>(list);
 		
 	}

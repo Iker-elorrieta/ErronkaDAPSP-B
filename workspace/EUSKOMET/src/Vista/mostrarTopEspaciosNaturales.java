@@ -34,7 +34,7 @@ import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
 import Modelo.Hibernate.ObjectExtras.ToString;
 
-public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
+public class mostrarTopEspaciosNaturales extends JPanel implements ActionListener {
 
 	private final static int PUERTO = 5000;
 	//	private final String HOST = "127.0.0.1";
@@ -70,7 +70,7 @@ public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public mostrarEspaciosNaturales() {
+	public mostrarTopEspaciosNaturales() {
 		setLayout(null);
 		iniciarComponentes();
 	}
