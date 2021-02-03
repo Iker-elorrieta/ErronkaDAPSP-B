@@ -117,8 +117,7 @@ public class frameEspaciosNaturales extends JFrame implements ActionListener{
 		lblPlaya.setBounds(10, 11, 400, 49);
 		contentPane.add(lblPlaya);
 		
-		comboBox.addItem("");
-		comboBox.setSelectedItem(0);
+//		comboBox.setSelectedItem(0);
 		
 		for (MunEspNa espNatMun : arrayEspNatMunicipios) {							
 			if(espNatMun.getEspaciosNaturales().getCodEspNatural() == espNat.getCodEspNatural()) {							
@@ -141,14 +140,22 @@ public class frameEspaciosNaturales extends JFrame implements ActionListener{
 //			}
 //		}
 		datos = ToString.toStringFormat(espNat, true, true) + "\n";
+		mostrarTxt(datos);
 		
 		if(!existeEstacion) {
 			ica = "No tiene estación";
 			mostrarICA(ica);
+		}else {
+			comboBox.setSelectedIndex(0);
+			for (Estaciones est : arrayEstaciones) {	
+				if(comboBox.getSelectedItem().equals(est.getNombre())) {
+//					datos = ToString.toStringFormat(municipio, true, true) + "\n";
+					ica = est.getIcaEstacion();
+				}
+			}
+			mostrarICA(ica);
 		}
-		
-		mostrarTxt(datos);
-		
+				
 	}
 
 

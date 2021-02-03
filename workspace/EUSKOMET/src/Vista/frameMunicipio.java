@@ -111,8 +111,9 @@ public class frameMunicipio extends JFrame implements ActionListener{
 		lblMunicipio.setBounds(10, 11, 400, 49);
 		contentPane.add(lblMunicipio);
 		
-		comboBox.addItem("");
-		comboBox.setSelectedItem(0);
+		
+		
+//		comboBox.setSelectedItem(0);
 		for (Estaciones est : arrayEstaciones) {
 			if(municipio.getCodMun() == est.getMunicipios().getCodMun()) {
 				existeEstacion = true;
@@ -120,14 +121,22 @@ public class frameMunicipio extends JFrame implements ActionListener{
 			}
 		}
 		datos = ToString.toStringFormat(municipio, true, true) + "\n";
+		mostrarTxt(datos);
 		
 		if(!existeEstacion) {
 			ica = "No tiene estación";
 			mostrarICA(ica);
+		}else {
+			comboBox.setSelectedIndex(0);
+			for (Estaciones est : arrayEstaciones) {	
+				if(comboBox.getSelectedItem().equals(est.getNombre())) {
+//					datos = ToString.toStringFormat(municipio, true, true) + "\n";
+					ica = est.getIcaEstacion();
+				}
+			}
+			mostrarICA(ica);
 		}
-		
-		mostrarTxt(datos);
-		
+				
 	}
 
 
