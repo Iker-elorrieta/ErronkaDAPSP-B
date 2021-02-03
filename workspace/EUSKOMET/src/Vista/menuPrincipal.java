@@ -19,6 +19,8 @@ public class menuPrincipal extends JPanel implements ActionListener  {
 	private JButton btnSelectMunicipios;
 	private JButton btnEspaciosNaturales;
 	private JButton btnEstaciones;
+	private JButton btnPlayas;
+	private JButton btnFavMun;
 
 
 	public menuPrincipal() {
@@ -42,6 +44,16 @@ public class menuPrincipal extends JPanel implements ActionListener  {
 		btnEstaciones.setBounds(250, 152, 198, 23);
 		btnEstaciones.addActionListener(this);
 		add(btnEstaciones);
+		
+		btnPlayas = new JButton("Playas");
+		btnPlayas.setBounds(250, 186, 198, 23);
+		btnPlayas.addActionListener(this);
+		add(btnPlayas);
+		
+		btnFavMun = new JButton("Top 5 Municipios (favoritos)");
+		btnFavMun.setBounds(250, 220, 198, 23);
+		btnFavMun.addActionListener(this);
+		add(btnFavMun);
 	}
 
 	@Override
@@ -60,6 +72,16 @@ public class menuPrincipal extends JPanel implements ActionListener  {
 		if (e.getSource() == btnEstaciones) {
 			setVisible(false);
 			ClienteAPP.mostrarEstaciones.setVisible(true);
+		}
+		
+		if (e.getSource() == btnPlayas) {
+			setVisible(false);
+			ClienteAPP.mostrarPlayas.setVisible(true);
+		}
+		
+		if (e.getSource() == btnFavMun) {
+			setVisible(false);
+			ClienteAPP.mostrarTopMunicipios.setVisible(true);
 		}
 	}
 }

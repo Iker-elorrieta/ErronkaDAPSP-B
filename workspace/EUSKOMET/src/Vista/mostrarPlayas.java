@@ -34,7 +34,7 @@ import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
 import Modelo.Hibernate.ObjectExtras.ToString;
 
-public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
+public class mostrarPlayas extends JPanel implements ActionListener {
 
 	private final static int PUERTO = 5000;
 	//	private final String HOST = "127.0.0.1";
@@ -70,7 +70,7 @@ public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public mostrarEspaciosNaturales() {
+	public mostrarPlayas() {
 		setLayout(null);
 		iniciarComponentes();
 	}
@@ -193,10 +193,11 @@ public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
 //								}else {
 									datos += ToString.toStringFormat(espNat, false) + "\n";
 //								}
+//								framePlayas framePlayas = new framePlayas(espNat, arrayEspNatMunicipios, arrayEstaciones);
+//								framePlayas.setVisible(true);
 								
 								frameEspaciosNaturales frameEspaciosNaturales = new frameEspaciosNaturales(espNat, arrayEspNatMunicipios, arrayEstaciones);
 								frameEspaciosNaturales.setVisible(true);
-								
 							}
 						}
 	
@@ -207,11 +208,11 @@ public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
 					
 					for (EspaciosNaturales espNat : arrayEspaciosNaturales) {		
 //								datos += ToString.toStringFormat(espNat, false) + "\n";
-						if(chkbDescripcion.isSelected()) {
-							datos += ToString.toStringFormat(espNat, true) + "\n";
-						}else {
+//						if(chkbDescripcion.isSelected()) {
+//							datos += ToString.toStringFormat(espNat, true) + "\n";
+//						}else {
 							datos += ToString.toStringFormat(espNat, false) + "\n";
-						}
+//						}
 							}
 						mostrarTxt(datos);
 						
@@ -245,9 +246,13 @@ public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
 							if(espNatMun.getMunicipios().getCodMun() == this.cod_mun) {							
 								int i = 0;
 								for (EspaciosNaturales espNat : arrayEspaciosNaturales) {							
-									if(espNat.getCodEspNatural() == espNatMun.getEspaciosNaturales().getCodEspNatural()) {	
-										listModel.add(i, espNat.getNombre());
-										i++;
+									if(espNat.getCodEspNatural() == espNatMun.getEspaciosNaturales().getCodEspNatural()) {
+										//----------------------------------------------
+										if(espNat.getTipo().equals("Playas")) {
+											listModel.add(i, espNat.getNombre());
+											i++;
+										}
+										//----------------------------------------------										
 									}
 								}
 							}
@@ -276,8 +281,12 @@ public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
 								int i = 0;
 								for (EspaciosNaturales espNat : arrayEspaciosNaturales) {							
 									if(espNat.getCodEspNatural() == espNatMun.getEspaciosNaturales().getCodEspNatural()) {	
-										listModel.add(i, espNat.getNombre());
-										i++;
+										//----------------------------------------------
+										if(espNat.getTipo().equals("Playas")) {
+											listModel.add(i, espNat.getNombre());
+											i++;
+										}
+										//----------------------------------------------
 									}
 								}
 							}
@@ -306,8 +315,12 @@ public class mostrarEspaciosNaturales extends JPanel implements ActionListener {
 								int i = 0;
 								for (EspaciosNaturales espNat : arrayEspaciosNaturales) {							
 									if(espNat.getCodEspNatural() == espNatMun.getEspaciosNaturales().getCodEspNatural()) {	
-										listModel.add(i, espNat.getNombre());
-										i++;
+										//----------------------------------------------
+										if(espNat.getTipo().equals("Playas")) {
+											listModel.add(i, espNat.getNombre());
+											i++;
+										}
+										//----------------------------------------------
 									}
 								}
 							}

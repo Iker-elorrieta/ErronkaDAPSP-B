@@ -13,9 +13,11 @@ import Controlador.Cliente;
 import Controlador.Server;
 import Modelo.Hibernate.Object.EspaciosNaturales;
 import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.FavoritosMun;
 import Modelo.Hibernate.Object.MunEspNa;
 import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
+import Modelo.Hibernate.ObjectExtras.ToString;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -49,11 +51,16 @@ public class ClienteAPP extends JFrame {
 	static ArrayList<EspaciosNaturales> arrayEspaciosNaturales = new ArrayList<EspaciosNaturales>();
 	static ArrayList<Estaciones> arrayEstaciones = new ArrayList<Estaciones>();
 	static ArrayList<MunEspNa> arrayEspNatMunicipios = new ArrayList<MunEspNa>();
+	static ArrayList<FavoritosMun> arrayFavoritosMunBizkaia = new ArrayList<FavoritosMun>();
+	static ArrayList<FavoritosMun> arrayFavoritosMunGipuzkoa = new ArrayList<FavoritosMun>();
+	static ArrayList<FavoritosMun> arrayFavoritosMunAraba = new ArrayList<FavoritosMun>();
 
 	static menuPrincipal menuPrincipal;
 	static mostrarMunicipios mostrarMunicipios;
 	static mostrarEspaciosNaturales mostrarEspaciosNaturales;
 	static mostrarEstaciones mostrarEstaciones;
+	static mostrarPlayas mostrarPlayas;
+	static mostrarTopMunicipios mostrarTopMunicipios;
 
 
 	// --  Para tests --
@@ -63,7 +70,9 @@ public class ClienteAPP extends JFrame {
 	private boolean espaciosNaturalesTest = false;
 	private boolean estacionesTest = false;
 	private boolean espNatMunicipiosTest = false;
-	private JLabel lblNewLabel;
+	private boolean favoritosMunBizkaiaTest = false;
+	private boolean favoritosMunGipuzkoaTest = false;
+	private boolean favoritosMunArabaTest = false;
 
 	/**
 	 * Launch the application.
@@ -122,11 +131,23 @@ public class ClienteAPP extends JFrame {
 		mostrarEstaciones.setBounds(0, 0, 711, 395);
 		mostrarEstaciones.setLayout(null);
 		mostrarEstaciones.setVisible(false);
+		
+		mostrarPlayas = new mostrarPlayas();
+		mostrarPlayas.setBounds(0, 0, 711, 395);
+		mostrarPlayas.setLayout(null);
+		mostrarPlayas.setVisible(false);
+		
+		mostrarTopMunicipios = new mostrarTopMunicipios();
+		mostrarTopMunicipios.setBounds(0, 0, 711, 395);
+		mostrarTopMunicipios.setLayout(null);
+		mostrarTopMunicipios.setVisible(false);
 
 		getContentPane().add(menuPrincipal);
 		getContentPane().add(mostrarMunicipios);
 		getContentPane().add(mostrarEspaciosNaturales);
 		getContentPane().add(mostrarEstaciones);
+		getContentPane().add(mostrarPlayas);
+		getContentPane().add(mostrarTopMunicipios);
 
 		JButton btnNewButton = new JButton("SALIR");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -169,41 +190,33 @@ public class ClienteAPP extends JFrame {
 		return arrayProvincias;
 	}
 
-//	public static void setArrayProvincias(ArrayList<Provincias> newArrayProvincias) {
-//		arrayProvincias = newArrayProvincias;
-//	}
-
 	public static ArrayList<Municipios> getArrayMunicipios() {
 		return arrayMunicipios;
 	}
-
-//	public static void setArrayMunicipios(ArrayList<Municipios> newArrayMunicipios) {
-//		arrayMunicipios = newArrayMunicipios;
-//	}
 
 	public static ArrayList<EspaciosNaturales> getArrayEspaciosNaturales() {
 		return arrayEspaciosNaturales;
 	}
 
-//	public static void setArrayEspaciosNaturales(ArrayList<EspaciosNaturales> newArrayEspaciosNaturales) {
-//		arrayEspaciosNaturales = newArrayEspaciosNaturales;
-//	}
-
 	public static ArrayList<MunEspNa> getArrayEspNatMunicipios() {
 		return arrayEspNatMunicipios;
 	}
-
-//	public static void setArrayEspNatMunicipios(ArrayList<MunEspNa> arrayEspNatMunicipios) {
-//		ClienteAPP.arrayEspNatMunicipios = arrayEspNatMunicipios;
-//	}
 
 	public static ArrayList<Estaciones> getArrayEstaciones() {
 		return arrayEstaciones;
 	}
 
-//	public static void setArrayEstaciones(ArrayList<Estaciones> arrayEstaciones) {
-//		ClienteAPP.arrayEstaciones = arrayEstaciones;
-//	}
+	public static ArrayList<FavoritosMun> getArrayFavoritosMunBizkaia() {
+		return arrayFavoritosMunBizkaia;
+	}
+	
+	public static ArrayList<FavoritosMun> getArrayFavoritosMunGipuzkoa() {
+		return arrayFavoritosMunGipuzkoa;
+	}
+
+	public static ArrayList<FavoritosMun> getArrayFavoritosMunAraba() {
+		return arrayFavoritosMunAraba;
+	}
 
 	public void ejecutarClienteProvincias() {
 		try {
@@ -214,7 +227,7 @@ public class ClienteAPP extends JFrame {
 			System.out.println("[Provincias]\t--\tProv\t--\tQuery enviada [" + hql + "]");
 
 			arrayProvincias = (ArrayList<Provincias>) entrada.readObject();
-			System.out.println("[EspNat]\t--\t--\tarrayProvincias.size(): " + arrayProvincias.size());
+			System.out.println("[Provincias]\t--\t--\tarrayProvincias.size(): " + arrayProvincias.size());
 
 			provinciasTest = true;
 
@@ -316,13 +329,96 @@ public class ClienteAPP extends JFrame {
 		}
 	}//
 
+	public void ejecutarClienteTopMunicipiosBizkaia() {
+		try {
+
+//			String hql = "FROM Municipios where codMun in (SELECT municipios.codMun FROM FavoritosMun WHERE municipios.provincias.codProv = 48 GROUP BY municipios.codMun ORDER BY COUNT(municipios.codMun) DESC)";
+			String hql = "FROM FavoritosMun WHERE municipios.provincias.nombre = 'Bizkaia' GROUP BY municipios.codMun ORDER BY COUNT(municipios.codMun) DESC";
+			System.out.println("[FavoritosMun]\t--\tProv\t--\tEnviando query...");
+			salida.writeObject(hql);
+			System.out.println("[FavoritosMun]\t--\tProv\t--\tQuery enviada [" + hql + "]");
+
+			arrayFavoritosMunBizkaia = (ArrayList<FavoritosMun>) entrada.readObject();
+			System.out.println("[FavoritosMun]\t--\t--\tarrayFavoritosMunBizkaia.size(): " + arrayFavoritosMunBizkaia.size());
+			
+			for (FavoritosMun mun :  arrayFavoritosMunBizkaia) {
+				System.out.println("arrayFavoritosMunBizkaia -- " + ToString.toString(mun));
+			}
+
+			favoritosMunBizkaiaTest = true;
+
+		} catch (IOException e) {
+			System.out.println("Error (IOException): " + e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}//
+	
+	public void ejecutarClienteTopMunicipiosGipuzkoa() {
+		try {
+
+//			String hql = "FROM Municipios where codMun in (SELECT municipios.codMun FROM FavoritosMun WHERE municipios.provincias.codProv = 48 GROUP BY municipios.codMun ORDER BY COUNT(municipios.codMun) DESC)";
+			String hql = "FROM FavoritosMun WHERE municipios.provincias.nombre = 'Gipuzkoa' GROUP BY municipios.codMun ORDER BY COUNT(municipios.codMun) DESC";
+			System.out.println("[FavoritosMun]\t--\tProv\t--\tEnviando query...");
+			salida.writeObject(hql);
+			System.out.println("[FavoritosMun]\t--\tProv\t--\tQuery enviada [" + hql + "]");
+
+			arrayFavoritosMunGipuzkoa = (ArrayList<FavoritosMun>) entrada.readObject();
+			System.out.println("[FavoritosMun]\t--\t--\tarrayFavoritosMunGipuzkoa.size(): " + arrayFavoritosMunGipuzkoa.size());
+			
+			for (FavoritosMun mun :  arrayFavoritosMunGipuzkoa) {
+				System.out.println("arrayFavoritosMunGipuzkoa -- " + ToString.toString(mun));
+			}
+
+			favoritosMunGipuzkoaTest = true;
+
+		} catch (IOException e) {
+			System.out.println("Error (IOException): " + e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}//
+	
+	public void ejecutarClienteTopMunicipiosAraba() {
+		try {
+
+//			String hql = "FROM Municipios where codMun in (SELECT municipios.codMun FROM FavoritosMun WHERE municipios.provincias.codProv = 48 GROUP BY municipios.codMun ORDER BY COUNT(municipios.codMun) DESC)";
+			String hql = "FROM FavoritosMun WHERE municipios.provincias.nombre = 'Araba' GROUP BY municipios.codMun ORDER BY COUNT(municipios.codMun) DESC";
+			System.out.println("[FavoritosMun]\t--\tProv\t--\tEnviando query...");
+			salida.writeObject(hql);
+			System.out.println("[FavoritosMun]\t--\tProv\t--\tQuery enviada [" + hql + "]");
+
+			arrayFavoritosMunAraba = (ArrayList<FavoritosMun>) entrada.readObject();
+			System.out.println("[FavoritosMun]\t--\t--\tarrayFavoritosMunAraba.size(): " + arrayFavoritosMunAraba.size());
+			
+			for (FavoritosMun mun :  arrayFavoritosMunAraba) {
+				System.out.println("arrayFavoritosMunAraba -- " + ToString.toString(mun));
+			}
+
+			favoritosMunArabaTest = true;
+
+		} catch (IOException e) {
+			System.out.println("Error (IOException): " + e.getMessage());
+			e.printStackTrace();
+		} catch (Exception e) {
+			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}//
+	
 	private void obtenerDatos() {
 		ejecutarClienteProvincias();
 		ejecutarClienteMunicipios();
 		ejecutarClienteEstaciones();
 		ejecutarClienteEspaciosNaturales();
 		ejecutarClienteEspNatMunicipios();
-		
+		ejecutarClienteTopMunicipiosBizkaia();
+		ejecutarClienteTopMunicipiosGipuzkoa();
+		ejecutarClienteTopMunicipiosAraba();
 	}
 	
 //	private void actualizarDatos() {
@@ -376,5 +472,17 @@ public class ClienteAPP extends JFrame {
 
 	public boolean isClienteTest() {
 		return clienteTest;
+	}
+
+	public boolean isFavoritosMunBizkaiaTest() {
+		return favoritosMunBizkaiaTest;
+	}
+
+	public boolean isFavoritosMunGipuzkoaTest() {
+		return favoritosMunGipuzkoaTest;
+	}
+
+	public boolean isFavoritosMunArabaTest() {
+		return favoritosMunArabaTest;
 	}
 }

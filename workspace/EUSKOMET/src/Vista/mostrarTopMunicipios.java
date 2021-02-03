@@ -339,6 +339,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import javax.swing.DefaultListModel;
@@ -357,12 +358,14 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import Controlador.Cliente;
+import Modelo.Hibernate.Select;
 import Modelo.Hibernate.Object.Estaciones;
+import Modelo.Hibernate.Object.FavoritosMun;
 import Modelo.Hibernate.Object.Municipios;
 import Modelo.Hibernate.Object.Provincias;
 import Modelo.Hibernate.ObjectExtras.ToString;
 
-public class mostrarMunicipios extends JPanel implements ActionListener {
+public class mostrarTopMunicipios extends JPanel implements ActionListener {
 
 	private final static int PUERTO = 5000;
 	//	private final String HOST = "127.0.0.1";
@@ -387,6 +390,9 @@ public class mostrarMunicipios extends JPanel implements ActionListener {
 	ArrayList<Provincias> arrayProvincias = ClienteAPP.getArrayProvincias();
 	ArrayList<Municipios> arrayMunicipios = ClienteAPP.getArrayMunicipios();
 	ArrayList<Estaciones> arrayEstaciones = ClienteAPP.getArrayEstaciones();
+	ArrayList<FavoritosMun> arrayFavoritosMunBizkaia = ClienteAPP.getArrayFavoritosMunBizkaia();
+	ArrayList<FavoritosMun> arrayFavoritosMunGipuzkoa = ClienteAPP.getArrayFavoritosMunGipuzkoa();
+	ArrayList<FavoritosMun> arrayFavoritosMunAraba = ClienteAPP.getArrayFavoritosMunAraba();
 	private ArrayList <String> itemsSeleccionados = new ArrayList<String>();
 
 	private int cod_prov = 0;
@@ -396,7 +402,7 @@ public class mostrarMunicipios extends JPanel implements ActionListener {
 	/**
 	 * Create the panel.
 	 */
-	public mostrarMunicipios() {
+	public mostrarTopMunicipios() {
 		setLayout(null);
 		iniciarComponentes();
 	}
@@ -511,7 +517,7 @@ public class mostrarMunicipios extends JPanel implements ActionListener {
 					
 					for (String elem : itemsSeleccionados) {
 						for (Municipios mun : arrayMunicipios) {	
-							if(elem.toString().equals(mun.getNombre())) {
+							if(elem.toString().contains(mun.getNombre())) {
 //							datos += mun.toString() + "\n";
 //								if(chkbDescripcion.isSelected()) {
 //									datos += ToString.toStringFormat(mun, true) + "\n";
@@ -527,17 +533,17 @@ public class mostrarMunicipios extends JPanel implements ActionListener {
 					}
 					mostrarTxt(datos);
 				}catch (Exception e1) {
-//					JOptionPane.showMessageDialog(this, "Por favor, seleccione una estación", "EUSKOMET: Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Por favor, seleccione un municipio", "EUSKOMET: Error", JOptionPane.ERROR_MESSAGE);
 					
 					for (Municipios mun : arrayMunicipios) {		
 //								datos += ToString.toStringFormat(mun, true) + "\n";
-						if(chkbDescripcion.isSelected()) {
-							datos += ToString.toStringFormat(mun, true) + "\n";
-						}else {
-							datos += ToString.toStringFormat(mun, false) + "\n";
-						}
+//						if(chkbDescripcion.isSelected()) {
+//							datos += ToString.toStringFormat(mun, true) + "\n";
+//						}else {
+//							datos += ToString.toStringFormat(mun, false) + "\n";
+//						}
 							}
-						mostrarTxt(datos);
+//						mostrarTxt(datos);
 						
 				}
 			}
@@ -562,11 +568,16 @@ public class mostrarMunicipios extends JPanel implements ActionListener {
 				}
 
 				int i = 0;
-				for (Municipios mun : arrayMunicipios) {							
-					if(mun.getProvincias().getCodProv() == this.cod_prov) {										
-						listModel.add(i, mun.getNombre());
+				int top = 1;
+//				LinkedHashMap<Integer, Municipios> lhm = Select.obtMunicipios();
+				LinkedHashMap<Integer, Municipios> lhm = new LinkedHashMap<Integer, Municipios>();
+				for (Municipios mun : arrayMunicipios) {
+					lhm.put(mun.getCodMun(), mun);
+				}
+				for (FavoritosMun favMun : arrayFavoritosMunBizkaia) {									
+						listModel.add(i, "TOP " + (top) + ":  " + lhm.get(favMun.getMunicipios().getCodMun()).getNombre());
 						i++;
-					}
+						top++;	
 				}
 			}
 
@@ -580,13 +591,17 @@ public class mostrarMunicipios extends JPanel implements ActionListener {
 						cod_prov = prov.getCodProv();									
 					}
 				}
-
 				int i = 0;
-				for (Municipios mun : arrayMunicipios) {							
-					if(mun.getProvincias().getCodProv() == this.cod_prov) {										
-						listModel.add(i, mun.getNombre());
+				int top = 1;
+//				LinkedHashMap<Integer, Municipios> lhm = Select.obtMunicipios();
+				LinkedHashMap<Integer, Municipios> lhm = new LinkedHashMap<Integer, Municipios>();
+				for (Municipios mun : arrayMunicipios) {
+					lhm.put(mun.getCodMun(), mun);
+				}
+				for (FavoritosMun favMun : arrayFavoritosMunGipuzkoa) {									
+						listModel.add(i, "TOP " + (top) + ":  " + lhm.get(favMun.getMunicipios().getCodMun()).getNombre());
 						i++;
-					}
+						top++;	
 				}
 			}
 
@@ -600,13 +615,17 @@ public class mostrarMunicipios extends JPanel implements ActionListener {
 						cod_prov = prov.getCodProv();									
 					}
 				}
-
 				int i = 0;
-				for (Municipios mun : arrayMunicipios) {							
-					if(mun.getProvincias().getCodProv() == this.cod_prov) {										
-						listModel.add(i, mun.getNombre());
+				int top = 1;
+//				LinkedHashMap<Integer, Municipios> lhm = Select.obtMunicipios();
+				LinkedHashMap<Integer, Municipios> lhm = new LinkedHashMap<Integer, Municipios>();
+				for (Municipios mun : arrayMunicipios) {
+					lhm.put(mun.getCodMun(), mun);
+				}
+				for (FavoritosMun favMun : arrayFavoritosMunAraba) {									
+						listModel.add(i, "TOP " + (top) + ":  " + lhm.get(favMun.getMunicipios().getCodMun()).getNombre());
 						i++;
-					}
+						top++;	
 				}
 			}
 

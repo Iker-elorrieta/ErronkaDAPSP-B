@@ -7,7 +7,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
-	<classpathentry kind="con" path="org.eclipse.datatools.connectivity.jdt.DRIVERLIBRARY/MySQL"/>
+	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/mysql-connector-java-5.1.49-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/classmate-1.3.0.jar"/>
@@ -24,8 +27,5 @@
 	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/mysql-connector-java-5.1.49-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/Hibernate_lib/slf4j-simple-1.7.25-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/gson-2.8.6.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/json-simple-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Ethazi/ErronkaDAPSP-B/workspace/EUSKOMET/Libreriak/jsoup-1.13.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
